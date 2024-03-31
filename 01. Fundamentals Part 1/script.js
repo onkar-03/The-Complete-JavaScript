@@ -1,13 +1,13 @@
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ Declaring Variable in Js
 // let js = 'amazing';
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ Using If statements
 // & alert() used to display the alert Output on the webpage
 // if (js == 'amazing') alert('Js Is Fun !!');
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ console.log()
 /*
 1. To display results of operations in console we use the console.log();
@@ -16,7 +16,7 @@
 */
 // console.log(40 + 8 + 2);
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ Values :
 /* 
 1.  Smallest unit of Information in Js
@@ -24,7 +24,7 @@
 // console.log('Onkar');
 // console.log(10);
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ Variables :
 /*
 1. 'let' used to declare 'variables'
@@ -55,7 +55,7 @@
 // & Printing the value stored in the variable
 // console.log(firstName);
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ Primitive Data Types :
 
 /*
@@ -116,7 +116,7 @@ eg: let x = 'onkar';
 // let javascriptIsFun = true;
 // console.log(javascriptIsFun);
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ typeof() Operator :
 
 /*
@@ -132,14 +132,14 @@ eg: let x = 'onkar';
     "Although this bug is never fixed and kept for legacy reasons but keep this in mind"
 */
 
-console.log(typeof undefined);
-console.log(typeof null);
+// console.log(typeof undefined); // undefined
+// console.log(typeof null); // object
 
-let js = true;
-console.log(typeof js); // boolean
-console.log(typeof 'onkar'); // string
+// let js = true;
+// console.log(typeof js); // boolean
+// console.log(typeof 'onkar'); // string
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ Dynamic Typing in Javascript Live Example
 
 /*
@@ -148,19 +148,46 @@ console.log(typeof 'onkar'); // string
 2. typeof() tells us the type of the variable as Number now
 */
 
-js = 23;
-console.log(typeof js); // Number
+// js = 23;
+// console.log(typeof js); // Number
 
-// --------------------------> **************** <---------------------------------
+// --------------------> *************** <---------------------
 // ^ Undefined Variable :
 
 /* 
 1. Undefined is both Value & typeof Value do't get confused
 */
 
-let year;
-console.log(year); //undefined
-console.log(typeof year); //undefined
+// let year;
+// console.log(year); //undefined
+// console.log(typeof year); //undefined
 
-year = 2024;
-console.log(typeof year); //Number
+// year = 2024;
+// console.log(typeof year); //Number
+
+// --------------------> *************** <---------------------
+// ^ Different Ways to declare Variables in Js :
+
+/*
+1. Using 'let' keyword :
+    -> Introduced in ES6 / ES2015
+    -> Used when we want to declare empty variable
+    -> Used when we want to mutate(reassign) a variable in future
+    
+2. Using 'const' keyword : Introduced in ES6 / ES2015
+    -> Used when we want to declare immutable variable
+    -> Variables whose values can't be changed are declared const
+    -> Can't declare an empty variable while using const
+
+2. Using 'var' keyword : Older Method to declare Variables
+    -> Used when we want to declare immutable variable
+*/
+
+let age = 23;
+const birthYear = 2001;
+var firstName = 'Onkar';
+
+// ! Even without declaring variables it works the Same way but we should avoid it as its a bad practice WHY ?? we will know later
+
+lastName = 'Patel';
+console.log(lastName);
