@@ -1,6 +1,6 @@
 // --------------------------> **************** <---------------------------------
 // ^ Declaring Variable in Js
-let js = 'amazing';
+// let js = 'amazing';
 
 // --------------------------> **************** <---------------------------------
 // ^ Using If statements
@@ -9,14 +9,20 @@ let js = 'amazing';
 
 // --------------------------> **************** <---------------------------------
 // ^ console.log()
-// To display results of operations in console we use the console.log();
-console.log(40 + 8 + 2);
+/*
+1. To display results of operations in console we use the console.log();
+
+2. Tells us the O/P of code, Errors in the code & its description  along with the Line Numbers
+*/
+// console.log(40 + 8 + 2);
 
 // --------------------------> **************** <---------------------------------
 // ^ Values :
-// Smallest unit of Information in Js
-console.log('Onkar');
-console.log(10);
+/* 
+1.  Smallest unit of Information in Js
+*/
+// console.log('Onkar');
+// console.log(10);
 
 // --------------------------> **************** <---------------------------------
 // ^ Variables :
@@ -43,7 +49,118 @@ console.log(10);
     eg : myFirstJob='programmer' ✅
          job1 = 'programmer' ❌
     */
-let firstName = 'Onkar';
+
+// let firstName = 'Onkar';
 
 // & Printing the value stored in the variable
-console.log(firstName);
+// console.log(firstName);
+
+// --------------------------> **************** <---------------------------------
+// ^ Primitive Data Types :
+
+/*
+1. Number : 
+     -> Always Floating Point Numbers
+     -> Used for Integers /Decimals
+     -> No different Data types for Integers and Floating Numbers Differently
+     -> Integer / Floating all 
+     are simply called 'number'
+
+     eg: let age =23;
+
+2. String :  
+    -> Sequence of characters
+    -> Used for textual data
+    -> Always placed under '' / ""
+    -> If not placed within quotes Js takes them as variable names
+
+    eg : let firstNam,e ='Onkar';
+
+3. Boolean : 
+    -> Logical Data Type 
+    -> Stores only True / False
+    -> Used for decision making scenarios
+    -> Predefined Booleans values are 
+       1. true // means 1
+       2. false // means 0
+
+    eg : let isMarried = false;    
+
+4. Undefined :
+    -> Value taken by variable that is not yet defined ('empty value')
+
+    eg : let children;
+     "This is Just the Declaration of the variable"
+
+5. Null :
+    -> Also means 'empty value'
+
+6. Symbol :
+    -> Introduced in ES6 /ES2015
+    -> Simply defines a value thats unique and cant be changed
+
+7. Big Int :
+    -> Introduced in ES2020
+    -> Large Integers than the Number type can Hold
+
+! Dynamic Typing in Javascript :
+
+* -> We dont need to explicitly define the type of variables we are using in Javascript like in C / C++ etc...
+
+* -> Datatypes are determined automatically
+
+eg: let x = 'onkar';
+"We did not define the type of data x will hold"
+ */
+
+// let javascriptIsFun = true;
+// console.log(javascriptIsFun);
+
+// --------------------------> **************** <---------------------------------
+// ^ typeof() Operator :
+
+/*
+1. Used to tell teh Type of values the Variable Holds
+
+2. There is a bug when using typeof() in JavaScript 
+
+    eg: typeof(undefined); // Undefined
+    eg: typeof(null); // Object
+
+    We saw that the value for the typeof() for 'undefine' is 'undefined', so the typeof() for 'null' should also give value as 'null', But thats not the case & null is not an object
+    
+    "Although this bug is never fixed and kept for legacy reasons but keep this in mind"
+*/
+
+console.log(typeof undefined);
+console.log(typeof null);
+
+let js = true;
+console.log(typeof js); // boolean
+console.log(typeof 'onkar'); // string
+
+// --------------------------> **************** <---------------------------------
+// ^ Dynamic Typing in Javascript Live Example
+
+/*
+1. Used the same variable which was declared before and assigned a different kind of value
+
+2. typeof() tells us the type of the variable as Number now
+*/
+
+js = 23;
+console.log(typeof js); // Number
+
+// --------------------------> **************** <---------------------------------
+// ^ Undefined Variable :
+
+/* 
+1. Undefined is both Value & typeof Value do't get confused
+*/
+
+let year;
+console.log(year); //undefined
+console.log(typeof year); //undefined
+
+year = 2024;
+console.log(typeof year); //Number
