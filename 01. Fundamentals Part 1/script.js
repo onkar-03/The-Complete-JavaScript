@@ -183,11 +183,133 @@ eg: let x = 'onkar';
     -> Used when we want to declare immutable variable
 */
 
-let age = 23;
-const birthYear = 2001;
-var firstName = 'Onkar';
+// let age = 23;
+// const birthYear = 2001;
+// var firstName = 'Onkar';
 
 // ! Even without declaring variables it works the Same way but we should avoid it as its a bad practice WHY ?? we will know later
 
-lastName = 'Patel';
-console.log(lastName);
+// The below code just works the same way as when we declared the variables but why its a bad practice & why to avoid it about this we will learn later, Always declare variables
+
+// lastName = 'Patel';
+// console.log(lastName); // Patel
+
+// --------------------> *************** <---------------------
+// ^ BASIC OPERATORS :
+/*
+
+! Arithmetic Operators : -------------------------------------------------------
+
+1. Addition (+) : Adds two operands.
+    -> Used to Add Numbers 
+    -> Used to concatenate Strings
+
+2. Subtraction (-) : Subtracts the second operand from the first.
+
+3. Multiplication (*) : Multiplies two operands.
+
+3. Division (/) :  Divides the first operand by the second.
+
+4. Modulus (%) :  Returns the division remainder.
+
+5. Exponential (**) : It calculates the base raised to the power of the exponent.
+
+    eg : 2 ** 3 = 8;
+
+
+! Assignment Operators : -----------------------------------------------------
+
+1.  Assignment (=) : Assigns a value to a variable.
+
+2. +=, -=, *=, /=, %=: Perform the operation on the variable and then assign the result back to it.
+
+
+! Comparison Operators : -----------------------------------------------------
+
+1. Equality (==) : Checks if two operands are equal in value.
+
+2. Strict Equality (===) : Checks if two operands are equal in 'value' and 'type'.
+
+3. Inequality (!=) : Checks if two operands are not equal in value.
+
+4. Strict Inequality (!==) : Checks if two operands are not equal in value or not of the same type.
+
+5. Greater Than (>) : Checks if the left operand is greater than the right operand.
+
+6. Less Than (<) : Checks if the left operand is less than the right operand.
+
+7. Greater Than or Equal To (>=) : Checks if the left operand is greater than or equal to the right operand.
+
+8. Less Than or Equal To (<=) : Checks if the left operand is less than or equal to the right operand.
+
+! Logical Operators : --------------------------------------------------------
+
+1. Logical AND (&&) : Returns true if both operands are true.
+2. Logical OR (||) : Returns true if at least one of the operands is true.
+3. Logical NOT (!) : Returns the opposite of the operand's boolean value.
+
+! Unary Operators : ----------------------------------------------------------
+
+1. Increment (++) : Increases the value of a variable by 1.
+2. Decrement (--) : Decreases the value of a variable by 1.
+3. typeof() operator : Tells us the type of Variable / Value being used
+
+! Ternary Operator : ---------------------------------------------------------
+
+1. Conditional Operator (condition ? value1 : value2) : If condition is true, returns value1, otherwise returns value2.
+
+! Bitwise Operators : --------------------------------------------------------
+
+1. Bitwise AND (&)
+2. Bitwise OR (|)
+3. Bitwise XOR (^)
+4. Bitwise NOT (~)
+5. Left Shift (<<)
+6. Right Shift (>>)
+7. Unsigned Right Shift (>>>)
+
+*/
+
+// Adding Numbers :
+let digit1 = 10;
+let digit2 = 20;
+console.log('Adding 2 Numbers : ' + digit1 + digit2);
+
+// Concatenating Strings :
+let firstName = 'Onkar';
+let lastName = 'Patel';
+console.log('String Concatenation : ' + firstName + ' ' + lastName);
+
+// Subtraction :
+// 'const' variables mostly when we are certain that the value of variable wont't change in the near future
+const currentYear = 2024;
+
+let ageOnkar = currentYear - 2001;
+let ageSarah = currentYear - 2002;
+console.log('Age of Onkar : ' + ageOnkar, ' ' + 'Age of Sarah : ' + ageSarah); // 23 22
+
+// Exponential :
+console.log('Exponential of 2^3 : ' + 2 ** 3); // 8
+
+// Assignment Operators :
+let x = 10 + 7;
+console.log('Current Value of x : ' + x); // 17
+x += 17;
+console.log('x + 17 = ' + x); // 34
+console.log('Current Value of x : ' + x); //  34
+x *= 2;
+console.log('x * 2 = ' + x);
+console.log('Current Value of x : ' + x); //  68
+x++;
+console.log('x ++ = ' + x); //69
+console.log('Current Value of x : ' + x); // 69
+x--;
+console.log('x -- = ' + x); //68
+console.log('Current Value of x : ' + x); // 68
+
+// Comparison Operators :
+const ageDifference = ageOnkar > ageSarah;
+if (ageDifference > 0) console.log('Onkar is Older than Sarah');
+
+const validAge = 18;
+if (ageSarah > validAge) console.log('Sarah belongs to valid age category');
