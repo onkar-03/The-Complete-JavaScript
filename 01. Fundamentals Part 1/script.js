@@ -288,24 +288,87 @@ eg: let x = 'onkar';
 // if (ageSarah > validAge) console.log('Sarah belongs to valid age category');
 
 // --------------------> *************** <---------------------
-// ^ Operator Precedence : -----------------------------------------------------
-const currentYear = 2024;
+// ^ Operator Precedence : ------------------------------------------------------
+// const currentYear = 2024;
 
-let ageOnkar = currentYear - 2001;
-let ageSarah = currentYear - 2002;
+// let ageOnkar = currentYear - 2001;
+// let ageSarah = currentYear - 2002;
 
 // Why does this work ?? How does Js know first to subtract then compare ??
 // Answer : Due to a well defined Operator Precedence in Js
 // Operator precedence : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence
 
 // L -> R evaluation of mathematical operations
-console.log(currentYear - 2001 > currentYear - 2002); // true
+// console.log(currentYear - 2001 > currentYear - 2002); // true
 
 // R -> L evaluation of exponential & assignment  operations
 
-//First the mathematical operations are evaluated L -> R,
+// First the mathematical operations are evaluated L -> R,
 // Then assignment of values are done from R -> L
 // First y = 10 is assigned & then x = y i.e 10 is assigned
-let x, y;
-x = y = 25 - 10 - 5; // s = y = 10
-console.log('x= ' + x + ' & ' + 'y = ', y);
+// let x, y;
+// x = y = 25 - 10 - 5; // s = y = 10
+// console.log('x= ' + x + ' & ' + 'y = ', y);
+
+// & ------------------------------> Lecture 13 <-------------------------------
+
+// ^ Strings & Template Literals : --------------------------------------------
+
+// ! Strings -------------------------------------------------------------------
+/*
+    -> Concatenated using the '+' Operator 
+    -> Complex Strings can  be created using normal strings such as one below 
+*/
+const firstName = 'Onkar';
+const lastName = 'Patel';
+const birthday = 2001;
+const year = 2024;
+
+const onkar =
+  "I'm " +
+  firstName +
+  ', a ' +
+  (year - birthday) +
+  ' years old Student from India';
+
+console.log(onkar); // I'm Onkar, a 23 years old
+
+// Multi Line String
+/*
+    -> \n\ used to change Lines in Js
+*/
+const multi =
+  'Hello There\n\
+a Multi Line String\n\
+Using Basic String \n\
+Method';
+
+console.log(multi);
+
+// ! Literals ----------------------------------------------------------------
+/*
+    -> In Js String Literals cna be written inside ` ` backticks
+    -> They are much easier t use to form complex sentences 
+    -> To write Variables and expressions we use the ${} in template literals
+    -> They can also be used to write normals strings
+    -> Using template literals always hence is a better option than using '' / ""
+    -> They can be used to create multi line strings as well
+*/
+
+// Complex String
+const newOnkar = `I'm ${firstName}, a ${
+  year - birthday
+} years old Student from India`;
+
+console.log(newOnkar); // I'm Onkar, a 23 years old Student from india
+
+// Regular String
+console.log(`Hello Just a Regular String`);
+
+// Multi Line String
+const newMulti = `Hello There
+a Multi Line String
+Using Template Literal
+String Method`;
+
+console.log(newMulti);
