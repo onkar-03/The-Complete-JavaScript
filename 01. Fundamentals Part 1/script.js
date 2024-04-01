@@ -244,45 +244,68 @@ eg: let x = 'onkar';
 */
 
 // Adding Numbers :
-let digit1 = 10;
-let digit2 = 20;
-console.log('Adding 2 Numbers : ' + digit1 + digit2);
+// let digit1 = 10;
+// let digit2 = 20;
+// console.log('Adding 2 Numbers : ' + digit1 + digit2);
 
 // Concatenating Strings :
-let firstName = 'Onkar';
-let lastName = 'Patel';
-console.log('String Concatenation : ' + firstName + ' ' + lastName);
+// let firstName = 'Onkar';
+// let lastName = 'Patel';
+// console.log('String Concatenation : ' + firstName + ' ' + lastName);
 
 // Subtraction :
 // 'const' variables mostly when we are certain that the value of variable wont't change in the near future
+// const currentYear = 2024;
+
+// let ageOnkar = currentYear - 2001;
+// let ageSarah = currentYear - 2002;
+// console.log('Age of Onkar : ' + ageOnkar, ' ' + 'Age of Sarah : ' + ageSarah); // 23 22
+
+// Exponential :
+// console.log('Exponential of 2^3 : ' + 2 ** 3); // 8
+
+// Assignment Operators :
+// let x = 10 + 7;
+// console.log('Current Value of x : ' + x); // 17
+// x += 17;
+// console.log('x + 17 = ' + x); // 34
+// console.log('Current Value of x : ' + x); //  34
+// x *= 2;
+// console.log('x * 2 = ' + x);
+// console.log('Current Value of x : ' + x); //  68
+// x++;
+// console.log('x ++ = ' + x); //69
+// console.log('Current Value of x : ' + x); // 69
+// x--;
+// console.log('x -- = ' + x); //68
+// console.log('Current Value of x : ' + x); // 68
+
+// Comparison Operators :
+// const ageDifference = ageOnkar > ageSarah;
+// if (ageDifference > 0) console.log('Onkar is Older than Sarah');
+
+// const validAge = 18;
+// if (ageSarah > validAge) console.log('Sarah belongs to valid age category');
+
+// --------------------> *************** <---------------------
+// ^ Operator Precedence : -----------------------------------------------------
 const currentYear = 2024;
 
 let ageOnkar = currentYear - 2001;
 let ageSarah = currentYear - 2002;
-console.log('Age of Onkar : ' + ageOnkar, ' ' + 'Age of Sarah : ' + ageSarah); // 23 22
 
-// Exponential :
-console.log('Exponential of 2^3 : ' + 2 ** 3); // 8
+// Why does this work ?? How does Js know first to subtract then compare ??
+// Answer : Due to a well defined Operator Precedence in Js
+// Operator precedence : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence
 
-// Assignment Operators :
-let x = 10 + 7;
-console.log('Current Value of x : ' + x); // 17
-x += 17;
-console.log('x + 17 = ' + x); // 34
-console.log('Current Value of x : ' + x); //  34
-x *= 2;
-console.log('x * 2 = ' + x);
-console.log('Current Value of x : ' + x); //  68
-x++;
-console.log('x ++ = ' + x); //69
-console.log('Current Value of x : ' + x); // 69
-x--;
-console.log('x -- = ' + x); //68
-console.log('Current Value of x : ' + x); // 68
+// L -> R evaluation of mathematical operations
+console.log(currentYear - 2001 > currentYear - 2002); // true
 
-// Comparison Operators :
-const ageDifference = ageOnkar > ageSarah;
-if (ageDifference > 0) console.log('Onkar is Older than Sarah');
+// R -> L evaluation of exponential & assignment  operations
 
-const validAge = 18;
-if (ageSarah > validAge) console.log('Sarah belongs to valid age category');
+//First the mathematical operations are evaluated L -> R,
+// Then assignment of values are done from R -> L
+// First y = 10 is assigned & then x = y i.e 10 is assigned
+let x, y;
+x = y = 25 - 10 - 5; // s = y = 10
+console.log('x= ' + x + ' & ' + 'y = ', y);
