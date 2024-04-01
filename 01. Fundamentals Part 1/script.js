@@ -241,33 +241,6 @@ eg: let x = 'onkar';
 7. Greater Than or Equal To (>=) : Checks if the left operand is greater than or equal to the right operand.
 
 8. Less Than or Equal To (<=) : Checks if the left operand is less than or equal to the right operand.
-
-! Logical Operators : --------------------------------------------------------
-
-1. Logical AND (&&) : Returns true if both operands are true.
-2. Logical OR (||) : Returns true if at least one of the operands is true.
-3. Logical NOT (!) : Returns the opposite of the operand's boolean value.
-
-! Unary Operators : ----------------------------------------------------------
-
-1. Increment (++) : Increases the value of a variable by 1.
-2. Decrement (--) : Decreases the value of a variable by 1.
-3. typeof() operator : Tells us the type of Variable / Value being used
-
-! Ternary Operator : ---------------------------------------------------------
-
-1. Conditional Operator (condition ? value1 : value2) : If condition is true, returns value1, otherwise returns value2.
-
-! Bitwise Operators : --------------------------------------------------------
-
-1. Bitwise AND (&)
-2. Bitwise OR (|)
-3. Bitwise XOR (^)
-4. Bitwise NOT (~)
-5. Left Shift (<<)
-6. Right Shift (>>)
-7. Unsigned Right Shift (>>>)
-
 */
 
 // Adding Numbers :
