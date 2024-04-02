@@ -16,6 +16,8 @@
 */
 // console.log(40 + 8 + 2);
 
+// & ------------------------------> Lecture 05 <-------------------------------
+
 // --------------------> *************** <---------------------
 // ^ Values :
 /* 
@@ -52,10 +54,11 @@
 
 // let firstName = 'Onkar';
 
-// & Printing the value stored in the variable
+// * Printing the value stored in the variable
 // console.log(firstName);
 
-// --------------------> *************** <---------------------
+// & ------------------------------> Lecture 07<-------------------------------
+
 // ^ Primitive Data Types :
 
 /*
@@ -165,7 +168,8 @@ eg: let x = 'onkar';
 // year = 2024;
 // console.log(typeof year); //Number
 
-// --------------------> *************** <---------------------
+// & ------------------------------> Lecture 08<-------------------------------
+
 // ^ Different Ways to declare Variables in Js :
 
 /*
@@ -194,7 +198,8 @@ eg: let x = 'onkar';
 // lastName = 'Patel';
 // console.log(lastName); // Patel
 
-// --------------------> *************** <---------------------
+// & ------------------------------> Lecture 09 <-------------------------------
+
 // ^ BASIC OPERATORS :
 /*
 
@@ -287,7 +292,8 @@ eg: let x = 'onkar';
 // const validAge = 18;
 // if (ageSarah > validAge) console.log('Sarah belongs to valid age category');
 
-// --------------------> *************** <---------------------
+// & ------------------------------> Lecture 10 <-------------------------------
+
 // ^ Operator Precedence : ------------------------------------------------------
 // const currentYear = 2024;
 
@@ -319,31 +325,31 @@ eg: let x = 'onkar';
     -> Concatenated using the '+' Operator 
     -> Complex Strings can  be created using normal strings such as one below 
 */
-const firstName = 'Onkar';
-const lastName = 'Patel';
-const birthday = 2001;
-const year = 2024;
+// const firstName = 'Onkar';
+// const lastName = 'Patel';
+// const birthday = 2001;
+// const year = 2024;
 
-const onkar =
-  "I'm " +
-  firstName +
-  ', a ' +
-  (year - birthday) +
-  ' years old Student from India';
+// const onkar =
+//   "I'm " +
+//   firstName +
+//   ', a ' +
+//   (year - birthday) +
+//   ' years old Student from India';
 
-console.log(onkar); // I'm Onkar, a 23 years old
+// console.log(onkar); // I'm Onkar, a 23 years old
 
 // Multi Line String
 /*
     -> \n\ used to change Lines in Js
 */
-const multi =
-  'Hello There\n\
-a Multi Line String\n\
-Using Basic String \n\
-Method';
+// const multi =
+//   'Hello There\n\
+// a Multi Line String\n\
+// Using Basic String \n\
+// Method';
 
-console.log(multi);
+// console.log(multi);
 
 // ! Literals ----------------------------------------------------------------
 /*
@@ -356,19 +362,73 @@ console.log(multi);
 */
 
 // Complex String
-const newOnkar = `I'm ${firstName}, a ${
-  year - birthday
-} years old Student from India`;
+// const newOnkar = `I'm ${firstName}, a ${
+//   year - birthday
+// } years old Student from India`;
 
-console.log(newOnkar); // I'm Onkar, a 23 years old Student from india
+// console.log(newOnkar); // I'm Onkar, a 23 years old Student from india
 
 // Regular String
-console.log(`Hello Just a Regular String`);
+// console.log(`Hello Just a Regular String`);
 
 // Multi Line String
-const newMulti = `Hello There
-a Multi Line String
-Using Template Literal
-String Method`;
+// const newMulti = `Hello There
+// a Multi Line String
+// Using Template Literal
+// String Method`;
 
-console.log(newMulti);
+// console.log(newMulti);
+
+// & ------------------------------> Lecture 14 <-------------------------------
+
+// ^ Taking Decisions Using if-else Statements
+
+/*
+1. Basic if statement: 
+    -> if(condition is True) {
+        Statements to be executed
+    }
+
+2. if-else statement:
+    -> if(condition is True) {
+        Statements to be executed
+    } else {
+        Statements to be executed
+    }
+    
+3. if-else if-else statement: 
+    -> if(condition is True) {
+        Statements to be executed
+    } else if(condition is True) {
+         Statements to be executed
+    } else{
+             Statements to be executed
+         }
+
+4. Nested if Statements:
+    -> if (condition1) {
+             if (condition2) {
+                Statements to be executed    
+             }
+        }
+*/
+
+const age = 15;
+
+if (age >= 18) {
+  console.log('You are eligible to apply for driving license');
+} else {
+  const year = 18 - age;
+  console.log(`You are too young, wait another ${year} to apply for license`);
+}
+
+const birthYear = 2001;
+
+let century;
+if (birthYear <= 2000) {
+  century = 20;
+  console.log(`You belong to ${century}th century`);
+} else {
+  century = 21;
+  console.log(`You belong to ${century}st century`);
+}
