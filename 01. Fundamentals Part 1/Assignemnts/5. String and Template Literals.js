@@ -14,12 +14,6 @@ console.log(population + ' ' + 'millions');
 console.log(population > 6);
 console.log(population < 33);
 
-// Using Basic String to write off sentences
-const description =
-  country +
-  ' is in ' +
-  continent +
-  ', and its ' +
-  population +
-  ' million people speak Hindi';
+// Using Template Literals to write off sentences
+const description = `${country} is in ${continent}, and its ${population} million population speaks Hindi`;
 console.log(description);
