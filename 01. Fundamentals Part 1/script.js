@@ -490,7 +490,7 @@ eg: let x = 'onkar';
 // console.log("I'm " + 23 + 'years old'); // Implicit conversion of Number to String
 // console.log(`I'm ${b} years old`); // Implicit conversion of Number to String
 
-// Whenever there is and  Subtraction (-) or * or / between a Number & String then :
+// Whenever there is and  Subtraction (-) or * (Multiplication) or / (Division) or < etc... for all of them between a Number & String :
 // 1. First the String is converted to a Number
 // 2. Then Subtraction takes place
 // console.log('23' - '10' - 3); // 10 : Implicit conversion of String to Number
@@ -560,7 +560,6 @@ eg: let x = 'onkar';
 // if (money) {
 //   console.log("Don't spend at all");
 // } else {
-//   //money ==
 //   console.log('You should get a job');
 // }
 
@@ -593,22 +592,22 @@ eg: let x = 'onkar';
 */
 
 // 1. Strict Equality Operator :
-let ageA = 18;
+// let ageA = 18;
 
 // here both the type and value of age as well as 18 are same Integer + Number
-if (ageA === 18) console.log('You are an Adult :D (Strict) !!!');
+// if (ageA === 18) console.log('You are an Adult :D (Strict) !!!');
 
 // here only the value is compared which is true
-if (ageA == 18) console.log('You are an Adult :D (Loose) !!!');
+// if (ageA == 18) console.log('You are an Adult :D (Loose) !!!');
 
 // 2. Loose Equality Operator :
-let ageB = '18';
+// let ageB = '18';
 
 // Here the value 18 is same for both
 // But the type of age is string '18' nad 18 is a Number in if Comparison
 // So Implicit Coercion takes place converting string to Number and hence 18 == 18 is evaluated
-if (ageB === 18) console.log('You are an Adult :D (Strict) !!!');
-if (ageB == 18) console.log('You are an Adult :D (Loose) !!!');
+// if (ageB === 18) console.log('You are an Adult :D (Strict) !!!');
+// if (ageB == 18) console.log('You are an Adult :D (Loose) !!!');
 
 // ! prompt() Function : -------------------------------------------------------
 
@@ -629,17 +628,17 @@ if (ageB == 18) console.log('You are an Adult :D (Loose) !!!');
 // Storing value as a Number
 
 // Converted the String value to Number
-let fav = Number(prompt('Enter a Number'));
-console.log(fav);
-console.log(typeof fav); //Number
+// let fav = Number(prompt('Enter a Number'));
+// console.log(fav);
+// console.log(typeof fav); //Number
 
 // Executed as 23 which was a string is converted to a number
-if (fav === 23) console.log('Cool ! 23 is an amazing Number');
-else if (fav === 7) {
-  console.log('7 is a Cool Number');
-} else {
-  console.log('Not a Cool Number');
-}
+// if (fav === 23) console.log('Cool ! 23 is an amazing Number');
+// else if (fav === 7) {
+//   console.log('7 is a Cool Number');
+// } else {
+//   console.log('Not a Cool Number');
+// }
 
 // ^ Inequality Operators != Vs !== : -------------------------------------------
 
@@ -652,6 +651,6 @@ else if (fav === 7) {
 */
 
 // Strict Inequality
-if (fav !== 23) {
-  console.log('Why not choose 23 ?');
-}
+// if (fav !== 23) {
+//   console.log('Why not choose 23 ?');
+// }
