@@ -455,24 +455,24 @@ eg: let x = 'onkar';
 
 // ! Converting String To Number
 
-const year = '2000';
+// const year = '2000';
 
-console.log(Number(year), year); // 2000 & '2000'
+// console.log(Number(year), year); // 2000 & '2000'
 
 // Value + Value = Value ( Addition)
-console.log(Number(year) + 10); // 2010
+// console.log(Number(year) + 10); // 2010
 
 // Trying to covert String to Value give NaN
-console.log(Number('onkar'));
+// console.log(Number('onkar'));
 
 // typeof() of NaN -> Invalid Number / Number
-console.log(typeof NaN);
+// console.log(typeof NaN);
 
 // ! Converting Number to String
 
-let a = 23;
+// let a = 23;
 
-console.log(String(a), a); // '23'
+// console.log(String(a), a); // '23'
 
 // Type Coercion : (Implicit Conversion)----------------------------------------
 
@@ -485,28 +485,91 @@ console.log(String(a), a); // '23'
 // 2. Then String Concatenation takes place
 // Doesn't matter we use + or `` Type Coercion Takes place both ways
 
-const b = 23;
-console.log("I'm " + 23 + 'years old'); // Implicit conversion of Number to String
-console.log(`I'm ${b} years old`); // Implicit conversion of Number to String
+// const b = 23;
+// console.log("I'm " + 23 + 'years old'); // Implicit conversion of Number to String
+// console.log(`I'm ${b} years old`); // Implicit conversion of Number to String
 
 // Whenever there is and  Subtraction (-) or * or / between a Number & String then :
 // 1. First the String is converted to a Number
 // 2. Then Subtraction takes place
-console.log('23' - '10' - 3); // 10 : Implicit conversion of String to Number
-console.log('23' * 3); // 69 : Implicit conversion of String to Number
-console.log('10' / 2); // 69 : Implicit conversion of String to Number
+// console.log('23' - '10' - 3); // 10 : Implicit conversion of String to Number
+// console.log('23' * 3); // 69 : Implicit conversion of String to Number
+// console.log('10' / 2); // 69 : Implicit conversion of String to Number
 
 // Guess the O/P
 
 // 1.
-let n = '1' + 1; // 11
-n = n - 1; // 11 - 1 = 10
-console.log(n); // 10
+// let n = '1' + 1; // 11
+// n = n - 1; // 11 - 1 = 10
+// console.log(n); // 10
 
 // 2.
-let v = 2 + 3 + 4 + '5'; // 9 + '5' = '95'
-console.log(v); // '95'
+// let v = 2 + 3 + 4 + '5'; // 9 + '5' = '95'
+// console.log(v); // '95'
 
 // 3.
-let z = 10 - 4 - 3 - 2 + '5'; // 1 + '5' = '15'
-console.log(z); // '15'
+// let z = 10 - 4 - 3 - 2 + '5'; // 1 + '5' = '15'
+// console.log(z); // '15'
+
+// & ------------------------------> Lecture 16 <-------------------------------
+
+// ^ Truthy & Falsy Values
+
+// ! Falsy Values :
+
+/*
+    -> Values that are not false but will become false when we try convert them into boolean values
+    -> In Js there are only 5 Falsy Values : 
+       1. 0
+       2. NaN
+       3. Undefined
+       4. null
+       5. ''
+    -> Rest all the Values are called Truthy Values
+*/
+
+// * Converting to boolean values :
+
+/*
+    -> Boolean() Function used to covert numbers to boolean values
+*/
+
+console.log(Boolean(0)); //false
+console.log(Boolean(null)); //false
+console.log(Boolean(NaN)); //false
+console.log(Boolean('')); //false
+console.log(Boolean(undefined)); //false
+
+console.log(Boolean(2)); //true
+console.log(Boolean('onkar')); //true
+
+// But we never in practice in real life use the Boolean() Function to convert values
+// They are always implicitly / Coercively converted to boolean values in Js
+// The implicit conversion / Type coercion happens in Js when
+// 1. During Logical Operation
+// 2. During if-else Statements execution
+// 3. Check If a variable is declared or not
+
+// 1. If-Else Usage of Falsy Values
+const money = 0;
+// money takes as 0 == false, any other value of money == true
+
+// if (true){} else{}
+// as money holds a falsy value hence the else part gets executed
+if (money) {
+  console.log("Don't spend at all");
+} else {
+  //money ==
+  console.log('You should get a job');
+}
+
+// 2. Check Variable Declaration
+let height;
+// height undefined == undefined
+// As it holds a falsy value hence the else part gets executed
+
+if (height) {
+  console.log('yay height is defined');
+} else {
+  console.log('height is Undefined');
+}
