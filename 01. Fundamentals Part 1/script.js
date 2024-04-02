@@ -250,6 +250,7 @@ eg: let x = 'onkar';
 7. Greater Than or Equal To (>=) : Checks if the left operand is greater than or equal to the right operand.
 
 8. Less Than or Equal To (<=) : Checks if the left operand is less than or equal to the right operand.
+
 */
 
 // Adding Numbers :
@@ -534,14 +535,14 @@ eg: let x = 'onkar';
     -> Boolean() Function used to covert numbers to boolean values
 */
 
-console.log(Boolean(0)); //false
-console.log(Boolean(null)); //false
-console.log(Boolean(NaN)); //false
-console.log(Boolean('')); //false
-console.log(Boolean(undefined)); //false
+// console.log(Boolean(0)); //false
+// console.log(Boolean(null)); //false
+// console.log(Boolean(NaN)); //false
+// console.log(Boolean('')); //false
+// console.log(Boolean(undefined)); //false
 
-console.log(Boolean(2)); //true
-console.log(Boolean('onkar')); //true
+// console.log(Boolean(2)); //true
+// console.log(Boolean('onkar')); //true
 
 // But we never in practice in real life use the Boolean() Function to convert values
 // They are always implicitly / Coercively converted to boolean values in Js
@@ -551,25 +552,106 @@ console.log(Boolean('onkar')); //true
 // 3. Check If a variable is declared or not
 
 // 1. If-Else Usage of Falsy Values
-const money = 0;
-// money takes as 0 == false, any other value of money == true
+// const money = 0;
 
+// money takes as 0 == false, any other value of money == true
 // if (true){} else{}
 // as money holds a falsy value hence the else part gets executed
-if (money) {
-  console.log("Don't spend at all");
-} else {
-  //money ==
-  console.log('You should get a job');
-}
+// if (money) {
+//   console.log("Don't spend at all");
+// } else {
+//   //money ==
+//   console.log('You should get a job');
+// }
 
 // 2. Check Variable Declaration
-let height;
+// let height;
+
 // height undefined == undefined
 // As it holds a falsy value hence the else part gets executed
+// if (height) {
+//   console.log('yay height is defined');
+// } else {
+//   console.log('height is Undefined');
+// }
 
-if (height) {
-  console.log('yay height is defined');
+// & ------------------------------> Lecture 17 <-------------------------------
+
+// ^ Equality Operators == Vs === : -------------------------------------------
+/*
+    -> Assignment Operator : =
+
+    -> Strict Equality Operator : === 
+       - Type & Value both are same)
+       - No type Coercion takes place here
+
+    -> Loose Equality Operator : == ( Value is same )
+       - Value is Same
+       - Implicit Conversion / Type Coercion takes place here 
+    
+       -> Always use the Strict Equality Operator as Loose Equality Operator has weird behavior and Rules, if we need type conversion do it manually but prefer using === over == 
+*/
+
+// 1. Strict Equality Operator :
+let ageA = 18;
+
+// here both the type and value of age as well as 18 are same Integer + Number
+if (ageA === 18) console.log('You are an Adult :D (Strict) !!!');
+
+// here only the value is compared which is true
+if (ageA == 18) console.log('You are an Adult :D (Loose) !!!');
+
+// 2. Loose Equality Operator :
+let ageB = '18';
+
+// Here the value 18 is same for both
+// But the type of age is string '18' nad 18 is a Number in if Comparison
+// So Implicit Coercion takes place converting string to Number and hence 18 == 18 is evaluated
+if (ageB === 18) console.log('You are an Adult :D (Strict) !!!');
+if (ageB == 18) console.log('You are an Adult :D (Loose) !!!');
+
+// ! prompt() Function : -------------------------------------------------------
+
+// Stores a Value as a string
+// let fav = prompt('Enter a Number');
+// console.log(fav);
+// console.log(typeof fav); //String
+
+// Never executed as fav has 23 as string & we compared using strict equality
+// '23' != 23
+// if (fav === 23) console.log('Cool ! 23 is an amazing Number');
+// else if (fav === 7) {
+//   console.log('7 is a Cool Number');
+// } else {
+//   console.log('Not a Cool Number');
+// }
+
+// Storing value as a Number
+
+// Converted the String value to Number
+let fav = Number(prompt('Enter a Number'));
+console.log(fav);
+console.log(typeof fav); //Number
+
+// Executed as 23 which was a string is converted to a number
+if (fav === 23) console.log('Cool ! 23 is an amazing Number');
+else if (fav === 7) {
+  console.log('7 is a Cool Number');
 } else {
-  console.log('height is Undefined');
+  console.log('Not a Cool Number');
+}
+
+// ^ Inequality Operators != Vs !== : -------------------------------------------
+
+/*  
+1. Strict Inequality Operator :
+    -> As we discussed always to use strict equality operator same way we also should always use strict equality operator
+
+ 2. Loose Inequality Operator :
+
+*/
+
+// Strict Inequality
+if (fav !== 23) {
+  console.log('Why not choose 23 ?');
 }
