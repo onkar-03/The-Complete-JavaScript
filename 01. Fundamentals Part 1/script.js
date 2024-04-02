@@ -208,6 +208,10 @@ eg: let x = 'onkar';
 1. Addition (+) : Adds two operands.
     -> Used to Add Numbers 
     -> Used to concatenate Strings
+    -> value + value = value (Addition)
+    -> String1 + String2 = String1String2 ( Concatenation)
+    -> String + Value = StringValue (Concatenation) 
+    { Value Converted to String and then added to the other string}
 
 2. Subtraction (-) : Subtracts the second operand from the first.
 
@@ -413,22 +417,96 @@ eg: let x = 'onkar';
         }
 */
 
-const age = 15;
+// const age = 15;
 
-if (age >= 18) {
-  console.log('You are eligible to apply for driving license');
-} else {
-  const year = 18 - age;
-  console.log(`You are too young, wait another ${year} to apply for license`);
-}
+// if (age >= 18) {
+//   console.log('You are eligible to apply for driving license');
+// } else {
+//   const year = 18 - age;
+//   console.log(`You are too young, wait another ${year} to apply for license`);
+// }
 
-const birthYear = 2001;
+// const birthYear = 2001;
 
-let century;
-if (birthYear <= 2000) {
-  century = 20;
-  console.log(`You belong to ${century}th century`);
-} else {
-  century = 21;
-  console.log(`You belong to ${century}st century`);
-}
+// let century;
+// if (birthYear <= 2000) {
+//   century = 20;
+//   console.log(`You belong to ${century}th century`);
+// } else {
+//   century = 21;
+//   console.log(`You belong to ${century}st century`);
+// }
+
+// & ------------------------------> Lecture 15 <-------------------------------
+
+// ^ Type Conversion & Coercion
+
+// Type Conversion : (Explicit Conversion)--------------------------------------
+
+/*
+    -> When we manually convert form one type to another
+    -> Convert String to Number using : Number();
+    -> NaN O/P for Strings that we try to convert to a number but are not a  Number 
+    -> NaN : Not a Number, its also a number i.e an invalid Number 
+    -> typeof NaN : Number i.e an invalid Number as we know
+
+    -> Convert Number to String using : String()
+*/
+
+// ! Converting String To Number
+
+const year = '2000';
+
+console.log(Number(year), year); // 2000 & '2000'
+
+// Value + Value = Value ( Addition)
+console.log(Number(year) + 10); // 2010
+
+// Trying to covert String to Value give NaN
+console.log(Number('onkar'));
+
+// typeof() of NaN -> Invalid Number / Number
+console.log(typeof NaN);
+
+// ! Converting Number to String
+
+let a = 23;
+
+console.log(String(a), a); // '23'
+
+// Type Coercion : (Implicit Conversion)----------------------------------------
+
+/*
+    -> When Js automatically converts from one type to another behind the scenes for us
+*/
+
+// Whenever there is and  Addition (+) between a Number & String then :
+// 1. First the Value is converted to a string
+// 2. Then String Concatenation takes place
+// Doesn't matter we use + or `` Type Coercion Takes place both ways
+
+const b = 23;
+console.log("I'm " + 23 + 'years old'); // Implicit conversion of Number to String
+console.log(`I'm ${b} years old`); // Implicit conversion of Number to String
+
+// Whenever there is and  Subtraction (-) or * or / between a Number & String then :
+// 1. First the String is converted to a Number
+// 2. Then Subtraction takes place
+console.log('23' - '10' - 3); // 10 : Implicit conversion of String to Number
+console.log('23' * 3); // 69 : Implicit conversion of String to Number
+console.log('10' / 2); // 69 : Implicit conversion of String to Number
+
+// Guess the O/P
+
+// 1.
+let n = '1' + 1; // 11
+n = n - 1; // 11 - 1 = 10
+console.log(n); // 10
+
+// 2.
+let v = 2 + 3 + 4 + '5'; // 9 + '5' = '95'
+console.log(v); // '95'
+
+// 3.
+let z = 10 - 4 - 3 - 2 + '5'; // 1 + '5' = '15'
+console.log(z); // '15'
