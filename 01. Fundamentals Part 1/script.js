@@ -706,7 +706,7 @@ eg: let x = 'onkar';
 
 // & ------------------------------> Lecture 20 <-------------------------------
 
-// ^ Logical Operators : -----------------------------------------------------------
+// ^ Logical Operators : -------------------------------------------------------
 
 /* 
 ! Logical Operators:
@@ -719,22 +719,82 @@ eg: let x = 'onkar';
 */
 
 // Change one of the values and see the difference in results
-const hasDriversLicense = true;
-const hasGoodVision = true;
+// const hasDriversLicense = true;
+// const hasGoodVision = true;
 
-console.log(hasDriversLicense && hasGoodVision); // true
-console.log(hasDriversLicense || hasGoodVision); // true
+// console.log(hasDriversLicense && hasGoodVision); // true
+// console.log(hasDriversLicense || hasGoodVision); // true
 
-console.log(!hasDriversLicense); // false
-console.log(!hasGoodVision); // false
+// console.log(!hasDriversLicense); // false
+// console.log(!hasGoodVision); // false
 
-const shouldDrive = hasDriversLicense && hasGoodVision; // true
+// const shouldDrive = hasDriversLicense && hasGoodVision; // true
 
-const isTired = false;
+// const isTired = false;
 
 //Multiple Conditions
-console.log(isTired && hasDriversLicense && hasGoodVision); // true
+// console.log(isTired && hasDriversLicense && hasGoodVision); // true
 
 // Can drive when she has a license, good vision & not tired
-if (shouldDrive && !isTired) console.log(`You can drive ...`);
-else console.log(`Someone else should Drive ...`);
+// if (shouldDrive && !isTired) console.log(`You can drive ...`);
+// else console.log(`Someone else should Drive ...`);
+
+// & ------------------------------> Lecture 20 <-------------------------------
+
+// ^ Switch Statement : --------------------------------------------------------
+
+/*
+    -> An alternative of writing complex if-else statements
+    -> Comparing one value to multiple options basically
+    -> switch(condition){
+        case value1:
+            statement1;
+            break;
+        case value2:
+            statement2;
+            break;
+        case value3:
+            statement3;
+            break;
+        case value4: 
+        case value5:
+            statement4;
+            break;
+        default:
+            statement4;
+            break;
+    }
+
+    -> Comparing the condition to each value of different cases
+    -> We can also write multiple conditions together 
+*/
+
+const day = 'sunday';
+
+switch (day) {
+  case 'monday':
+    console.log(`Today is Monday`);
+    break;
+  case 'tuesday':
+    console.log(`Today is Tuesday`);
+    break;
+  case 'wednesday':
+    console.log(`Today is Wednesday`);
+    break;
+  case 'thursday':
+    console.log(`Today is Wednesday`);
+    break;
+  case 'friday':
+    console.log(`Today is Friday`);
+    break;
+
+  // Writing multiple conditions together
+  case 'saturday':
+  case 'sunday':
+    console.log(`Weekend !!`);
+    break;
+  default:
+    console.log(`Wrong Day Entered`);
+    break;
+}
+// Writing the same code using if-else would be too much trouble hence switch case is a good alternative
