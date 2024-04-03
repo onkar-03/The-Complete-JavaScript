@@ -251,6 +251,27 @@ eg: let x = 'onkar';
 
 8. Less Than or Equal To (<=) : Checks if the left operand is less than or equal to the right operand.
 
+! Logical Operators:
+1. Logical AND (&&) : Returns true if both operands are true.
+2. Logical OR (||) : Returns true if at least one of the operands is true.
+3. Logical NOT (!) : Returns the opposite of the operand's boolean value.
+
+! Unary Operators:
+1. Increment (++) : Increases the value of a variable by 1.
+2. Decrement (--) : Decreases the value of a variable by 1.
+3. typeof() : Used to check the Type of Value or Variable.
+
+! Ternary Operator:
+1. Conditional Operator (condition ? value1 : value2) : If condition is true, returns value1, otherwise returns value2. Replacement for short if-else statements
+
+! Bitwise Operators:
+1. Bitwise AND (&)
+2. Bitwise OR (|)
+3. Bitwise XOR (^)
+4. Bitwise NOT (~)
+5. Left Shift (<<)
+6. Right Shift (>>)
+7. Unsigned Right Shift (>>>)
 */
 
 // Adding Numbers :
@@ -438,7 +459,7 @@ eg: let x = 'onkar';
 //   console.log(`You belong to ${century}st century`);
 // }
 
-// & ------------------------------> Lecture 15 <-------------------------------
+// & ------------------------------> Lecture 16 <-------------------------------
 
 // ^ Type Conversion & Coercion
 
@@ -512,7 +533,7 @@ eg: let x = 'onkar';
 // let z = 10 - 4 - 3 - 2 + '5'; // 1 + '5' = '15'
 // console.log(z); // '15'
 
-// & ------------------------------> Lecture 16 <-------------------------------
+// & ------------------------------> Lecture 17 <-------------------------------
 
 // ^ Truthy & Falsy Values
 
@@ -574,7 +595,7 @@ eg: let x = 'onkar';
 //   console.log('height is Undefined');
 // }
 
-// & ------------------------------> Lecture 17 <-------------------------------
+// & ------------------------------> Lecture 18 <-------------------------------
 
 // ^ Equality Operators == Vs === : -------------------------------------------
 /*
@@ -654,3 +675,66 @@ eg: let x = 'onkar';
 // if (fav !== 23) {
 //   console.log('Why not choose 23 ?');
 // }
+
+// & ------------------------------> Lecture 19 <-------------------------------
+
+// ^ Bitwise Logic : -----------------------------------------------------------
+
+/*  
+    -> Boolean logic is a branch of computer science, which uses true and false values to solve complex logical problems. 
+    -> It uses several Logical Operators to combine true and false values
+
+! Logical Operators:
+1. Logical AND (&&) : Returns true if both operands are true.
+2. Logical OR (||) : Returns true if at least one of the operands is true.
+3. Logical NOT (!) : Returns the opposite of the operand's boolean value.
+
+-> The Not (!) Operator has a Higher Precedence over AND / OR
+*/
+
+// let A = true,
+//   B = false;
+
+// console.log(A && B); // false
+
+// console.log(A || B); // true
+
+// console.log(!A); // false
+// console.log(!B); //true
+
+// console.log(A || !B); // true || true = true
+
+// & ------------------------------> Lecture 20 <-------------------------------
+
+// ^ Logical Operators : -----------------------------------------------------------
+
+/* 
+! Logical Operators:
+1. Logical AND (&&) : Returns true if both operands are true.
+2. Logical OR (||) : Returns true if at least one of the operands is true.
+3. Logical NOT (!) : Returns the opposite of the operand's boolean value.
+
+-> The Not (!) Operator has a Higher Precedence over AND / OR
+-> If we have multiple conditions logical operators between every two conditions is totally fine, we can do that
+*/
+
+// Change one of the values and see the difference in results
+const hasDriversLicense = true;
+const hasGoodVision = true;
+
+console.log(hasDriversLicense && hasGoodVision); // true
+console.log(hasDriversLicense || hasGoodVision); // true
+
+console.log(!hasDriversLicense); // false
+console.log(!hasGoodVision); // false
+
+const shouldDrive = hasDriversLicense && hasGoodVision; // true
+
+const isTired = false;
+
+//Multiple Conditions
+console.log(isTired && hasDriversLicense && hasGoodVision); // true
+
+// Can drive when she has a license, good vision & not tired
+if (shouldDrive && !isTired) console.log(`You can drive ...`);
+else console.log(`Someone else should Drive ...`);
