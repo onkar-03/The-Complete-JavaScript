@@ -769,32 +769,77 @@ eg: let x = 'onkar';
     -> We can also write multiple conditions together 
 */
 
-const day = 'sunday';
+// const day = 'sunday';
 
-switch (day) {
-  case 'monday':
-    console.log(`Today is Monday`);
-    break;
-  case 'tuesday':
-    console.log(`Today is Tuesday`);
-    break;
-  case 'wednesday':
-    console.log(`Today is Wednesday`);
-    break;
-  case 'thursday':
-    console.log(`Today is Wednesday`);
-    break;
-  case 'friday':
-    console.log(`Today is Friday`);
-    break;
+// switch (day) {
+//   case 'monday':
+//     console.log(`Today is Monday`);
+//     break;
+//   case 'tuesday':
+//     console.log(`Today is Tuesday`);
+//     break;
+//   case 'wednesday':
+//     console.log(`Today is Wednesday`);
+//     break;
+//   case 'thursday':
+//     console.log(`Today is Wednesday`);
+//     break;
+//   case 'friday':
+//     console.log(`Today is Friday`);
+//     break;
 
-  // Writing multiple conditions together
-  case 'saturday':
-  case 'sunday':
-    console.log(`Weekend !!`);
-    break;
-  default:
-    console.log(`Wrong Day Entered`);
-    break;
+//   // Writing multiple conditions together
+//   case 'saturday':
+//   case 'sunday':
+//     console.log(`Weekend !!`);
+//     break;
+//   default:
+//     console.log(`Wrong Day Entered`);
+//     break;
+// }
+// Writing the same code using if-else would be too much trouble hence switch case is a good alternatives
+
+// & ------------------------------> Lecture 21 <-------------------------------
+
+// ^ Statements Vs Expressions : -----------------------------------------------
+
+/* 
+! Statements:
+
+    -> A statement is a piece of code that performs an action. 
+    -> It can be a variable declaration, a loop, a conditional statement, a function declaration, etc.
+    -> Statements do not necessarily return a value.
+    -> Examples of statements include *if statements, for loops, while loops, switch statements, function declarations, etc.
+
+! Expressions:
+
+    -> An expression is a piece of code that evaluates to a value.
+    -> Expressions can be as simple as a single value or can be more complex, involving operators and variables.
+    -> Almost every statement in JavaScript contains an expression. For example, the expression x > 0 is evaluated within the if statement.
+    -> Expressions can be standalone, meaning they don't have to be part of a statement.
+      
+     Eg : 2000 or 2 + 4 or x > 0 all are expressions
+
+
+* Differences:
+    -> A statement is a complete line of code that performs some action, whereas an expression is any part of the code that produces a value.
+    -> Statements do not necessarily return a value, whereas expressions always evaluate to a value.
+    -> Statements are often terminated with a semicolon (;), whereas expressions can often be embedded within statements.
+*/
+
+3 * 4; // Expression
+2000; // Expression
+
+// Statement
+if (23 > 10) {
+  console.log(`23 is bigger !!`);
 }
-// Writing the same code using if-else would be too much trouble hence switch case is a good alternative
+
+const me = 'Onkar'; // Expression
+
+console.log(`This is ${me}`); // Expression
+
+// Wrong as can't include statements in the expression
+// console.log(`This is ${me} if (23 > 10) {
+//   console.log("23 is bigger !!);
+// }`);
