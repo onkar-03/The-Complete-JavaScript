@@ -739,7 +739,7 @@ eg: let x = 'onkar';
 // if (shouldDrive && !isTired) console.log(`You can drive ...`);
 // else console.log(`Someone else should Drive ...`);
 
-// & ------------------------------> Lecture 20 <-------------------------------
+// & ------------------------------> Lecture 22 <-------------------------------
 
 // ^ Switch Statement : --------------------------------------------------------
 
@@ -788,7 +788,7 @@ eg: let x = 'onkar';
 //     console.log(`Today is Friday`);
 //     break;
 
-//   // Writing multiple conditions together
+//   Writing multiple conditions together
 //   case 'saturday':
 //   case 'sunday':
 //     console.log(`Weekend !!`);
@@ -799,7 +799,7 @@ eg: let x = 'onkar';
 // }
 // Writing the same code using if-else would be too much trouble hence switch case is a good alternatives
 
-// & ------------------------------> Lecture 21 <-------------------------------
+// & ------------------------------> Lecture 23 <-------------------------------
 
 // ^ Statements Vs Expressions : -----------------------------------------------
 
@@ -817,6 +817,7 @@ eg: let x = 'onkar';
     -> Expressions can be as simple as a single value or can be more complex, involving operators and variables.
     -> Almost every statement in JavaScript contains an expression. For example, the expression x > 0 is evaluated within the if statement.
     -> Expressions can be standalone, meaning they don't have to be part of a statement.
+    -> An Operator is an expression as it produces a value
       
      Eg : 2000 or 2 + 4 or x > 0 all are expressions
 
@@ -827,19 +828,59 @@ eg: let x = 'onkar';
     -> Statements are often terminated with a semicolon (;), whereas expressions can often be embedded within statements.
 */
 
-3 * 4; // Expression
-2000; // Expression
+// 3 * 4; // Expression
+// 2000; // Expression
 
 // Statement
-if (23 > 10) {
-  console.log(`23 is bigger !!`);
-}
+// if (23 > 10) {
+//   console.log(`23 is bigger !!`);
+// }
 
-const me = 'Onkar'; // Expression
+// const me = 'Onkar'; // Expression
 
-console.log(`This is ${me}`); // Expression
+// console.log(`This is ${me}`); // Expression
 
 // Wrong as can't include statements in the expression
 // console.log(`This is ${me} if (23 > 10) {
 //   console.log("23 is bigger !!);
 // }`);
+
+// & ------------------------------> Lecture 24 <-------------------------------
+
+// ^ Conditional (Ternary) Operator : --------------------------------------------
+
+/*
+    -> The ternary operator (?:) is a concise way to write conditional expressions. 
+    -> It's often used as a shorthand for an if...else statement. The syntax of the ternary operator is as follows : 
+    -> Conditional Operator just like other operators is also an expression as it produces a value
+    -> Now as its an expression we can put this inside Template Literals
+
+    Syntax : Condition ? True Statement to execute : False Statement to execute;
+*/
+const age = 23;
+
+// Using if-else Statement :
+// if (age > 23) {
+//   console.log(`You are Eligible to Drive a vehicle`);
+// } else {
+//   console.log(`You are not Eligible to Drive a vehicle`);
+// }
+
+// Using Ternary Operator The same if-else statement
+const drive =
+  age >= 18
+    ? console.log(`You are Eligible to Drive a vehicle`)
+    : console.log(`You are not Eligible to Drive a vehicle`);
+
+console.log(drive);
+
+// We can also put this Conditional Operator inside template literal as well
+console.log(
+  `I can drink ${
+    age >= 18
+      ? console.log(`You are Eligible to Drive a vehicle`)
+      : console.log(`You are not Eligible to Drive a vehicle`)
+  }`,
+);
+
+// & ------------------------------> Lecture 22 <-------------------------------
