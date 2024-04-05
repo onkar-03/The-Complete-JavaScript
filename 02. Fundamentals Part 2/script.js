@@ -58,12 +58,12 @@
 
 ! Defining a Function : -----------------------------------------------------
 
-    Syntax : function name (Arguments){
+    Syntax : function name (Parameters){
         Executable Statements
              }
 
 ! Calling a Function : --------------------------------------------------------
-    Syntax : functionName(parameters);
+    Syntax : functionName(Arguments);
 
 * CONCLUSION : Functions allow us to write more maintainable code. As we can create a reusable piece of code without having to write it over and over again.
 
@@ -74,29 +74,85 @@
 
 // Defining a function
 // Without a return value & without any arguments
-function logger() {
-  console.log(`My name is Onkar !!`);
-}
+// function logger() {
+//   console.log(`My name is Onkar !!`);
+// }
 
 // calling / running / invoking a function
-logger();
+// logger();
 
 // Defining a Function
 // This function has arguments and also returns a value
-function fruitProcessor(apples, oranges) {
-  // Printing the passed values inside the function
-  //   console.log(`I have ${apples} apples and ${oranges} oranges`);
-  const juice = `Juice with ${apples} apples & ${oranges} oranges`;
-  return juice;
-}
+// function fruitProcessor(apples, oranges) {
+// Printing the passed values inside the function
+//   console.log(`I have ${apples} apples and ${oranges} oranges`);
+//   const juice = `Juice with ${apples} apples & ${oranges} oranges`;
+//   return juice;
+// }
 
 // we could also have directly logged it to the console the returned value but its a good practice to store it in a variable and then use it
 // console.log(fruitProcessor(2, 3));
 
 // Storing the returned value in a variable
-const appleJuice = fruitProcessor(2, 0);
-console.log(appleJuice);
+// const appleJuice = fruitProcessor(2, 0);
+// console.log(appleJuice);
 
 // Storing the returned value in a variable
-const appleOrangeJuice = fruitProcessor(2, 3);
-console.log(appleOrangeJuice);
+// const appleOrangeJuice = fruitProcessor(2, 3);
+// console.log(appleOrangeJuice);
+
+// & ------------------------------> Lecture 03 <-------------------------------
+
+// ^ Functions Declaration Vs Expression : -------------------------------------
+
+/* 
+    -> Anonymous Function : a function without a name is called anonymous function
+        eg : function (){
+             Statements;
+            }
+
+! Function Declaration:
+
+    -> Function declarations are created using the function keyword followed by the name of the function, a list of parameters (enclosed in parentheses), and the function body (enclosed in curly braces).
+    -> Function declarations are hoisted, which means they are moved to the top of their scope during the compilation phase, allowing you to call the function before it's declared in your code.
+
+    eg : function greet(name) {
+           return "Hello, " + name + "!";
+        }
+
+
+! Expression :  
+    -> Function expressions define functions as part of an expression. They can be anonymous (where the function has no name) or named.
+    -> They can be assigned to variables, passed as arguments to other functions, or returned from other functions.
+
+    eg : var greet = function(name) {
+           return "Hello, " + name + "!";
+         };
+    eg : var greet = function greet(name) {
+           return "Hello, " + name + "!";
+         };     
+
+*/
+
+//Function Declaration
+function calcAge1(birthYear) {
+  return 2024 - birthYear;
+}
+
+//Method 1 to display
+// const age = calcAge1(2001);
+// console.log(age);
+
+//OR
+
+//Method 2 to display
+console.log(calcAge1(2001));
+
+// Function Expression
+// Anonymous function declaration as an expression
+// Here as the anonymous function gives a value hence its an expression
+const calcAge2 = function (birthYear) {
+  return 2024 - birthYear;
+};
+
+console.log(calcAge2(2001));
