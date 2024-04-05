@@ -883,4 +883,54 @@ console.log(
   }`,
 );
 
-// & ------------------------------> Lecture 22 <-------------------------------
+// & ------------------------------> Lecture 26 <-------------------------------
+
+// ^ Javascript Releases ES5 , ES6+ , ESNEXT : ---------------------------------
+
+/* 
+
+! HISTORY : -------------------------------------------------------------------
+
+    -> So quickly after the internet was invented, developers wanted to start making websites more interactive
+    -> In 1995, the Netscape Navigator, which by the time was the dominant browser, hired a guy named 'Brendan Eich' to create the very first version of JavaScript in just 10 days, it was called "Mocha".
+    -> So not JavaScript yet, but it already had many of the fundamental features that modern JavaScript has today
+    -> Then in 1996, Mocha was renamed tool Livescript, which was then again, renamed to JavaScript for one simple reason, to attract developers from the hottest language at the time, which was Java
+    -> Also in 1996, Microsoft launched the internet Explorer, which basically copied JavaScript from Netscape, but they call the JScript for legal reasons
+    ->  Now, what this means, is that we now had two very similar but competing languages, which of course is never a good idea in the long run & we need to standardize the Language
+    -> So the language was submitted to an independent standard organization called ECMA, which in 1997 released ECMAScript one or ES1.This was the very first official standards for the JavaScript language
+    -> In real world we usually use the term ECMAScript to refer to the standard, while JavaScript is used when we talk about the language in practice
+    -> Now fast forward to 2009, after a lot of complications and disagreements about where the language should be headed, ES5 was released with a lot of great new features
+    -> Then finally, another six years later, the much awaited new version ES6  / ES2015 was launched in June, 2015. And this was the single biggest update to the language ever
+    -> Now the ECMA changed to annual release cycle. So right now there's gonna be a new release every single year. The reason for that is that they prefer to just add a small number of new features per year, instead of shipping a huge new version every couple of years, like it happened with ES6
+
+! Backward Compatibility : ---------------------------------------------------
+    -> Well, basically it means that if you were to take some JavaScript code written back in 1997 and put it in a modern browser with a modern JavaScript engine today, it would still work just the same
+    ->  So again, the JavaScript engine that's in our browser today is able to understand old code written 25 years ago, without having to rely on version numbers or anything like that
+    -> It works this way because of the fundamental principle that's baked into the JavaScript language and its development, which is to not break the web   
+    -> 'Don't Break the Web' means that there is almost never anything removed from the language, but only added in new versions
+    -> We can't call them new versions rather new releases / version of Javascript
+    
+! Forward Compatibility : ----------------------------------------------------
+    -> Js is not forward compatible, which means that the future version codes can't be understood by the machine as of today
+
+* ES6+ : refers to versions from ES6 / ES2015 -> ES2020
+* ESNEXT : refers to versions from ES2021 -> infinity
+* ES6 / ES2015 : Beginning of modern Javascript
+
+! Transpiling and Polyfilling : ------------------------------------------------
+
+    -> They are two important concepts in web development, especially when dealing with JavaScript.
+
+& Transpiling :
+    -> Transpiling refers to the process of converting source code from one version of a programming language to another. 
+    -> In the context of JavaScript, transpiling often involves converting code written in newer versions of JavaScript (ES6+, for example) into equivalent code (of say ES5) that can be executed by older JavaScript engines or browsers that may not support the newer syntax or features.
+    -> This allows developers to write code using the latest language features while ensuring backward compatibility with older environments.
+
+& Polyfilling:
+
+    -> Polyfills typically detect whether a feature is supported by the browser and, if not, provide an alternative implementation that mimics the expected behavior.
+    ->This enables developers to write code that relies on modern browser features while ensuring that it remains functional across a wider range of browsers, including older ones.
+
+In summary, transpiling is about converting code between different versions of the same language, while polyfilling is about filling in the gaps to provide support for missing features in older browser environments. 
+
+*/
