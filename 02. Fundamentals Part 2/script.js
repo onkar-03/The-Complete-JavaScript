@@ -24,20 +24,79 @@
        2. Second, it will actually create visible errors for us in certain situations in which without strict mode JavaScript will simply fail silently without letting us know that we did a mistake.
 */
 
-'use strict';
+// 'use strict';
 
-let hasDriversLicense = false;
-const passTest = true;
+// let hasDriversLicense = false;
+// const passTest = true;
 
 // making a mistake in writing a long variable declared before "hasDriversLicense" as "hasDriverLicense" missing the 's'
 // without strict mode we wont know about the bug and will have to find it manually
 // after using strict mode we can see the error in the console with the line number as well
 // then we correct the error
-if (passTest) hasDriverLicense = true; // error here
-if (hasDriversLicense) console.log(`I can Drive :D !!`);
+// if (passTest) hasDriverLicense = true; // error here
+// if (hasDriversLicense) console.log(`I can Drive :D !!`);
 
 // interface / private are reserved word in Js
 // Hence we can't use this while the strict mode is enabled
 // Strict mode just wont allow us using Js keywords
-const interface = false; //error
-const private = false; //error
+// const interface = false; //error
+// const private = false; //error
+
+// & ------------------------------> Lecture 02 <-------------------------------
+
+// ^ Functions : -------------------------------------------------
+
+/* 
+    -> Fundamental Building Blocks of real world javascript programs / applications are functions 
+
+! What are Functions ?? 
+    -> A piece of code that we can reuse over and over again in our code. So it's a little bit like a variable but for whole chunks of code. 
+    -> Remember a variable holds value but a function can hold one or more complete lines of code.
+    -> We also pass data into a function and additionally, a function can also return data as well which means to give us data back that we can then use for something else in the program.
+    -> If we return a value then we need to have a variables holding the result of that function as well
+    -> Just like variables always use descriptive function names so that names make it very clear the purpose of the function
+
+! Defining a Function : -----------------------------------------------------
+
+    Syntax : function name (Arguments){
+        Executable Statements
+             }
+
+! Calling a Function : --------------------------------------------------------
+    Syntax : functionName(parameters);
+
+* CONCLUSION : Functions allow us to write more maintainable code. As we can create a reusable piece of code without having to write it over and over again.
+
+* Always remember to follow 'DRY' Principle : Don't Repeat Yourself for clean Code
+*/
+
+'use strict';
+
+// Defining a function
+// Without a return value & without any arguments
+function logger() {
+  console.log(`My name is Onkar !!`);
+}
+
+// calling / running / invoking a function
+logger();
+
+// Defining a Function
+// This function has arguments and also returns a value
+function fruitProcessor(apples, oranges) {
+  // Printing the passed values inside the function
+  //   console.log(`I have ${apples} apples and ${oranges} oranges`);
+  const juice = `Juice with ${apples} apples & ${oranges} oranges`;
+  return juice;
+}
+
+// we could also have directly logged it to the console the returned value but its a good practice to store it in a variable and then use it
+// console.log(fruitProcessor(2, 3));
+
+// Storing the returned value in a variable
+const appleJuice = fruitProcessor(2, 0);
+console.log(appleJuice);
+
+// Storing the returned value in a variable
+const appleOrangeJuice = fruitProcessor(2, 3);
+console.log(appleOrangeJuice);
