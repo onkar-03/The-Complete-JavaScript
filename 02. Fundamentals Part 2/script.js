@@ -110,6 +110,7 @@
         eg : function (){
              Statements;
             }
+     -> If we want to pass parameters to anonymous function we do it by passing values to the variable holding the anonymous function / expression.
 
 ! What is Hoisting ?? 
     -> Hoisting in JavaScript is a mechanism where variable and function declarations are moved to the top of their containing scope during the compilation phase, before the code is executed. 
@@ -160,33 +161,89 @@
 // Function Declaration & Hosting
 
 // Method 1
-console.log(calcAge1);
+// console.log(calcAge1(2001));
 
-function calcAge1(birthYear) {
-  return 2024 - birthYear;
-}
+// function calcAge1(birthYear) {
+//   return 2024 - birthYear;
+// }
 
 // Method 2
-function calcAge2(birthYear) {
-  return 2024 - birthYear;
-}
+// function calcAge2(birthYear) {
+//   return 2024 - birthYear;
+// }
 
-console.log(calcAge2);
+// console.log(calcAge2(2001));
 
 // Function Expression & Hosting
 // Here as the anonymous function gives a value hence its an expression
 
 // Method 1 : Right Approach
-const calcAge4 = function (birthYear) {
-  return 2024 - birthYear;
-};
+// const calcAge4 = function (birthYear) {
+//   return 2024 - birthYear;
+// };
 
-console.log(calcAge4(2001));
+// console.log(calcAge4(2001));
 
 // Method 2 : Wrong Approach as hosting doesn't work for expressions
-// Throws error can not access calcAge3 before initialization
-console.log(calcAge3(2001));
 
-const calcAge3 = function (birthYear) {
+// Throws error can not access calcAge3 before initialization
+// console.log(calcAge3(2001));
+
+// const calcAge3 = function (birthYear) {
+//   return 2024 - birthYear;
+// };
+
+// & ------------------------------> Lecture 04 <-------------------------------
+
+// ^ Arrow Functions : -------------------------------------
+
+/*
+    -> Apart from 2 Function Types we saw 'Function Declaration' & 'Function Expression' there is a third type of added to Javascript in ES6 called Arrow Function.
+
+    -> Arrow function is simply a special form of 'Function Expression' that is shorter and therefore faster to write.
+
+    -> The Arrow Function are Anonymous, there is nothing like named arrow functions
+
+    -> If we have only one liner Statement then we can skip the return keyword 
+    -> If there are multiple lines of code / statements then we can skip the return keyword, and need to write the statements inside the {}
+
+    -> If we have multiple parameters we nee dto bind them under ()
+    -> If there is only a single parameter then its not compulsory
+
+
+    -> Declaration : 
+       eg : const var = (parameters) => {Statements to execute;}
+*/
+
+// Anonymous Function Expression
+const calcAge6 = function (birthYear) {
   return 2024 - birthYear;
 };
+
+// 1. Arrow Function for same Anonymous Function with one argument and single statement
+// No need of return keyword / () for parameter declarations
+const calcAge = (birthYear) => 2024 - birthYear;
+const age = calcAge(2001);
+console.log(age); //23
+
+// 2. Arrow Function Multiple Statements & Single Parameter
+// Multiple lines of code inside the Anonymous function hence we cant skip the return keyword, and write statements inside {}
+const retirementAge = (birthYear) => {
+  const age = 2024 - birthYear;
+  const retirement = 65 - age;
+  return retirement;
+};
+
+const retire = retirementAge(2001);
+console.log(retire); //42
+
+// 2. Arrow Function Multiple Statements & Multiple Parameter
+// Wee cant skip return keyword, need to bind parameters inside () & write statements inside {}
+const retirementAge2 = (birthYear, firstName) => {
+  const age = 2024 - birthYear;
+  const retirement = 65 - age;
+  return `${firstName} retires in ${retirement} years`;
+};
+
+const retire2 = retirementAge2(2001, 'Andy');
+console.log(retire2);
