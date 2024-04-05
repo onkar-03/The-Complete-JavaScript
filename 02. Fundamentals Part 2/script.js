@@ -111,48 +111,82 @@
              Statements;
             }
 
+! What is Hoisting ?? 
+    -> Hoisting in JavaScript is a mechanism where variable and function declarations are moved to the top of their containing scope during the compilation phase, before the code is executed. 
+    -> This means that regardless of where the declarations occur within the scope, they are effectively "hoisted" to the top.
+
+* When it comes to functions, hoisting means that function declarations are hoisted entirely, whereas function expressions are not hoisted in the same way.
+
 ! Function Declaration:
 
     -> Function declarations are created using the function keyword followed by the name of the function, a list of parameters (enclosed in parentheses), and the function body (enclosed in curly braces).
     -> Function declarations are hoisted, which means they are moved to the top of their scope during the compilation phase, allowing you to call the function before it's declared in your code.
 
-    eg : function greet(name) {
-           return "Hello, " + name + "!";
-        }
+    ~ eg : Function Declaration 
+           function name (){
+             Statements to execute
+           }
 
+    ~ eg : Function Hoisting 
+           greet("Alice"); // Output: "Hello, Alice!"
+           function greet(name) {
+                     return "Hello, " + name + "!";
+           }
+
+* In this case, even though the function call greet("Alice") comes before the actual function declaration, it still works. This is because the function declaration itself is hoisted to the top of the scope during compilation, so when the code is executed, the function is already available.
 
 ! Expression :  
     -> Function expressions define functions as part of an expression. They can be anonymous (where the function has no name) or named.
     -> They can be assigned to variables, passed as arguments to other functions, or returned from other functions.
 
-    eg : var greet = function(name) {
+    ~ eg : Expression Declaration 
+         var greet = function(name) {
            return "Hello, " + name + "!";
          };
-    eg : var greet = function greet(name) {
+     ~ eg : Expression Declaration
+          var greet = function greet(name) {
            return "Hello, " + name + "!";
-         };     
+         };
 
+     ~ eg : Expression Hosting
+          greet("Bob"); // Error: greet is not a function
+          var greet = function(name) {
+             return "Hello, " + name + "!";
+           };
+
+* In this example, a function expression is assigned to the variable greet. Function expressions are not hoisted in the same way as function declarations. So, when you try to call greet("Bob") before the assignment, you'll get an error because greet is not yet defined
 */
 
-//Function Declaration
+// Function Declaration & Hosting
+
+// Method 1
+console.log(calcAge1);
+
 function calcAge1(birthYear) {
   return 2024 - birthYear;
 }
 
-//Method 1 to display
-// const age = calcAge1(2001);
-// console.log(age);
+// Method 2
+function calcAge2(birthYear) {
+  return 2024 - birthYear;
+}
 
-//OR
+console.log(calcAge2);
 
-//Method 2 to display
-console.log(calcAge1(2001));
-
-// Function Expression
-// Anonymous function declaration as an expression
+// Function Expression & Hosting
 // Here as the anonymous function gives a value hence its an expression
-const calcAge2 = function (birthYear) {
+
+// Method 1 : Right Approach
+const calcAge4 = function (birthYear) {
   return 2024 - birthYear;
 };
 
-console.log(calcAge2(2001));
+console.log(calcAge4(2001));
+
+// Method 2 : Wrong Approach as hosting doesn't work for expressions
+// Throws error can not access calcAge3 before initialization
+console.log(calcAge3(2001));
+
+const calcAge3 = function (birthYear) {
+  return 2024 - birthYear;
+};
