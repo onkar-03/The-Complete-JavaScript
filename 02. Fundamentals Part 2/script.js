@@ -216,34 +216,60 @@
 */
 
 // Anonymous Function Expression
-const calcAge6 = function (birthYear) {
-  return 2024 - birthYear;
-};
+// const calcAge6 = function (birthYear) {
+//   return 2024 - birthYear;
+// };
 
 // 1. Arrow Function for same Anonymous Function with one argument and single statement
 // No need of return keyword / () for parameter declarations
-const calcAge = (birthYear) => 2024 - birthYear;
-const age = calcAge(2001);
-console.log(age); //23
+// const calcAge = (birthYear) => 2024 - birthYear;
+// const age = calcAge(2001);
+// console.log(age); //23
 
 // 2. Arrow Function Multiple Statements & Single Parameter
 // Multiple lines of code inside the Anonymous function hence we cant skip the return keyword, and write statements inside {}
-const retirementAge = (birthYear) => {
-  const age = 2024 - birthYear;
-  const retirement = 65 - age;
-  return retirement;
-};
+// const retirementAge = (birthYear) => {
+//   const age = 2024 - birthYear;
+//   const retirement = 65 - age;
+//   return retirement;
+// };
 
-const retire = retirementAge(2001);
-console.log(retire); //42
+// const retire = retirementAge(2001);
+// console.log(retire); //42
 
 // 2. Arrow Function Multiple Statements & Multiple Parameter
 // Wee cant skip return keyword, need to bind parameters inside () & write statements inside {}
-const retirementAge2 = (birthYear, firstName) => {
-  const age = 2024 - birthYear;
-  const retirement = 65 - age;
-  return `${firstName} retires in ${retirement} years`;
-};
+// const retirementAge2 = (birthYear, firstName) => {
+//   const age = 2024 - birthYear;
+//   const retirement = 65 - age;
+//   return `${firstName} retires in ${retirement} years`;
+// };
 
-const retire2 = retirementAge2(2001, 'Andy');
-console.log(retire2);
+// const retire2 = retirementAge2(2001, 'Andy');
+// console.log(retire2);
+
+// & ------------------------------> Lecture 04 <-------------------------------
+
+// ^ Function calling other Functions : ----------------------------------------
+
+/* 
+
+*/
+
+function cutFruitPiece(fruit) {
+  return fruit * 4;
+}
+
+function fruitProcessor(apples, oranges) {
+  // Calling another function inside a function
+  // First cutting the Fruits to smaller pieces
+  const applePieces = cutFruitPiece(apples);
+  const orangePieces = cutFruitPiece(oranges);
+
+  // Juice from the Fruits
+  const juice = `Juice with ${applePieces} apple pieces & ${orangePieces} orange pieces`;
+  return juice;
+}
+
+const juice = fruitProcessor(2, 3);
+console.log(juice); // 8 apple pieces & 12 orange pieces
