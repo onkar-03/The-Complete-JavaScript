@@ -1,4 +1,4 @@
-// & ------------------------------> Lecture 01 <-------------------------------
+// & ------------------------------> Lecture 01 & 02 <-------------------------------
 
 // ^ Activating Strict Mode : -------------------------------------------------
 
@@ -42,7 +42,7 @@
 // const interface = false; //error
 // const private = false; //error
 
-// & ------------------------------> Lecture 02 <-------------------------------
+// & ------------------------------> Lecture 03 <-------------------------------
 
 // ^ Functions : -------------------------------------------------
 
@@ -114,7 +114,7 @@
 // const appleOrangeJuice = fruitProcessor(2, 3);
 // console.log(appleOrangeJuice);
 
-// & ------------------------------> Lecture 03 <-------------------------------
+// & ------------------------------> Lecture 04 <-------------------------------
 
 // ^ Functions Declaration Vs Expression : -------------------------------------
 
@@ -206,7 +206,7 @@
 //   return 2024 - birthYear;
 // };
 
-// & ------------------------------> Lecture 04 <-------------------------------
+// & ------------------------------> Lecture 05 <-------------------------------
 
 // ^ Arrow Functions : -------------------------------------
 
@@ -263,7 +263,7 @@
 // const retire2 = retirementAge2(2001, 'Andy');
 // console.log(retire2);
 
-// & ------------------------------> Lecture 04 <-------------------------------
+// & ------------------------------> Lecture 06 & 07 <-------------------------------
 
 // ^ Function calling other Functions : ----------------------------------------
 
@@ -271,42 +271,134 @@
     -> In JavaScript, you can create functions that call other functions. This is a fundamental aspect of modular programming and helps in organizing code into smaller, more manageable pieces
 */
 
-function cutFruitPiece(fruit) {
-  return fruit * 4;
-}
+// function cutFruitPiece(fruit) {
+//   return fruit * 4;
+// }
 
-function fruitProcessor(apples, oranges) {
-  // Calling another function inside a function
-  // First cutting the Fruits to smaller pieces
-  const applePieces = cutFruitPiece(apples);
-  const orangePieces = cutFruitPiece(oranges);
+// function fruitProcessor(apples, oranges) {
+// Calling another function inside a function
+// First cutting the Fruits to smaller pieces
+// const applePieces = cutFruitPiece(apples);
+// const orangePieces = cutFruitPiece(oranges);
 
-  // Juice from the Fruits
-  const juice = `Juice with ${applePieces} apple pieces & ${orangePieces} orange pieces`;
-  return juice;
-}
+// Juice from the Fruits
+//   const juice = `Juice with ${applePieces} apple pieces & ${orangePieces} orange pieces`;
+//   return juice;
+// }
 
-const juice = fruitProcessor(2, 3);
-console.log(juice); // 8 apple pieces & 12 orange pieces
+// const juice = fruitProcessor(2, 3);
+// console.log(juice); // 8 apple pieces & 12 orange pieces
 
 // Another Example
 
-function calcAge(birthYear) {
-  return 2024 - birthYear;
-}
+// function calcAge(birthYear) {
+//   return 2024 - birthYear;
+// }
 
-const retirementAge2 = function (birthYear, firstName) {
-  const age = calcAge(birthYear);
-  const retirement = 65 - age;
+// const retirementAge2 = function (birthYear, firstName) {
+//   const age = calcAge(birthYear);
+//   const retirement = 65 - age;
 
-  if (retirement >= 0) {
-    return `${firstName} retires in ${retirement} years`;
-  } else {
-    return `${firstName} has already retired 🥳`;
-  }
-};
+//   if (retirement >= 0) {
+//     return `${firstName} retires in ${retirement} years`;
+//   } else {
+//     return `${firstName} has already retired 🥳`;
+//   }
+// };
 
-const retire = retirementAge2(2001, 'Andy');
-console.log(retire);
+// const retire = retirementAge2(2001, 'Andy');
+// console.log(retire);
 
-console.log(retirementAge2(1920, 'Anderson'));
+// console.log(retirementAge2(1920, 'Anderson'));
+
+// & ------------------------------> Lecture 09 <-------------------------------
+
+// ^ Introduction to Arrays : ---------------------------------------------
+
+/* 
+
+! What is Array ?? -----------------------------------------------------------
+
+    -> Arrays in JavaScript are used to store multiple values in a single variable. 
+
+    -> They are a type of data structure that allows you to store collections of items.
+
+     -> Arrays can hold any data type, including numbers, strings, objects, functions, and even other arrays.
+
+    -> Arrays in JavaScript are zero-indexed, meaning the first element is accessed with an index of 0, the second element with an index of 1, and so on.
+
+    -> Arrays in JavaScript can store elements of different data types. While it's common for arrays to contain elements of the same type (e.g., an array of numbers or an array of strings), JavaScript does not enforce this. You can mix different data types within the same array.
+
+    -> Arrays in JavaScript are mutable, meaning you can change their elements, length, and properties, even if they are declared as const.
+
+    -> But we can't change the whole array with new elements thats not possible, gives error : 'Assignment to const variable' 
+
+* Basic Operations on Array : --------------------------------------------------------
+
+    1. Printing all Elements of array : console.log(arrayName);
+    2. Printing Individual Elements of array : console.log(arrayName[index]);
+    3. Printing Length of array : console.log(arrayName.length);
+    4. Mutating the Array : arrayName[index] = newValue;
+*/
+
+// ! Declaring an array Method 1 :
+const friends = ['Andy', 'Michael', 'Jordan'];
+
+// Printing all the elements of array
+console.log(friends);
+
+// Printing Individual Elements of array
+console.log(friends[0]);
+console.log(friends[1]);
+console.log(friends[2]);
+
+// ! Declaring Arrays Method 2 :
+const years = new Array(1990, 1995, 2000);
+
+// Printing all the elements of array
+console.log(years);
+
+// Printing Individual Elements of array
+console.log(years[0]);
+console.log(years[1]);
+console.log(years[2]);
+
+// Array Holding different data types under one variable name
+const firstName = 'Andy';
+const variety = [firstName, 'Michael', 2000, 'Jordan', 1995];
+
+//Printing the whole array
+console.log(variety);
+
+//Printing the Array length
+console.log(variety.length);
+
+// Finding Length of Array
+console.log(friends.length); // 6
+
+// Accessing Second last Element of array
+// Index : length of array - 1
+console.log(friends[friends.length - 1]);
+
+// Mutating the array
+friends[2] = 'Harry';
+
+// Printing the new array
+console.log(friends);
+
+// Trying to change the whole array : ERROR 'Assignment to const variable'
+// friends = ['Alice', 'Jack'];
+
+//Exercise
+const age = (birthYear) => 2024 - birthYear;
+const birthYears = [1990, 2001, 2004, 1974];
+
+// Calculating age according to birthYear and storing them in an array
+const ages = [
+  age(birthYears[0]),
+  age(birthYears[1]),
+  age(birthYears[2]),
+  age(birthYears[age.length - 1]),
+];
+
+console.log(ages);
