@@ -60,10 +60,23 @@
 
     Syntax : function name (Parameters){
         Executable Statements
+        return ; // if function returns a value
              }
 
+     -> statements + return are called the body of the function
+     -> Parameters : are like the local variables of the function
+     -> They are used as placeholders to receive input values
+
 ! Calling a Function : --------------------------------------------------------
-    Syntax : functionName(Arguments);
+    Syntax : const value = functionName(Arguments);
+
+    -> Holding the returned value of function in a variable , incase functions returns a value
+    -> passing arguments to the function, which assign values to the parameters / placeholders defined in the function
+
+! return keyword : -----------------------------------------------------------
+    -> The return; statement immediately returns to the next line after the function call.
+    -> This means anything written after the return statement will not be executed
+    -> The return keyword is used to return a value from a function
 
 * CONCLUSION : Functions allow us to write more maintainable code. As we can create a reusable piece of code without having to write it over and over again.
 
@@ -207,6 +220,8 @@
     -> If we have only one liner Statement then we can skip the return keyword 
     -> If there are multiple lines of code / statements then we can skip the return keyword, and need to write the statements inside the {}
 
+    -> There is also no 'this' keyword used in arrow functions about which we will learn later
+
     -> If we have multiple parameters we nee dto bind them under ()
     -> If there is only a single parameter then its not compulsory
 
@@ -253,7 +268,7 @@
 // ^ Function calling other Functions : ----------------------------------------
 
 /* 
-
+    -> In JavaScript, you can create functions that call other functions. This is a fundamental aspect of modular programming and helps in organizing code into smaller, more manageable pieces
 */
 
 function cutFruitPiece(fruit) {
@@ -273,3 +288,25 @@ function fruitProcessor(apples, oranges) {
 
 const juice = fruitProcessor(2, 3);
 console.log(juice); // 8 apple pieces & 12 orange pieces
+
+// Another Example
+
+function calcAge(birthYear) {
+  return 2024 - birthYear;
+}
+
+const retirementAge2 = function (birthYear, firstName) {
+  const age = calcAge(birthYear);
+  const retirement = 65 - age;
+
+  if (retirement >= 0) {
+    return `${firstName} retires in ${retirement} years`;
+  } else {
+    return `${firstName} has already retired 🥳`;
+  }
+};
+
+const retire = retirementAge2(2001, 'Andy');
+console.log(retire);
+
+console.log(retirementAge2(1920, 'Anderson'));
