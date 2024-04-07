@@ -342,63 +342,177 @@
 */
 
 // ! Declaring an array Method 1 :
-const friends = ['Andy', 'Michael', 'Jordan'];
+// const friends = ['Andy', 'Michael', 'Jordan'];
 
 // Printing all the elements of array
-console.log(friends);
+// console.log(friends);
 
 // Printing Individual Elements of array
-console.log(friends[0]);
-console.log(friends[1]);
-console.log(friends[2]);
+// console.log(friends[0]);
+// console.log(friends[1]);
+// console.log(friends[2]);
 
 // ! Declaring Arrays Method 2 :
-const years = new Array(1990, 1995, 2000);
+// const years = new Array(1990, 1995, 2000);
 
 // Printing all the elements of array
-console.log(years);
+// console.log(years);
 
 // Printing Individual Elements of array
-console.log(years[0]);
-console.log(years[1]);
-console.log(years[2]);
+// console.log(years[0]);
+// console.log(years[1]);
+// console.log(years[2]);
 
 // Array Holding different data types under one variable name
-const firstName = 'Andy';
-const variety = [firstName, 'Michael', 2000, 'Jordan', 1995];
+// const firstName = 'Andy';
+// const variety = [firstName, 'Michael', 2000, 'Jordan', 1995];
 
 //Printing the whole array
-console.log(variety);
+// console.log(variety);
 
 //Printing the Array length
-console.log(variety.length);
+// console.log(variety.length);
 
 // Finding Length of Array
-console.log(friends.length); // 6
+// console.log(friends.length); // 6
 
 // Accessing Second last Element of array
 // Index : length of array - 1
-console.log(friends[friends.length - 1]);
+// console.log(friends[friends.length - 1]);
 
 // Mutating the array
-friends[2] = 'Harry';
+// friends[2] = 'Harry';
 
 // Printing the new array
-console.log(friends);
+// console.log(friends);
 
 // Trying to change the whole array : ERROR 'Assignment to const variable'
 // friends = ['Alice', 'Jack'];
 
 //Exercise
-const age = (birthYear) => 2024 - birthYear;
-const birthYears = [1990, 2001, 2004, 1974];
+// const age = (birthYear) => 2024 - birthYear;
+// const birthYears = [1990, 2001, 2004, 1974];
 
 // Calculating age according to birthYear and storing them in an array
-const ages = [
-  age(birthYears[0]),
-  age(birthYears[1]),
-  age(birthYears[2]),
-  age(birthYears[age.length - 1]),
-];
+// const ages = [
+//   age(birthYears[0]),
+//   age(birthYears[1]),
+//   age(birthYears[2]),
+//   age(birthYears[age.length - 1]),
+// ];
 
-console.log(ages);
+// console.log(ages);
+
+// & ------------------------------> Lecture 10 <-------------------------------
+
+// ^ Basic Operations on Array : ---------------------------------------------
+
+/* 
+    1. arrayName.push() : 
+        -> Adds element to the end of the Array
+        -> Needs an argument that is to be added in the array
+        -> The .push() function also returns a value which is the length of the new Array
+        -> So incase we need to find the value of array after adding something using push we dont need to calculate that explicitly
+        
+    2. arrayName.unshift() : 
+        -> Adds element to the beginning of the Array
+        -> Needs an argument that is to be added in the array
+        
+    3. pop() : 
+        -> Removes element from the end of the Array
+        -> No arguments required in the function 
+        -> The pop() Function also returns a value which is the end element of the array
+        -> So we can store it and print if we need it 
+        
+    4. shift() : 
+        -> Removes element from the beginning of the Array
+        -> No arguments required in the function 
+        -> This also return the element that was removed from the beginning of the array so if we need that we can capture it 
+
+    5. indexOf() : 
+        -> Returns the Index at which the element is present at in the Array
+        -> Needs an argument that is to be searched in the array
+        -> Returns the index of the element if there 
+        -> If the element is not present then it returns -1
+        -> It's Case & Type Sensitive
+
+    6. includes() :
+        -> This does not return the Index of the element, it returns a boolean value
+        -> True if the element is present, otherwise false if element is not present
+        -> It's Case & Type Sensitive
+*/
+
+const friends = ['Andy', 'Michael', 'Jordan'];
+
+// & 1. Pushing Element at the end of the Array
+friends.push('Ash');
+
+// Print the new Array
+console.log(friends);
+
+//If we want the length of the new array simply store the value of the push function in a variable as it returns a value which is the length of the new array
+const newLength = friends.push('Bob');
+
+// Print the new Array
+console.log(friends);
+
+// Length of array
+console.log(newLength);
+
+// & 2. Unshifting Element at the beginning of the Array
+friends.unshift('Jay');
+
+// Printing the new Array
+console.log(friends);
+
+// & 3. Popping Element from the end of the Array
+
+// Storing the popped element in a variable
+friends.pop(); //Bob
+
+// Printing the new array
+console.log(friends);
+
+// Popping another element but also storing the popped element in a variable
+const popped = friends.pop(); // Ash
+
+// Printing the popped element of the array
+console.log(popped);
+
+// & 4. Shifting Element from the beginning of the Array
+friends.shift(); // Jay
+
+// Printing the new array
+console.log(friends);
+
+// Popping another element but also storing the popped element in a variable
+const pop = friends.shift(); //Andy
+
+// Printing the popped element of the array
+console.log(pop);
+
+//  & 5. Return Index of elements
+console.log(friends.indexOf('Michael')); // 0th Index
+
+console.log(friends.indexOf('Jay')); // -1 as Jay is not present in the array
+
+// & 6. Includes() Function
+console.log(friends.includes('Michael')); // True
+
+console.log(friends.includes('Jay')); // False
+
+// Exercise
+friends.push(23); // Number
+
+// As indexOf() & includes() are Type Sensitive hence the includes returns false for '23'
+if (friends.includes('23')) {
+  console.log('23 is present in the array as a string');
+} else if (friends.includes(23)) {
+  console.log('23 is present in the array as a number');
+}
+
+if (friends.includes('Michael')) {
+  console.log('You have a friend named Michael');
+} else if (friends.includes('michael')) {
+  console.log('You have a friend named michael');
+}
