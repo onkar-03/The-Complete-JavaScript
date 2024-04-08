@@ -574,7 +574,7 @@
 //   friends: ['Andy', 'Michael', 'John'],
 // };
 
-// & ------------------------------> Lecture 13 <--------------------------------------
+// & ------------------------------> Lecture 13 <-------------------------------
 
 // ^ Retrieve Data from Objects & Change Data of Objects using Dot & Bracket [] :
 
@@ -667,7 +667,7 @@
 //   `${personalInfo.firstName} has ${personalInfo.friends.length} friends and his best friend is ${personalInfo.friends[0]}`,
 // );
 
-// & ------------------------------> Lecture 14 <--------------------------------------
+// & ------------------------------> Lecture 14 <-------------------------------
 
 // ^ Object Methods :
 
@@ -702,47 +702,47 @@
 
 */
 
-const personalInfo = {
-  firstName: 'Onkar',
-  lastName: 'Patel',
-  birthYear: 2001,
-  profession: 'student',
-  friends: ['Andy', 'Michael', 'John'],
-  hasDriversLicense: true,
+// const personalInfo = {
+//   firstName: 'Onkar',
+//   lastName: 'Patel',
+//   birthYear: 2001,
+//   profession: 'student',
+//   friends: ['Andy', 'Michael', 'John'],
+//   hasDriversLicense: true,
 
-  // 1. Adding a Function to calculate the age
-  // Here the calcAge is not a variable rather a property of the class personalInfo
-  //   calcAge: function (birthYear)  {
-  //     return 2024 - birthYear;
-  //   },
+// 1. Adding a Function to calculate the age
+// Here the calcAge is not a variable rather a property of the class personalInfo
+//   calcAge: function (birthYear)  {
+//     return 2024 - birthYear;
+//   },
 
-  // 2. Function using this keyword
-  //   calcAge: function () {
-  //     // this refers to the whole object
-  //     console.log(this);
+// 2. Function using this keyword
+//   calcAge: function () {
+//     // this refers to the whole object
+//     console.log(this);
 
-  //     // this.birthYear refers to the birthYear declared above
-  //     // No need of explicit argument here then
-  //     return 2024 - this.birthYear;
-  //   },
+//     // this.birthYear refers to the birthYear declared above
+//     // No need of explicit argument here then
+//     return 2024 - this.birthYear;
+//   },
 
-  // 3. Adding property using this keyword
-  calcAge: function () {
-    //Creating a new variable age using . operator
-    this.age = 2024 - this.birthYear;
+// 3. Adding property using this keyword
+//   calcAge: function () {
+//     //Creating a new variable age using . operator
+//     this.age = 2024 - this.birthYear;
 
-    //If we dont return anything the Function itself return undefined by default
-    return this.age;
-  },
+//     //If we dont return anything the Function itself return undefined by default
+//     return this.age;
+//   },
 
-  summary: function () {
-    return `${
-      personalInfo.firstName
-    } is a ${personalInfo.calcAge()} years old ${
-      personalInfo.profession
-    } and he has ${this.hasDriversLicense ? 'a' : 'no'} drivers license`;
-  },
-};
+//   summary: function () {
+//     return `${
+//       personalInfo.firstName
+//     } is a ${personalInfo.calcAge()} years old ${
+//       personalInfo.profession
+//     } and he has ${this.hasDriversLicense ? 'a' : 'no'} drivers license`;
+//   },
+// };
 // 1. Printing values when this function isn't used
 // console.log(personalInfo.calcAge(personalInfo.birthYear));
 // console.log(personalInfo['calcAge'](personalInfo.birthYear));
@@ -752,10 +752,40 @@ const personalInfo = {
 // console.log(personalInfo['calcAge']());
 
 // 3. Printing the newly calculated property
-console.log(personalInfo.calcAge());
-console.log(personalInfo.age);
+// console.log(personalInfo.calcAge());
+// console.log(personalInfo.age);
 
 // Challenge
 // Onkar is a 23 year old student and he has a drivers License
 
-console.log(personalInfo.summary());
+// console.log(personalInfo.summary());
+
+// & ------------------------------> Lecture 16 <-------------------------------
+
+// ^ Iteration the For Loop : -------------------------------------------------
+
+/* 
+    -> Loops, are fundamental constructs in programming that allow you to execute a block of code repeatedly. 
+
+    -> The for loop is particularly useful when you know the number of iterations in advance.
+
+    -> Loops allow us to automate a repetitive tasks. So that we can perform the tasks over and over again
+
+* For Loop has following three main components : 
+    1. initialization: Typically, this is where you initialize a counter variable. It executes before the loop starts.
+
+    2. condition: This is the condition that is evaluated before each iteration. If the condition is true, the loop continues; otherwise, it stops.
+
+    3. update: Usually, this is where you update the counter variable. It executes at the end of each iteration.
+
+    eg : for (initialization ; condition ; update){
+            Statements to execute
+         }
+
+    -> For loops Statements are executed while condition is true
+*/
+
+// i = i + 1 === i++ : Incrementing the counter by 1
+for (let i = 1; i <= 10; i++) {
+  console.log(`Lifting Weights Repetition ${i}`);
+}
