@@ -873,27 +873,81 @@
 // ^ Looping Backwards & Loops in Loops : -----------------------------------
 
 // Array
-const details = [
-  'Onkar',
-  'Patel',
-  2024 - 2001,
-  'student',
-  ['Andy', 'Michael', 'John'],
-];
+// const details = [
+//   'Onkar',
+//   'Patel',
+//   2024 - 2001,
+//   'student',
+//   ['Andy', 'Michael', 'John'],
+// ];
 
 // Looping backwards means from the last element to the first
 // Last index of Array =  array.length-1
 // First Index = 0
 // Hence we loop from array.length - 1 up until 0
 // i-- to decrement the value
-for (let i = details.length - 1; i >= 0; i--) {
-  console.log(details[i]);
-}
+// for (let i = details.length - 1; i >= 0; i--) {
+//   console.log(details[i]);
+// }
 
 //Loops inside Loops
-for (let exercise = 1; exercise < 4; exercise++) {
-  console.log(`-------Starting Exercise: ${exercise}-------`);
-  for (let rep = 1; rep < 6; rep++) {
-    console.log(`Exercise ${exercise} Lifting Weights Repetition: ${rep}`);
+// for (let exercise = 1; exercise < 4; exercise++) {
+//   console.log(`-------Starting Exercise: ${exercise}-------`);
+//   for (let rep = 1; rep < 6; rep++) {
+//     console.log(`Exercise ${exercise} Lifting Weights Repetition: ${rep}`);
+//   }
+// }
+
+// & ------------------------------> Lecture 19 <-------------------------------
+
+// ^ While Loop : -------------------------------------------------------------
+
+/* 
+    -> The while loop in JavaScript executes a block of code as long as a specified condition evaluates to true
+
+    eg : initialization the counter
+         while(Condition){
+            Statements to execute ;
+            incrementing / decrementing the counter
+         }
+* For Loop Vs While Loop :
+
+    -> The for loop is typically used when you know the number of iterations you want to perform.
+    -> The while loop is used when you want to execute a block of code as long as a specified condition is true.
+*/
+
+// For Loop : --------------------------------
+console.log(`----For Loop----`);
+for (let i = 1; i <= 5; i++) {
+  console.log(`Lifting Weights Repetition ${i}`);
+}
+
+// While Loop : --------------------------------
+console.log(`----While Loop----`);
+// initialization the counter
+let rep = 1;
+//condition
+while (rep <= 5) {
+  //Statement to execute
+  console.log(`Lifting Weights Repetition ${rep}`);
+  // Incrementing the counter
+  rep++;
+}
+
+// Dice game
+// Math.random() generates a random number between 0(inclusive) and 1 (exclusive)
+// Mth.trunc() used to provide only Integer Part of the Number
+// + 1 at teh End to make the range from o (inclusive) to 1 (inclusive)
+let dice = Math.trunc(Math.random() * 6) + 1;
+console.log(dice);
+
+while (dice !== 6) {
+  console.log(`You Rolled a ${dice}`);
+
+  // Reassigning value to dice
+  dice = Math.trunc(Math.random() * 6) + 1;
+
+  if (dice === 6) {
+    console.log(`You Rolled and got 6 & Loop Ended !!`);
   }
 }
