@@ -442,77 +442,130 @@
         -> It's Case & Type Sensitive
 */
 
-const friends = ['Andy', 'Michael', 'Jordan'];
+// const friends = ['Andy', 'Michael', 'Jordan'];
 
 // & 1. Pushing Element at the end of the Array
-friends.push('Ash');
+// friends.push('Ash');
 
 // Print the new Array
-console.log(friends);
+// console.log(friends);
 
 //If we want the length of the new array simply store the value of the push function in a variable as it returns a value which is the length of the new array
-const newLength = friends.push('Bob');
+// const newLength = friends.push('Bob');
 
 // Print the new Array
-console.log(friends);
+// console.log(friends);
 
 // Length of array
-console.log(newLength);
+// console.log(newLength);
 
 // & 2. Unshifting Element at the beginning of the Array
-friends.unshift('Jay');
+// friends.unshift('Jay');
 
 // Printing the new Array
-console.log(friends);
+// console.log(friends);
 
 // & 3. Popping Element from the end of the Array
 
 // Storing the popped element in a variable
-friends.pop(); //Bob
+// friends.pop(); //Bob
 
 // Printing the new array
-console.log(friends);
+// console.log(friends);
 
 // Popping another element but also storing the popped element in a variable
-const popped = friends.pop(); // Ash
+// const popped = friends.pop(); // Ash
 
 // Printing the popped element of the array
-console.log(popped);
+// console.log(popped);
 
 // & 4. Shifting Element from the beginning of the Array
-friends.shift(); // Jay
+// friends.shift(); // Jay
 
 // Printing the new array
-console.log(friends);
+// console.log(friends);
 
 // Popping another element but also storing the popped element in a variable
-const pop = friends.shift(); //Andy
+// const pop = friends.shift(); //Andy
 
 // Printing the popped element of the array
-console.log(pop);
+// console.log(pop);
 
 //  & 5. Return Index of elements
-console.log(friends.indexOf('Michael')); // 0th Index
+// console.log(friends.indexOf('Michael')); // 0th Index
 
-console.log(friends.indexOf('Jay')); // -1 as Jay is not present in the array
+// console.log(friends.indexOf('Jay')); // -1 as Jay is not present in the array
 
 // & 6. Includes() Function
-console.log(friends.includes('Michael')); // True
+// console.log(friends.includes('Michael')); // True
 
-console.log(friends.includes('Jay')); // False
+// console.log(friends.includes('Jay')); // False
 
 // Exercise
-friends.push(23); // Number
+// friends.push(23); // Number
 
 // As indexOf() & includes() are Type Sensitive hence the includes returns false for '23'
-if (friends.includes('23')) {
-  console.log('23 is present in the array as a string');
-} else if (friends.includes(23)) {
-  console.log('23 is present in the array as a number');
-}
+// if (friends.includes('23')) {
+//   console.log('23 is present in the array as a string');
+// } else if (friends.includes(23)) {
+//   console.log('23 is present in the array as a number');
+// }
 
-if (friends.includes('Michael')) {
-  console.log('You have a friend named Michael');
-} else if (friends.includes('michael')) {
-  console.log('You have a friend named michael');
-}
+// if (friends.includes('Michael')) {
+//   console.log('You have a friend named Michael');
+// } else if (friends.includes('michael')) {
+//   console.log('You have a friend named michael');
+// }
+
+// & ------------------------------> Lecture 12 <-------------------------------
+
+// ^ Introduction to Objects : ---------------------------------------------
+
+/* 
+    -> In an array we dont have hte luxury to name different elements like firstName, lastName,Age, Profession, Friends etc.. we can only refer to them by their order number
+
+    -> Objects are one of the fundamental data types, allowing you to store collections of key-value pairs, means we can give names to different elements we store here
+
+    -> Key refers tio the variable name 
+    -> Keys are also known as properties
+    -> Value refers to the Actual element we want to store
+
+    -> In objects the order of the values does not matter when we want to retrieve them
+
+* Objects VS Arrays : --------------------------------
+    -> In arrays the order in which we specify the elements matter a lot because thats how we access the elements, which means we can only access elements of array using their order number.
+    
+    -> In Objects this is not the case, we can access elements irrespective of their order 
+    
+    -> Hence Arrays are used for Structured Data whereas Objects are used for Unstructured Data
+
+    -> Objects used when we want to store data with a name and retrieve data using that key value / name
+*/
+
+// Array
+// Containing firstName, lastName, Age, Profession, Friends
+// Also we can have an array inside an array as we have a friends array inside details
+// To access the Array elements inside another array :
+// At 4th Index the Second array is placed
+// The elements are at 0 1 2 Indexes respectively in that array
+// To access them we can :
+// console.log(details[4][0]) : Andy
+// console.log(details[4][1]) : Michael
+// console.log(details[4][2]) : John
+const details = [
+  'Onkar',
+  'Patel',
+  2024 - 2001,
+  'student',
+  ['Andy', 'Michael', 'John'],
+];
+
+// ! Declaring Objects using Object Literal Syntax Method (Easiest Way)
+// Key values pairs where keys are the names we wanted to give to each of the elements / data
+const personalInfo = {
+  firstName: 'Onkar',
+  lastName: 'Patel',
+  age: 2024 - 2001,
+  profession: 'student',
+  friends: ['Andy', 'Michael', 'John'],
+};
