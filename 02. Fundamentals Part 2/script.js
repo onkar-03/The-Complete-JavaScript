@@ -552,16 +552,64 @@
 // console.log(details[4][0]) : Andy
 // console.log(details[4][1]) : Michael
 // console.log(details[4][2]) : John
-const details = [
-  'Onkar',
-  'Patel',
-  2024 - 2001,
-  'student',
-  ['Andy', 'Michael', 'John'],
-];
+// const details = [
+//   'Onkar',
+//   'Patel',
+//   2024 - 2001,
+//   'student',
+//   ['Andy', 'Michael', 'John'],
+// ];
 
 // ! Declaring Objects using Object Literal Syntax Method (Easiest Way)
 // Key values pairs where keys are the names we wanted to give to each of the elements / data
+// const personalInfo = {
+//   firstName: 'Onkar',
+//   lastName: 'Patel',
+//   age: 2024 - 2001,
+//   profession: 'student',
+//   friends: ['Andy', 'Michael', 'John'],
+// };
+
+// & ------------------------------> Lecture 13 <--------------------------------------
+
+// ^ Retrieve Data from Objects & Change Data of Objects using Dot & Bracket [] :
+
+/* 
+
+? In JavaScript, you can retrieve data from objects using either dot notation or bracket notation.
+
+1. Dot Notation:
+    -> Dot notation is the simplest way to access properties of an object. You use the dot (.) followed by the property name / key
+
+    eg : console.log(variableName.propertyName);
+
+2. Bracket Notation:
+    -> Bracket notation allows you to access properties using a string containing the property name within square brackets ([])
+
+    -> In [] we can put any expression here 
+
+    eg : console.log(variableName['propertyName']);
+
+* When to Use a Dot notation& When to Use a Bracket notation ?? 
+
+    -> Bracket notation also allows you to use computed property names, which can be expressions or variables enclosed in square brackets. This feature is not available with dot notation.
+
+    -> Use bracket notation when the property name is dynamic or stored in a variable.Bracket notation allows you to access properties with special characters or reserved words as their names.
+
+    -> Else we can use the Dot notation provides a cleaner and more concise syntax, which can improve readability, especially for simple property access.
+
+? Add New Properties & Values to the Object : 
+
+    -> We can add new properties to the object using the dot (.) notation
+    -> We can add new properties to the object using the bracket ([]) notation
+    -> Simply write the objectName.propertyName = value;
+
+    eg : personalInfo.location = 'London';
+    eg : personalInfo['location'] = 'London';
+ 
+*  Important : Both '.' and [] are read & evaluated from L -> R, and have the second highest Priority in Operator Precedence.
+*/
+
 const personalInfo = {
   firstName: 'Onkar',
   lastName: 'Patel',
@@ -569,3 +617,48 @@ const personalInfo = {
   profession: 'student',
   friends: ['Andy', 'Michael', 'John'],
 };
+
+console.log(personalInfo);
+
+// Using '.' Operator
+console.log(personalInfo.firstName);
+
+// Using []
+console.log(personalInfo['lastName']);
+
+// repeating variable
+const nameKey = 'Name';
+
+// Trying any expression inside the []
+// Computed Property Names
+console.log(personalInfo['last' + nameKey]); // lastName using concatenation
+
+// Same wont work for '.' Operator
+// console.log(personalInfo.'last' + nameKey); // Wrong
+
+// Dynamically Stored property names in variable
+const interestedIn = prompt(
+  `What do you want to know ?? FirstName, LastName, Age, Job, Friends`,
+);
+
+// Using [] Notation to display the required property input by the User
+// Check if user input is within the asked properties using if-else
+if (personalInfo[interestedIn]) {
+  console.log(personalInfo[interestedIn]);
+} else {
+  console.log(
+    'Wrong Request !! Choose between FirstName, LastName, Age, Job, Friends',
+  );
+}
+
+// Adding New Properties and values to Object
+personalInfo.location = 'India';
+personalInfo['language'] = 'Hindi';
+console.log(personalInfo);
+
+// Challenge
+// Onkar has 3 friends and his best friend is Andy
+
+console.log(
+  `${personalInfo.firstName} has ${personalInfo.friends.length} friends and his best friend is ${personalInfo.friends[0]}`,
+);
