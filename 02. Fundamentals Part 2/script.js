@@ -333,6 +333,8 @@
 
     -> But we can't change the whole array with new elements thats not possible, gives error : 'Assignment to const variable' 
 
+    -> Arrays are also objects but are a special kind of objects with various methods to perform various operations we will see the similarities between them during objects
+
 * Basic Operations on Array : --------------------------------------------------------
 
     1. Printing all Elements of array : console.log(arrayName);
@@ -526,6 +528,8 @@
 
     -> Objects are one of the fundamental data types, allowing you to store collections of key-value pairs, means we can give names to different elements we store here
 
+    -> Objects can hold different types of data, they can hold arrays as well also they can store objects inside objects
+
     -> Key refers tio the variable name 
     -> Keys are also known as properties
     -> Value refers to the Actual element we want to store
@@ -590,7 +594,7 @@
 
     eg : console.log(variableName['propertyName']);
 
-* When to Use a Dot notation& When to Use a Bracket notation ?? 
+* When to Use a Dot notation & When to Use a Bracket notation ?? 
 
     -> Bracket notation also allows you to use computed property names, which can be expressions or variables enclosed in square brackets. This feature is not available with dot notation.
 
@@ -607,58 +611,151 @@
     eg : personalInfo.location = 'London';
     eg : personalInfo['location'] = 'London';
  
-*  Important : Both '.' and [] are read & evaluated from L -> R, and have the second highest Priority in Operator Precedence.
+*  Important : Both '.' and [] are read & evaluated from L -> R, and have the second highest Priority in Operator Precedence after brackets.
 */
 
-const personalInfo = {
-  firstName: 'Onkar',
-  lastName: 'Patel',
-  age: 2024 - 2001,
-  profession: 'student',
-  friends: ['Andy', 'Michael', 'John'],
-};
+// const personalInfo = {
+//   firstName: 'Onkar',
+//   lastName: 'Patel',
+//   age: 2024 - 2001,
+//   profession: 'student',
+//   friends: ['Andy', 'Michael', 'John'],
+// };
 
-console.log(personalInfo);
+// console.log(personalInfo);
 
 // Using '.' Operator
-console.log(personalInfo.firstName);
+// console.log(personalInfo.firstName);
 
 // Using []
-console.log(personalInfo['lastName']);
+// console.log(personalInfo['lastName']);
 
 // repeating variable
-const nameKey = 'Name';
+// const nameKey = 'Name';
 
 // Trying any expression inside the []
 // Computed Property Names
-console.log(personalInfo['last' + nameKey]); // lastName using concatenation
+// console.log(personalInfo['last' + nameKey]); // lastName using concatenation
 
 // Same wont work for '.' Operator
 // console.log(personalInfo.'last' + nameKey); // Wrong
 
 // Dynamically Stored property names in variable
-const interestedIn = prompt(
-  `What do you want to know ?? FirstName, LastName, Age, Job, Friends`,
-);
+// const interestedIn = prompt(
+//   `What do you want to know ?? FirstName, LastName, Age, Job, Friends`,
+// );
 
 // Using [] Notation to display the required property input by the User
 // Check if user input is within the asked properties using if-else
-if (personalInfo[interestedIn]) {
-  console.log(personalInfo[interestedIn]);
-} else {
-  console.log(
-    'Wrong Request !! Choose between FirstName, LastName, Age, Job, Friends',
-  );
-}
+// if (personalInfo[interestedIn]) {
+//   console.log(personalInfo[interestedIn]);
+// } else {
+//   console.log(
+//     'Wrong Request !! Choose between FirstName, LastName, Age, Job, Friends',
+//   );
+// }
 
 // Adding New Properties and values to Object
-personalInfo.location = 'India';
-personalInfo['language'] = 'Hindi';
-console.log(personalInfo);
+// personalInfo.location = 'India';
+// personalInfo['language'] = 'Hindi';
+// console.log(personalInfo);
 
 // Challenge
 // Onkar has 3 friends and his best friend is Andy
 
-console.log(
-  `${personalInfo.firstName} has ${personalInfo.friends.length} friends and his best friend is ${personalInfo.friends[0]}`,
-);
+// console.log(
+//   `${personalInfo.firstName} has ${personalInfo.friends.length} friends and his best friend is ${personalInfo.friends[0]}`,
+// );
+
+// & ------------------------------> Lecture 14 <--------------------------------------
+
+// ^ Object Methods :
+
+/* 
+    -> Functions in object needs to be written as an expression and not as a declaration
+    -> Functions declared inside objects are called methods.
+    -> Im Simpler Words the Function are the Values of methods defined
+
+    eg : fullName: function(parameters) {
+             return this.firstName + " " + this.lastName;
+         }
+
+         fullName -> Name of the Method
+         function() : Value of the Method
+
+    eg : fullName(parameters) {
+             return `${this.firstName} ${this.lastName}`;
+         }
+
+    -> We can Access methods using . operator : objectName.methodName(Arguments)
+    -> We can also Access methods using [] operator : objectName['methodName'](Arguments)
+
+* this keyword : 
+    -> If we are using values that are already defined in the object then instead of writing them down explicitly / accessing them as arguments during function can we can refer to the property of the same oject using 'this' keyword
+
+    -> 'this' keyword is used to refer to the current object properties 
+
+    -> Instead of 'this' we can also use the name of the object but in case we change the parent name of the object then we need to change the name of the object at  all the places we have used it to refer to the current object property
+
+    -> We can also create a new property using this keyword 
+        eg : this.propertyName = value;
+
+*/
+
+const personalInfo = {
+  firstName: 'Onkar',
+  lastName: 'Patel',
+  birthYear: 2001,
+  profession: 'student',
+  friends: ['Andy', 'Michael', 'John'],
+  hasDriversLicense: true,
+
+  // 1. Adding a Function to calculate the age
+  // Here the calcAge is not a variable rather a property of the class personalInfo
+  //   calcAge: function (birthYear)  {
+  //     return 2024 - birthYear;
+  //   },
+
+  // 2. Function using this keyword
+  //   calcAge: function () {
+  //     // this refers to the whole object
+  //     console.log(this);
+
+  //     // this.birthYear refers to the birthYear declared above
+  //     // No need of explicit argument here then
+  //     return 2024 - this.birthYear;
+  //   },
+
+  // 3. Adding property using this keyword
+  calcAge: function () {
+    //Creating a new variable age using . operator
+    this.age = 2024 - this.birthYear;
+
+    //If we dont return anything the Function itself return undefined by default
+    return this.age;
+  },
+
+  summary: function () {
+    return `${
+      personalInfo.firstName
+    } is a ${personalInfo.calcAge()} years old ${
+      personalInfo.profession
+    } and he has ${this.hasDriversLicense ? 'a' : 'no'} drivers license`;
+  },
+};
+// 1. Printing values when this function isn't used
+// console.log(personalInfo.calcAge(personalInfo.birthYear));
+// console.log(personalInfo['calcAge'](personalInfo.birthYear));
+
+// 2. Printing values when suing this keyword
+// console.log(personalInfo.calcAge());
+// console.log(personalInfo['calcAge']());
+
+// 3. Printing the newly calculated property
+console.log(personalInfo.calcAge());
+console.log(personalInfo.age);
+
+// Challenge
+// Onkar is a 23 year old student and he has a drivers License
+
+console.log(personalInfo.summary());
