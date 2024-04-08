@@ -799,6 +799,80 @@
 // ^ Looping Arrays, Breaking & Continuing : -----------------------------------
 
 // Array
+// const details = [
+//   'Onkar',
+//   'Patel',
+//   2024 - 2001,
+//   'student',
+//   ['Andy', 'Michael', 'John'],
+// ];
+
+// //Empty array
+// const types = [];
+
+// // Log all the elements of array to console
+// // Looping through an Array
+// // Run until the array.length - 1 as Array is 0 Index Based
+// // So we want teh Loop to traverse from 0 up until the last Index which is length of array - 1
+// // i++ used to increment the loop counter
+// for (let i = 0; i < details.length; i++) {
+//   // Reading from details array
+//   console.log(details[i]);
+
+//   // Filling Types array using for loop
+//   // types[i] = typeof details[i];
+
+//   // Or
+
+//   // Filling types array using push() method of array to push elements at the back of the array
+//   types.push(typeof details[i]);
+// }
+
+//Printing the Types Array
+// console.log(types);
+
+// const years = [1990, 2000, 2001, 2004];
+// const ages = [];
+
+// for (let i = 0; i < years.length; i++) {
+//   //Filling the ages array using push() method of arrays
+//   ages.push(2024 - years[i]);
+// }
+
+// Printing ELements
+// console.log(ages);
+
+// continue
+// console.log(`----ONLY STRINGS----`);
+// for (let i = 0; i < details.length; i++) {
+//   // Reading from details array
+//   if (typeof details[i] != 'string') {
+//     // Skip the iteration if the elements in teh array are not a string
+//     continue;
+//   } else {
+//     console.log(details[i]);
+//   }
+// }
+
+// break
+// console.log(`----Break with Number----`);
+// for (let i = 0; i < details.length; i++) {
+//   // Reading from details array
+//   if (typeof details[i] == 'number') {
+//     // break the loop as soon as a number is found
+//     // So after firstName & lastName we age 'Number'
+//     // Hence only the first and last name gets printed and then loop breaks
+//     break;
+//   } else {
+//     console.log(details[i]);
+//   }
+// }
+
+// & ------------------------------> Lecture 18 <-------------------------------
+
+// ^ Looping Backwards & Loops in Loops : -----------------------------------
+
+// Array
 const details = [
   'Onkar',
   'Patel',
@@ -807,62 +881,19 @@ const details = [
   ['Andy', 'Michael', 'John'],
 ];
 
-//Empty array
-const types = [];
-
-// Log all the elements of array to console
-// Looping through an Array
-// Run until the array.length - 1 as Array is 0 Index Based
-// So we want teh Loop to traverse from 0 up until the last Index which is length of array - 1
-for (let i = 0; i < details.length; i++) {
-  // Reading from details array
+// Looping backwards means from the last element to the first
+// Last index of Array =  array.length-1
+// First Index = 0
+// Hence we loop from array.length - 1 up until 0
+// i-- to decrement the value
+for (let i = details.length - 1; i >= 0; i--) {
   console.log(details[i]);
-
-  // Filling Types array using for loop
-  // types[i] = typeof details[i];
-
-  // Or
-
-  // Filling types array using push() method of array to push elements at the back of the array
-  types.push(typeof details[i]);
 }
 
-//Printing the Types Array
-console.log(types);
-
-const years = [1990, 2000, 2001, 2004];
-const ages = [];
-
-for (let i = 0; i < years.length; i++) {
-  //Filling the ages array using push() method of arrays
-  ages.push(2024 - years[i]);
-}
-
-// Printing ELements
-console.log(ages);
-
-// continue
-console.log(`----ONLY STRINGS----`);
-for (let i = 0; i < details.length; i++) {
-  // Reading from details array
-  if (typeof details[i] != 'string') {
-    // Skip the iteration if the elements in teh array are not a string
-    continue;
-  } else {
-    console.log(details[i]);
-  }
-}
-
-// break
-console.log(`----Break with Number----`);
-for (let i = 0; i < details.length; i++) {
-  // Reading from details array
-  if (typeof details[i] == 'number') {
-    // break the loop as soon as a number is found
-    // So after firstName & lastName we age 'Number'
-    // Hence only the first and last name gets printed and then loop breaks
-    break;
-  } else {
-    console.log(details[i]);
+//Loops inside Loops
+for (let exercise = 1; exercise < 4; exercise++) {
+  console.log(`-------Starting Exercise: ${exercise}-------`);
+  for (let rep = 1; rep < 6; rep++) {
+    console.log(`Exercise ${exercise} Lifting Weights Repetition: ${rep}`);
   }
 }
