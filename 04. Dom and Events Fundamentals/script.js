@@ -35,6 +35,9 @@ console.log(secretNumber);
 // ------------------ Default Score :
 let score = 20;
 
+// ------------------ HighScore :
+let highscore = 0;
+
 // ------------------ Game Logic :
 // Steps :
 // - Select the Element by its Class / Id name on which we want to add an event
@@ -66,8 +69,11 @@ document.querySelector('.check').addEventListener('click', function () {
     document.querySelector('.number').style.width = '30rem';
     document.querySelector('.number').textContent = secretNumber;
 
-    // Set High Score
-    document.querySelector('.highscore').textContent = score;
+    // Set High Score Logic
+    if (score > highscore) {
+      highscore = score;
+      document.querySelector('.highscore').textContent = highscore;
+    }
   }
   // When guess is too high
   else if (guess > secretNumber) {
