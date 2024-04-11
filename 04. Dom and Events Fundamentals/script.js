@@ -13,15 +13,24 @@
 // - Listener Function : Define an Event Handler, this is a function that will be called when the specified event occurs.  This function is also known as an event handler or callback function. It can be an anonymous Function
 // - The Listener Function gets called when the specified event occurs automatically by the Js Engine
 
+// -------------- Manipulating CSS Styles using Js :
+// - Manipulating CSS styles using JavaScript is a common technique used to dynamically change the appearance or layout of HTML elements on a webpage.
+// - There are several ways to accomplish this :
+// - 1. Dynamically modifying CSS 'style'
+// - 2. Adding or removing classes
+// - 3. Manipulating CSS Rules
+// - For CSS style names having multiple words while being used in Js needs to be written in came case notation. For example : background-color -> backgroundColor in Js
+// - Whenever we specify styles we need to write the values in a string '' and not a number
+
 // ------------------ Secret Number :
 // - Math.random() generates a random number between 0 (inclusive) and 1 (exclusive)
 // - (+1) at the End to make the range from 0 (inclusive) to 1 (inclusive)
 // - (*) Number means we want a Number between 0 (inclusive) and Number (inclusive)
 // - Math.trunc() used to provide only Integer Part of the Number
-const secretNumber = Math.trunc(Math.random() * 20);
+const secretNumber = Math.trunc(Math.random() * 20) + 1;
 
 //Testing
-// console.log(secretNumber);
+console.log(secretNumber);
 
 // ------------------ Default Score :
 let score = 20;
@@ -44,9 +53,20 @@ document.querySelector('.check').addEventListener('click', function () {
   if (!guess) {
     // Display Text
     document.querySelector('.message').textContent = '⛔ No Number!';
-  } else if (guess === secretNumber) {
+  }
+  // Correct Guess
+  else if (guess === secretNumber) {
     document.querySelector('.message').textContent = '🥳 Correct Number!';
-  } else if (guess > secretNumber) {
+
+    // Changing the color of the whole body on correct guess
+    document.querySelector('body').style.backgroundColor = '#60b347';
+
+    // Width of Number
+    document.querySelector('.number').style.width = '30rem';
+    document.querySelector('.number').textContent = secretNumber;
+  }
+  // When guess is too high
+  else if (guess > secretNumber) {
     // Only is our score is not 0
     if (score > 1) {
       // Display Text
@@ -59,7 +79,9 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.message').textContent = '💥 You Lost The Game!';
       document.querySelector('.score').textContent = 0;
     }
-  } else if (guess < secretNumber) {
+  }
+  // When guess is too low
+  else if (guess < secretNumber) {
     // Only is our score is not 0
     if (score > 1) {
       /// Display Text
