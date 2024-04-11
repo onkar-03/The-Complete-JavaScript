@@ -935,9 +935,9 @@ while (rep <= 5) {
 }
 
 // Dice game
-// Math.random() generates a random number between 0(inclusive) and 1 (exclusive)
+// Math.random() generates a random number between 0 (inclusive) and 1 (exclusive)
 // Mth.trunc() used to provide only Integer Part of the Number
-// + 1 at teh End to make the range from o (inclusive) to 1 (inclusive)
+// + 1 at the End to make the range from 0 (inclusive) to 1 (inclusive)
 let dice = Math.trunc(Math.random() * 6) + 1;
 console.log(dice);
 

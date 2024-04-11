@@ -46,6 +46,19 @@
 // - Listener Function : Define an Event Handler, this is a function that will be called when the specified event occurs.  This function is also known as an event handler or callback function. It can be an anonymous Function
 // - The Listener Function gets called when the specified event occurs automatically by the Js Engine
 
+// Secret Number that user will  try to guess
+// - Math.random() generates a random number between 0 (inclusive) and 1 (exclusive)
+// - (+1) at the End to make the range from 0 (inclusive) to 1 (inclusive)
+// - (*) Number means we want a Number between 0 (inclusive) and Number (inclusive)
+// - Math.trunc() used to provide only Integer Part of the Number
+const secretNumber = Math.trunc(Math.random() * 20);
+
+//Testing
+console.log(secretNumber);
+
+// Default Score
+let score = 20;
+
 // Steps :
 // - Select the Element by its Class / Id name on which we want to add an event
 // - Use the .addEventListener() method to add an event
@@ -56,12 +69,41 @@ document.querySelector('.check').addEventListener('click', function () {
   // Converting the User Input to Number
   // As what ever we get from the User is generally a string
   const guess = Number(document.querySelector('.guess').value);
-  console.log(guess, typeof guess);
+  // console.log(guess, typeof guess);
 
   // A) Case of No Input :
   // If 0 (False) Then gets converted to True
   // If any other number (True) then we dont want if to get executed ! changes the value to False
   if (!guess) {
+    // Display Text
     document.querySelector('.message').textContent = '⛔ No Number!';
+  } else if (guess === secretNumber) {
+    document.querySelector('.message').textContent = '🥳 Correct Number!';
+  } else if (guess > secretNumber) {
+    // Only is our score is not 0
+    if (score > 1) {
+      // Display Text
+      document.querySelector('.message').textContent = '📈 Too High!';
+      //Decrease Score on wrong guess
+      score--;
+      // Update the Score
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = '💥 You Lost The Game!';
+      document.querySelector('.score').textContent = 0;
+    }
+  } else if (guess < secretNumber) {
+    // Only is our score is not 0
+    if (score > 1) {
+      /// Display Text
+      document.querySelector('.message').textContent = '📉 Too Low!';
+      // Decrease Score on wrong guess
+      score--;
+      // Update the Score
+      document.querySelector('.score').textContent = score;
+    } else {
+      document.querySelector('.message').textContent = '💥 You Lost The Game!';
+      document.querySelector('.score').textContent = 0;
+    }
   }
 });
