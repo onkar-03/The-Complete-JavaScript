@@ -1,37 +1,4 @@
 'use strict';
-
-// -------------- DOM Selection & Content Access :
-
-// A) Query Selector :
-// - A method in JavaScript that allows you to select elements from the DOM (Document Object Model) using CSS selector syntax
-// - It returns the first element within the document that matches the specified selector, or null if no matches are found.
-
-// B) Text Content :
-// - To select the text content of an element with a class name, you can use the querySelector() method to select the element by its class name
-// - Then access its text  using .textContent property
-
-// Selecting Elements
-// console.log(document.querySelector('.message'));
-
-// Access Content of Element
-// console.log(document.querySelector('.message').textContent); // Start Guessing
-
-// -------------- DOM Manipulation - Selecting & Manipulating Elements :
-
-// Selecting Elements and Changing Content
-// document.querySelector('.message').textContent = '🥳 Correct Number';
-
-// Printing after changing
-// console.log(document.querySelector('.message').textContent); // 🥳 Correct Number
-
-// document.querySelector('.number').textContent = 13;
-// document.querySelector('.score').textContent = 20;
-
-// - To set a value to the selected element with a class name, you can use the querySelector() method to select the element by its class name
-// - Then set its value using the .value property
-// document.querySelector('.guess').value = 10;
-// console.log(document.querySelector('.guess').value);
-
 // -------------- Handling Clicking Events :
 
 // A) What is an Event :
@@ -46,7 +13,7 @@
 // - Listener Function : Define an Event Handler, this is a function that will be called when the specified event occurs.  This function is also known as an event handler or callback function. It can be an anonymous Function
 // - The Listener Function gets called when the specified event occurs automatically by the Js Engine
 
-// Secret Number that user will  try to guess
+// ------------------ Secret Number :
 // - Math.random() generates a random number between 0 (inclusive) and 1 (exclusive)
 // - (+1) at the End to make the range from 0 (inclusive) to 1 (inclusive)
 // - (*) Number means we want a Number between 0 (inclusive) and Number (inclusive)
@@ -54,9 +21,9 @@
 const secretNumber = Math.trunc(Math.random() * 20);
 
 //Testing
-console.log(secretNumber);
+// console.log(secretNumber);
 
-// Default Score
+// ------------------ Default Score :
 let score = 20;
 
 // Steps :
