@@ -22,6 +22,13 @@
 // - For CSS style names having multiple words while being used in Js needs to be written in came case notation. For example : background-color -> backgroundColor in Js
 // - Whenever we specify styles we need to write the values in a string '' and not a number
 
+// -------------- Refactoring the Code :
+// - Restructuring existing code without changing its external behavior
+// - Remove the Duplicate Codes from out Code and follow the DRY ('Don't Repeat Yourself) Principle always
+// - The primary goals of refactoring are to improve code readability, maintainability, and sometimes performance
+
+// -----------------------------GUESS MY NUMBER GAME CODE : -----------------------------
+
 // ------------------ Secret Number :
 // - Math.random() generates a random number between 0 (inclusive) and 1 (exclusive)
 // - (+1) at the End to make the range from 0 (inclusive) to 1 (inclusive)
@@ -38,7 +45,11 @@ let score = 20;
 // ------------------ HighScore :
 let highscore = 0;
 
+const displayMessage = function (message) {
+  document.querySelector('.message').textContent = message;
+};
 // ------------------ Game Logic :
+
 // Steps :
 // - Select the Element by its Class / Id name on which we want to add an event
 // - Use the .addEventListener() method to add an event
@@ -56,11 +67,13 @@ document.querySelector('.check').addEventListener('click', function () {
   // If any other number (True) then we dont want if to get executed ! changes the value to False
   if (!guess) {
     // Display Text
-    document.querySelector('.message').textContent = '⛔ No Number!';
+    // document.querySelector('.message').textContent = '⛔ No Number!';
+    displayMessage('⛔ No Number!');
   }
   // Correct Guess
   else if (guess === secretNumber) {
-    document.querySelector('.message').textContent = '🥳 Correct Number!';
+    // document.querySelector('.message').textContent = '🥳 Correct Number!';
+    displayMessage('🥳 Correct Number!');
 
     // Changing the color of the whole body on correct guess
     document.querySelector('body').style.backgroundColor = '#60b347';
@@ -75,33 +88,55 @@ document.querySelector('.check').addEventListener('click', function () {
       document.querySelector('.highscore').textContent = highscore;
     }
   }
-  // When guess is too high
-  else if (guess > secretNumber) {
-    // Only is our score is not 0
+
+  // // When guess is too high
+  // else if (guess > secretNumber) {
+  //   // Only is our score is not 0
+  //   if (score > 1) {
+  //     // Display Text
+  //     document.querySelector('.message').textContent = '📈 Too High!';
+  //     //Decrease Score on wrong guess
+  //     score--;
+  //     // Update the Score
+  //     document.querySelector('.score').textContent = score;
+  //   } else {
+  //     document.querySelector('.message').textContent = '💥 You Lost The Game!';
+  //     document.querySelector('.score').textContent = 0;
+  //   }
+  // }
+  // // When guess is too low
+  // else if (guess < secretNumber) {
+  //   // Only is our score is not 0
+  //   if (score > 1) {
+  //     /// Display Text
+  //     document.querySelector('.message').textContent = '📉 Too Low!';
+  //     // Decrease Score on wrong guess
+  //     score--;
+  //     // Update the Score
+  //     document.querySelector('.score').textContent = score;
+  //   } else {
+  //     document.querySelector('.message').textContent = '💥 You Lost The Game!';
+  //     document.querySelector('.score').textContent = 0;
+  //   }
+  // }
+
+  // Guess is Wrong
+  // Refactored Code
+  else if (guess !== secretNumber) {
     if (score > 1) {
       // Display Text
-      document.querySelector('.message').textContent = '📈 Too High!';
+      // document.querySelector('.message').textContent =
+      //   guess > secretNumber ? '📈 Too High!' : '📉 Too Low!';
+      displayMessage(guess > secretNumber ? '📈 Too High!' : '📉 Too Low!');
+
       //Decrease Score on wrong guess
       score--;
       // Update the Score
       document.querySelector('.score').textContent = score;
     } else {
-      document.querySelector('.message').textContent = '💥 You Lost The Game!';
-      document.querySelector('.score').textContent = 0;
-    }
-  }
-  // When guess is too low
-  else if (guess < secretNumber) {
-    // Only is our score is not 0
-    if (score > 1) {
-      /// Display Text
-      document.querySelector('.message').textContent = '📉 Too Low!';
-      // Decrease Score on wrong guess
-      score--;
-      // Update the Score
-      document.querySelector('.score').textContent = score;
-    } else {
-      document.querySelector('.message').textContent = '💥 You Lost The Game!';
+      // document.querySelector('.message').textContent = '💥 You Lost The Game!';
+      displayMessage('💥 You Lost The Game!');
+
       document.querySelector('.score').textContent = 0;
     }
   }
@@ -130,7 +165,8 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('.score').textContent = score;
 
   // Reset Text
-  document.querySelector('.message').textContent = 'Start guessing...';
+  // document.querySelector('.message').textContent = 'Start guessing...';
+  displayMessage('Start guessing...');
 
   // Reset Color
   document.querySelector('body').style.backgroundColor = '#222';
