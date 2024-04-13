@@ -12,17 +12,40 @@ const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
-// Starting Condition
-score0El.textContent = '0';
-score1El.textContent = '0';
-diceEl.classList.add('hidden');
+// Declaring all variables
+let currentScore, activePlayer, playing, scores;
 
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+const init = function () {
+  // Starting Condition
 
-// Scores of both players scores in an array
-const scores = [0, 0];
+  // Dice Img Hidden
+  diceEl.classList.add('hidden');
+
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+  // Scores of both players scores in an array
+  scores = [0, 0];
+
+  // Reset the Score on the screen
+  document.getElementById('score--0').textContent = 0;
+  document.getElementById('score--1').textContent = 0;
+
+  // Reset the Current Score on the screen
+  document.getElementById('current--0').textContent = 0;
+  document.getElementById('current--1').textContent = 0;
+
+  // Remove the Winner class
+  player0El.classList.remove('player--winner');
+  player1El.classList.remove('player--winner');
+
+  // Reset the Background colors for Active and not Active Players
+  player0El.classList.add('player--active');
+  player1El.classList.remove('player--active');
+};
+
+// Initialization
+init();
 
 const switchPlayer = function () {
   // - If we switch players we reset the current score of the previous player to 0
@@ -38,7 +61,7 @@ const switchPlayer = function () {
   player1El.classList.toggle('player--active');
 };
 
-// Rolling Dice Functionality
+// ------------------ Rolling Dice Functionality :
 btnRoll.addEventListener('click', function () {
   // If Playing State active only then do these
   if (playing) {
@@ -68,6 +91,7 @@ btnRoll.addEventListener('click', function () {
   }
 });
 
+// ------------------ HOLD BUTTON Functionality :
 btnHold.addEventListener('click', function () {
   // If still playing only then do this
   if (playing) {
@@ -80,7 +104,7 @@ btnHold.addEventListener('click', function () {
   }
 
   // If score ?= 100 then That Player wins else we switch player
-  if (scores[activePlayer] >= 100) {
+  if (scores[activePlayer] >= 20) {
     // Finish Game
 
     // No More Continuation of Game
@@ -100,3 +124,8 @@ btnHold.addEventListener('click', function () {
     switchPlayer();
   }
 });
+
+// ------------------ Reset game Functionality :
+// - We dont write init() as we dont want the function to execute while Js Loads
+// - We wan the function to execute only when the we press the reset button
+btnNew.addEventListener('click', init);
