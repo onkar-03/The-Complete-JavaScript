@@ -15,7 +15,7 @@
 // - It automatically removes old, unused objects from the computer memory in order not to clog it up with unnecessary stuff.
 // - So it's a little bit like JavaScript has a cleaning guy who cleans our memory from time to time so that we don't have to do it manually in our code.
 
-// 3) Interpreted / Just-In-Time Compiled (JIT):
+// 3) Interpreted & Just-In-Time Compiled (JIT):
 // - In an interpreted language, code is executed line-by-line by an interpreter at runtime. There's no separate compilation step that produces machine code before execution
 // - Interpreted languages offer benefits such as platform independence and ease of debugging since developers can see the exact point of execution.
 // - Just-in-time compilation involves translating source code into machine code at runtime, just before it's executed. This compiled code is then executed directly by the CPU.
