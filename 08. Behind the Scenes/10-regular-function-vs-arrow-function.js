@@ -75,8 +75,8 @@ addExpr(2, 5);
 addExpr(2, 5, 5, 6, 7);
 
 var addArrow = (a, b) => {
-  // arguments keyword is only available in regular functions
-  console.log(arguments);
+  // arguments keyword is only available in arrow functions
+  // console.log(arguments);
   return a + b;
 };
 
