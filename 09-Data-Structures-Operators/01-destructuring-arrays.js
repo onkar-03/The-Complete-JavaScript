@@ -4,6 +4,7 @@
 // - Destructuring refers to the process of resolving COmplex Data structures into simple ones
 // - An ES6 Feature that allows you to extract values from arrays and assign them to variables in a concise and readable way.
 // During Destructuring the original arrays are not destroyed / changed
+// For Array Destructuring we use []
 
 // Example 1 :
 const arr = [1, 2, 3];
@@ -40,7 +41,7 @@ const restaurant = {
 let [first, , third] = restaurant.categories;
 console.log(first, third); // Italian Vegetarian
 
-// ----------- Switching Variables :
+// ----------- Switching / Mutating Variables :
 
 // Method 1 :
 // - Using a Temporary Variable
