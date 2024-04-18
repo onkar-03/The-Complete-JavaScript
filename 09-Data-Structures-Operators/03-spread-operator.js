@@ -57,6 +57,10 @@ const restaurant = {
       `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${place} at ${time}`
     );
   },
+
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here are the Ingredients : ${ing1}, ${ing2}, ${ing3}`);
+  },
 };
 
 // B) Using for Arrays declared in Objects :
@@ -82,3 +86,26 @@ console.log(...str);
 // - ERROR
 // - As in template literals ${} this does not take multiple values
 // - console.log(`${...str} hello`);
+
+// E) Using spread Operator with Functions
+// const ingredients = [
+//   prompt('Lets Make Pasta!! Ingredient 1 ??'),
+//   prompt(`Ingredient 2 ??`),
+//   prompt(`Ingredient 3 ??`),
+// ];
+
+// passing the array elements individually as function arguments
+// console.log(restaurant.orderPasta(...ingredients));
+
+// F) Using spread Operator with Objects :
+// - Adding new properties ot Objects
+const newRestaurant = { founded: 1990, ...restaurant, founder: 'Guiseppe' };
+console.log(newRestaurant);
+
+// Copying Object (Shallow Copy)
+// - Works only for level 1
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Taj Hotel';
+
+console.log(restaurantCopy.name);
+console.log(restaurant.name);
