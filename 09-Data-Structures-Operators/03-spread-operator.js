@@ -2,10 +2,11 @@
 // ------------- Spread Operator :
 // - Used to print / Retrieve the ELements Individually from Arrays, Objects etc..
 // - Similar to destructuring as it also helps get elements out of the array
-// - Difference is it takes all the elements form teh array and doesn't create new variables
+// - Difference is it takes all the elements from the array and doesn't create new variables
 // - As a consequence we can only use it at places where we want values separated by commas
 // - Spread Operator works on all kinds of 'iterables'
-// Iterables are Arrays, String, Maps, Sets but not Objects
+// - Iterables are Arrays, String, Maps, Sets but not Objects
+// Use Cases : 1) Build new Arrays 2) Pass Multiple Values to a Function
 
 // A) Using for Array Literals :
 const arr = [7, 8, 9];
@@ -88,17 +89,13 @@ console.log(...str);
 // - console.log(`${...str} hello`);
 
 // E) Using spread Operator with Functions
-// const ingredients = [
-//   prompt('Lets Make Pasta!! Ingredient 1 ??'),
-//   prompt(`Ingredient 2 ??`),
-//   prompt(`Ingredient 3 ??`),
-// ];
+const ingredients = ['Mayo', 'Chilli Sauce', 'Ketchup'];
 
 // passing the array elements individually as function arguments
-// console.log(restaurant.orderPasta(...ingredients));
+console.log(restaurant.orderPasta(...ingredients));
 
 // F) Using spread Operator with Objects :
-// - Adding new properties ot Objects
+// - Adding new properties to Objects
 const newRestaurant = { founded: 1990, ...restaurant, founder: 'Guiseppe' };
 console.log(newRestaurant);
 

@@ -52,7 +52,7 @@ console.log(first, third); // Italian Vegetarian
 
 // Method 2 :
 // Using Destructing method
-// Simply write the way & the way we wan tit to be
+// Simply write the way it was & the way we want it to be
 [first, third] = [third, first];
 console.log(first, third);
 
