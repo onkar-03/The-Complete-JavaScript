@@ -52,6 +52,7 @@ const restaurant = {
 // - Spread operator is used on the RHS of '='
 // - Rest is used on the LHS of '='
 // - Also the rest element must be the last element in the array, hence there can only be one rest in any destructuring assignment
+// - Can be used where we want the variable names separated by commas and not values separated by commas
 
 // Spread, as on RHS of '=' :
 const arr2 = [1, 2, ...[7, 8, 9]];
