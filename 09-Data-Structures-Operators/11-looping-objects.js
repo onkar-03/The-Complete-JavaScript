@@ -30,7 +30,9 @@ const restaurant = {
 // ------------- Looping Objects using for-of loop :
 
 // for-of Loop :
-// - for...of loop is used to iterate over objects as well which are not iterable
+// - for...of loop is used to iterate over objects as well which are not iterable, in an indirect way
+// - Hence primarily we destructure the Object into Array using these then loop over the array and retrieve required information
+
 // - Here we have options iof Looping :
 // - 1. Loop over Property Names ('keys') : Object.keys(objectName)
 // - 2. Loop over Values : Object.values(objectName)
@@ -40,8 +42,6 @@ const restaurant = {
 // - Object.keys(obj1) return an array of all the property / key names of the Object 'obj1'
 // - Object.values(obj1) return an array of all the values of the Object 'obj1'
 // - Object.entries(obj1) return key val;ue pairs of Object in an array
-
-// - Hence primarily we destructure the Object into Array using these then loop over the array and retrieve required information
 
 // - Property Names
 const properties = Object.keys(openingHours);
