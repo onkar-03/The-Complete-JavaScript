@@ -47,7 +47,7 @@ const restaurant = {
 
 // For Of Loop :
 // - for...of loop is used to iterate over iterable objects such as arrays, strings, maps, sets, etc.
-// - It provides a more concise syntax compared to the traditional for loop when dealing with such collections.
+// - 'for-of' provides a more concise syntax compared to the traditional for loop when dealing with such collections.
 /* - Syntax : for (variable of iterable) {
               code block to be executed
             } 
@@ -56,6 +56,7 @@ const restaurant = {
 // - We can still use the 'break' and 'continue' keywords
 // - Originally created to give of the current element
 // - If we want the Index we can do it too but a bit of pain in the ass
+// - menu.entries() : Returns the Index Number and the Entries itself too
 
 const menu = [...restaurant.starterMenu, ...restaurant.mainMenu];
 
