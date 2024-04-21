@@ -73,3 +73,6 @@ for (const item of menu.entries()) {
 for (const [i, el] of menu.entries()) {
   console.log(`${i + 1}: ${el}`);
 }
+for (const item of menu.entries()) {
+  console.log(`${item[0] + 1}: ${item[1]}`);
+}
