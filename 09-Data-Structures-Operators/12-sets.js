@@ -8,11 +8,12 @@
 // - There is no way to retrieve any value out of the set, also it does make sense as all the values are unique there is no point in retrieving values out of the set all we need to know is whether a value exists in the set or not
 
 // ------------- Method of Sets :
-// - Size of set calculated using '.size' and not '.length'
-// - Existence of Element can be determined using '.has' function in Sets similar to .includes of Arrays, returns a boolean value T/F
-// - Element can be added to Set using '.add' function
-// - Element can be removed using '.delete' function
-// - To clear the whole Set '.clear' is used
+// - 0. new Set(); : Used to Create a Set
+// - 1. .size : Used to Calculate the Size of the Set , we dont use '.length; here
+// - 2. .has : Used to check if the specified element is present in the Set or not, similar to .includes of Arrays [returns a boolean value T/F]
+// - 3. .add : Used to add a new element to the Set
+// - 4. .delete : Used to delete an element from the Set
+// - 5. .clear : Used to clear the Set completely
 
 // ------------- Sets VS Arrays :
 // - They both are DataStructures in Javascript
