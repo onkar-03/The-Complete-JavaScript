@@ -87,7 +87,10 @@ avg /= odds.length;
 console.log(avg);
 
 // Task 3 :
+// - Need to fetch the team as well as the odds hence we use .entries on Object
+// - Destructuring Arrays then into teams and arrays
 for (const [team, odd] of Object.entries(game.odds)) {
+  // Saving the team name if they exist
   const teamName = game?.[team];
 
   if (teamName) {
@@ -98,10 +101,15 @@ for (const [team, odd] of Object.entries(game.odds)) {
 }
 
 // Bonus: Task 4
-
 const scorers = {};
 
 for (const playerName of game.scored) {
+  // - objectName[propertyName] : Used to access teh properties of an Object
+  // - objectName[propertyName] = value; used to set the values of properties of an Object
+  // - If the Name already exists hence increase the score by 1
+  // - If its the FIRST goal of the player set the value to 1
+  // - We dont use  =scorers['playerName'] as playerName is not a property name rather a variable itself holding the value in it
+  // - When we have property names then we use the '' for them
   scorers[playerName]++ || (scorers[playerName] = 1);
 }
 
