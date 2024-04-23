@@ -67,7 +67,7 @@ console.log(rest.get(false));
 console.log(rest.get('categories'));
 console.log(rest.get(1));
 
-// --- Using Booleans as Mpa keys
+// --- Using Booleans as Map keys
 const time = 21;
 // - This means console.log(rest.get(true));
 console.log(rest.get(time > rest.get('open') && time < rest.get('close'))); // true

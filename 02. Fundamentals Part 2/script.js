@@ -530,8 +530,9 @@
 
     -> Objects can hold different types of data, they can hold arrays as well also they can store objects inside objects
 
-    -> Key refers tio the variable name 
+    -> Key refers to the variable name 
     -> Keys are also known as properties
+    -> Keys can only be Strings / Symbols in Objects
     -> Value refers to the Actual element we want to store
 
     -> In objects the order of the values does not matter when we want to retrieve them

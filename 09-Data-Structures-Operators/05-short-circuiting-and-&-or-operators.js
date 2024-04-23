@@ -136,7 +136,7 @@ if (restaurant.orderPizza) {
 }
 
 // Method 2 :
-// - && will return wither the falsy value in case the restaurant.orderPizza does not exist or return the last truthy value
+// - && will return wether the falsy value in case the restaurant.orderPizza does not exist or return the last truthy value
 const order =
   restaurant.orderPizza && restaurant.orderPizza('Mushroom', 'Cheese');
 console.log(order);

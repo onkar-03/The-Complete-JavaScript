@@ -99,10 +99,11 @@ console.log(restaurant.orderPasta(...ingredients));
 const newRestaurant = { founded: 1990, ...restaurant, founder: 'Guiseppe' };
 console.log(newRestaurant);
 
-// Copying Object (Shallow Copy)
+// G) Copying Object (Shallow Copy)
 // - Works only for level 1
+// - For arrays and objects, when you perform a shallow copy, only the top-level structure is duplicated, while nested structures (objects or arrays within the original object or array) are still referenced by both the original and the copied object or array
 const restaurantCopy = { ...restaurant };
 restaurantCopy.name = 'Taj Hotel';
 
-console.log(restaurantCopy.name);
-console.log(restaurant.name);
+console.log(restaurantCopy.name); // Taj hotel
+console.log(restaurant.name); // Classico Italiano

@@ -41,7 +41,7 @@ const restaurant = {
 
 // - Object.keys(obj1) return an array of all the property / key names of the Object 'obj1'
 // - Object.values(obj1) return an array of all the values of the Object 'obj1'
-// - Object.entries(obj1) return key val;ue pairs of Object in an array
+// - Object.entries(obj1) return key value pairs of Object in an array
 
 // - Property Names
 const properties = Object.keys(openingHours);

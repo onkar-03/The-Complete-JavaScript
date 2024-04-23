@@ -42,14 +42,17 @@ const question = new Map([
 
 console.log(question);
 
-// --- Fetching Object as an Array of Arrays
+// --- Fetching Object as an Array of Arrays using .entries()
 console.log(Object.entries(openingHours));
 
 // --- Converting Objects to Maps
+// - First Converting them to Array of Arrays using .entries()
+// - The simply putting them inside the new Map() function as above
 const hoursMap = new Map(Object.entries(openingHours));
 console.log(hoursMap);
 
 // --- Iteration on Maps
+// - Also destructuring the arrays received as item into key and value pair
 console.log(question.get('question'));
 for (let [key, value] of question) {
   if (typeof key === 'number') {

@@ -65,7 +65,7 @@ const [a, b, ...others] = [1, 2, 3, 4, 5, 6];
 console.log(a, b, others);
 
 // - Extracting Individual Elements from main Menu, also destructuring them into an array
-// - While Destructuring also suing the rest to bind the left over elements in a variable
+// - While Destructuring also using the rest to bind the left over elements in a variable
 // - Also using the spread Operator to gain individual elements access from arrays of the object restaurant
 const [pizza, , risotto, ...others2] = [
   ...restaurant.mainMenu,
