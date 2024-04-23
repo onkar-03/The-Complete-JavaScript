@@ -1,5 +1,5 @@
 'use strict';
-//------------- Working with Strings :
+//------------- Working with Strings PART 1 :
 // - They are Primitives i.e they are not Objects and have no Methods
 // - All Primitives in Js : Null, Boolean, String, Number, Undefined, Symbol
 // - They are also Zero '0' based Index wise
