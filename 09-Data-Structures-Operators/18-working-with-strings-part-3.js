@@ -62,3 +62,9 @@ console.log(creditCard);
 // --- Using .repeat()
 const alertMessage = 'Bad Weather Condition dont go Out !! ';
 console.log(alertMessage.repeat(3));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛩'.repeat(n)}`);
+};
+planesInLine(5); // → There are 5 planes in line 🛩🛩🛩🛩🛩
+planesInLine(3); // → There are 3 planes in line 🛩🛩🛩
