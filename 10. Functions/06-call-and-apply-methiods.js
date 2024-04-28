@@ -50,27 +50,37 @@ const booking = lufthansa.book;
 // *--- Resolving this Issue :
 // - How to tell javascript which Object are we referring to currently the lufthansa / the eurowings ??
 // - For this we need to tell Js explicitly what this keyword should be like, i.e when we want the this to point to lufthansa and when we want the this to point to eurowings
-// - For this we have three methods :
+// - For this we have three methods : call() , apply() , bind()
 
 // --- 1) call(objectName,Parameters) :
 // - call() method is used to invoke a function, allowing you to specify the value of this explicitly within the function's execution context. This is particularly useful in JavaScript, where functions are first-class citizens and this can change depending on how a function is called.
 // - EG: greet.call(person, 'Hi');
 // - Explanation: greet.call(person) explicitly sets this inside the greet function to refer to the person object, allowing greet to access person.name.
 
-// --- 2) apply()  :
-// - .apply()  method invokes a function with a specified this value and allows you to pass arguments to the function as an array (or an array-like object).
-// - EG: greet.apply(person, ['Hi']);
-// - Explanation: Here greet.apply(person, ['Hi']) invokes the greet function where this refers to person, and 'Hi' as the argument.
-
-// --- 3) bind() :
-// - bind(): This method creates a new function that, when called, has its this keyword set to a specified value. Unlike .call() and .apply(), .bind() does not immediately invoke the function.
-// - Instead, it creates a new function with the specified this value and optionally, pre-set arguments.
-// - EG: const greetPerson = greet.bind(person)
-// - Explanation : Here greet.bind(person) creates a new function greetPerson where this is bound to person. When greetPerson is invoked, it behaves as if it were invoked within the context of the person object
-
+// --- Using call() method
 // * Remember Functions are Objects and Objects do have Methods so call is one of the Methods of Functions in general
 booking.call(eurowings, 23, 'Onkar');
 console.log(eurowings);
 
 booking.call(lufthansa, 239, 'Andy');
-console.log(lufthansa); // console
+console.log(lufthansa);
+
+// --- 2) apply(objectName,Array Parameter)  :
+// - .apply()  method invokes a function with a specified this value and allows you to pass arguments to the function as an array (or an array-like object).
+// - EG: booking.apply(eurowings, flightData);
+// - Explanation: Here booking.apply(eurowings, flightData) invokes the booking function where this refers to eurowings, and flightData Array as the argument.
+
+// --- Using apply() method
+const flightData = [567, 'Anderson'];
+booking.apply(eurowings, flightData);
+console.log(eurowings);
+
+// - Not used any more as we have a better way to do the same thing
+// - Alternate way to do the same using .call() using spread operator '...'
+const swiss = {
+  airline: 'Eurowings',
+  iataCode: 'EW',
+  booking: [],
+};
+booking.call(swiss, ...flightData);
+console.log(swiss);
