@@ -38,17 +38,30 @@ h();
 f(); // → 1554
 console.dir(f); // → [[Scopes]] → Closure(h)
 
-// Example 2
+// --- Example 2
 const boardPassengers = function (n, wait) {
+  // - Diving Number of Passengers into Three Groups
   const perGroup = n / 3;
+
+  // - Using timer function in Js
+  // - FOr this we use the setTimeOut function
+  // - It takes 2 parameters a function() and wait time in ms
   setTimeout(function () {
     console.log(`We are now boarding all ${n} passengers`);
     console.log(`There are 3 groups, each with ${perGroup} passengers`);
   }, wait * 1000);
 
+  // - this console.log() function wont wait for 3 seconds
+  // - Its executed simultaneously with the setTimeout function()
+  // - Only the code inside the setTimeOut function() gets executed after a delay that we mentioned
   console.log(`Will start boarding in $${wait} seconds`);
 };
 
+// • The closure has priority over the scope chain
+// - Even after the preGroup assigned as 1000 passengers we can see that the 180 is taken and not 1000 for passengers as closure variables have clear priority in scope chain
+const perGroup = 1000;
+
+// - Passing teh wait time in seconds by the user
 boardPassengers(180, 3);
 /* → Will start boarding in $3 seconds
      We are now boarding all 180 passengers
