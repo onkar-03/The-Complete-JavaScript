@@ -10,13 +10,16 @@
 // --- 1) .slice() :
 // - The slice method is used to extract a section of an array and returns a new array
 // - It does not mutate the original array
-// - It takes two parameters: the start index (inclusive) and the end index (exclusive) of the section you want to extract, negative index means that we start the index number from the end of the array
+// - It takes two parameters: the start index (inclusive) and the end index (exclusive) of the section you want to extract, Negative integers count back from the last item in the array
 
 let arr1 = ['a', 'b', 'c', 'd', 'e'];
 
 console.log(arr1.slice(2)); // c d e
 console.log(arr1.slice(0, 2)); // a b
+
+// - To ge the last element of the array we use slice()
 console.log(arr1.slice(-1)); // f
+
 console.log(arr1.slice(-2)); // d e
 console.log(arr1.slice(1, -2)); // b c
 
@@ -26,10 +29,10 @@ console.log(arr1.slice()); // a b c d e
 // --- 2) .splice() :
 // - splice can both remove and add elements to an array, thus modifying it in place. .
 // - It does mutate the original array
-// - It takes two parameters: the 'startIndex' & 'deleteCount' which is the number of elements you wan to remove from the original array starting from the startIndex, negative index means that we start the index number from the end of the array
+// - It takes two parameters: the 'startIndex' & 'deleteCount' which is the number of elements you wan to remove from the original array starting from the startIndex, Negative integers count back from the last item in the array
 // - Basically it removes the specified segment from the original array
 
-// - removing the last element of the original array
+// - To remove the last element of the original array we use splice()
 let arr2 = ['a', 'b', 'c', 'd', 'e'];
 arr2.splice(-1); // remove e the last element
 console.log(arr2); // a b c d
