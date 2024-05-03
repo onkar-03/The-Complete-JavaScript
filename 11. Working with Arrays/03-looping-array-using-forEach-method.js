@@ -18,9 +18,13 @@ for (const [i, mov] of movements.entries()) {
 */
 
 // --- Using ForEach :
-// - On each iteration it passes the Element, Index and the Array
+// - The forEach method requires a callback function as a parameter
+// - So forEach is technically a higher order function
+// - The callback function contains the code about what exactly need to be done
+// - On each iteration it passes the Element, Index and the Array, we can take only element as well if we want
 // - We dont need to write .entries() explicitly to get indexes here
 // - Also it will alway loop over the entire array always
+// - The 'continue' and 'break' statements don't work here at all
 console.log(`-------FOR EACH-------`);
 movements.forEach(function (mov, i, arr) {
   if (mov > 0) {
@@ -32,4 +36,8 @@ movements.forEach(function (mov, i, arr) {
 /* → Movement 1: You deposited 200
      Movement 2: You deposited 450
      Movement 3: You withdrew 400
-     ... */
+...
+*/
+
+// - Use forEach when we have to iterate over the whole array
+// - Use for of when we have to iterate over some part of the array / use continue or break statements
