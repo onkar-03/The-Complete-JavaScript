@@ -29,5 +29,18 @@ for (const mov of movements) {
 console.log(balance2); // - 3840
 
 // --- Get maximum value
-const maxValue = movements.reduce((acc, curr) => (acc < curr ? curr : acc), 0);
+// - using movements[0] as the reset value in case of finding max / min
+// - As the values can also be negative so setting it to 0 is not the best choice
+const maxValue = movements.reduce((acc, curr) => {
+  // - 1. Using if else
+  // if (acc > curr) {
+  //   return acc;
+  // }
+  // else{
+  //   return curr;
+  // }
+
+  // - 2. Using Ternary Operator
+  return acc < curr ? curr : acc;
+}, movements[0]);
 console.log(maxValue); // - 3000

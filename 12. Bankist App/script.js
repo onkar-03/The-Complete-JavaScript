@@ -59,7 +59,7 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-// --- Creating DOM Elements: (Handling Transactions )
+// --- A) Creating DOM Elements: (Handling Transactions )
 // - Passing all movements to a function rather than making it work with a global var
 // - Adding new transactions to the container
 const displayMovements = function (movements) {
@@ -96,7 +96,19 @@ const displayMovements = function (movements) {
 // Passing the account
 displayMovements(account1.movements);
 
-// --- Computing Usernames for each Account:
+// --- B) Calculate Balance
+const calcDisplayBalance = function (movements) {
+  // - Calculating Balance using the reduce method
+  const balance = movements.reduce(function (acc, curr) {
+    return acc + curr;
+  }, 0);
+
+  // - Insert the Value to the HTML Element
+  labelBalance.textContent = `${balance}€`;
+};
+calcDisplayBalance(account1.movements);
+
+// --- C) Computing Usernames for each Account:
 
 // --- Process Using Map Method
 // - 1. Convert the username to lowercase
