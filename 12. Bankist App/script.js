@@ -95,3 +95,28 @@ const displayMovements = function (movements) {
 };
 // Passing the account
 displayMovements(account1.movements);
+
+// --- Computing Usernames for each Account:
+
+// --- Process Using Map Method
+// - 1. Convert the username to lowercase
+// - 2. Split them for spaces, split() also returns an array
+// - 3. Loop over the entire array and store only the Initials into a new array
+// - 4. Join all the Initials taken out using join() for empty string
+
+const createUserNames = function (accounts) {
+  // - Looping over the accounts using forEach
+  // - As we dont want to create a new array in this case
+  accounts.forEach(function (acc) {
+    // - Created a new property to store the username as 'username'
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(word => word[0])
+      .join('');
+  });
+};
+
+// - Passing all the accounts
+createUserNames(accounts);
+console.log(accounts);
