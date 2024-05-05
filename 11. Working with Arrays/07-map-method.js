@@ -37,5 +37,13 @@ const movementsDesc = movements.map(
       mov
     )}`
 );
+console.log(movementsDesc); // - (8) [220.00, 495.00, -440.00, ...]
 
-console.log(movementsDesc);
+// --- Using For of Loop
+const movementsUsd = [];
+for (const value of movements) {
+  let number = value * eurToUsd;
+  number = number.toFixed(2);
+  movementsUsd.push(number);
+}
+console.log(movementsUsd); // - (8) [220.00, 495.00, -440.00, ...]

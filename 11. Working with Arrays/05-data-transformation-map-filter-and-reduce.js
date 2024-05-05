@@ -3,9 +3,10 @@
 // -  So basically, these are methods that we use to create new arrays based on transforming data from other arrays
 
 // --- A) Map Method :
-// - First the map method is yet another method that we can use to loop over arrays.
+// - First the map method is yet another method that we can use to loop over entire arrays.
+// - It also has the access to the Value, Index and the entire Array on each iteration
 // - So, map is actually similar to the forEach method that we studied before but with the difference that map creates a brand new array based on the original array.
-// -  So essentially the map method takes an array, loops over that array and in each alteration, it applies a callback function that we specify on our code to the current array element.
+// - So essentially the map method takes an array, loops over that array and in each alteration, it applies a callback function that we specify on our code to the current array element.
 // - So in this example of the pdf we can see that we multiplied each element by 2. And with this callback in place, the map method multiplies every single element by two and puts it into a new array.
 // -  We say that it maps the values of the original array to a new array and that's why this method is called map.
 
@@ -14,9 +15,11 @@
 // -  But map on the other hand, builds us a brand new array containing the results of applying an operation to the original array
 
 // --- B) Filter Method:
+// - It iterates over the entire array same as forEach() an map()
+// - It also has the access to the Value, Index and the entire Array on each iteration
 // - Next up we have the filter method, which as the name says, is used to filter for elements in the original array which satisfy a certain condition.
-// - So in this example of the pdf we can see that we are only looking for elements greater than two. So all the elements that pass the test that we specified will make it into a new filtered array. Or in other words elements for which the condition is true will be included in a new array that the filter method returns.
-// - All other elements will get filtered out so they will not be included in the new array.
+// - So all the elements that pass the test that we specified will make it into a new filtered array.
+// - So essentially the filter method takes an array, loops over that array and in each alteration, it applies a callback function that we specify on our code to the current array element, and if the element for which the condition is true will be included in a new array that the filter method returns, and the rest will get filtered out so they will not be included in the new array.
 
 // --- C) Reduce Method:
 // - Reduce method which we use to boil down all the elements of the original array into one single value.
