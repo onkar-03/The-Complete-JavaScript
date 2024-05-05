@@ -1,4 +1,4 @@
-// --- B) Filter Method:
+// --- Filter Method:
 // - It iterates over the entire array same as forEach() an map()
 // - It also has the access to the Value, Index and the entire Array on each iteration
 // - Next up we have the filter method, which as the name says, is used to filter for elements in the original array which satisfy a certain condition.
