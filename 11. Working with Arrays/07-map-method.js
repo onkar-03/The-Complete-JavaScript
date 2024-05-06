@@ -12,7 +12,7 @@
 // - Array
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-// - Conversion to Euro to USD
+// --- A) Conversion to Euro to USD
 const eurToUsd = 1.1;
 
 // - Using arrow function in the callback function
@@ -28,7 +28,7 @@ const movementsToUsd = movements.map(value => {
 console.log(movements);
 console.log(movementsToUsd);
 
-// - Using three parameters in Map Method
+// --- B Using three parameters in Map Method
 // - Using Arrow Function in the callback function
 // - abs() remove the negative part of the value
 const movementsDesc = movements.map(
@@ -39,7 +39,7 @@ const movementsDesc = movements.map(
 );
 console.log(movementsDesc); // - (8) [220.00, 495.00, -440.00, ...]
 
-// --- Using For of Loop
+// --- C) Using For of Loop
 const movementsUsd = [];
 for (const value of movements) {
   let number = value * eurToUsd;
