@@ -108,7 +108,44 @@ const calcDisplayBalance = function (movements) {
 };
 calcDisplayBalance(account1.movements);
 
-// --- C) Computing Usernames for each Account:
+// --- C) Calculate Account Summary
+// - Used chaining of methods to calculate Summary of Incomes
+const calcDisplaySummary = function (movements) {
+  // - Incoming Money Amount
+  const incomes = movements
+    .filter(income => income > 0)
+    .reduce((acc, curr) => acc + curr, 0);
+  // - Display the calculated income
+  labelSumIn.textContent = `${incomes}€`;
+
+  // - Outgoing Money Amount
+  const out = movements
+    .filter(out => out < 0)
+    .reduce((acc, curr) => acc + curr, 0);
+  // - Display the calculated out money
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  // - Interest Amount
+  // - Calculate the incoming money and apply interest rate on that
+  // - Filter used to add condition to add interest on amounts >= 1 Euro
+  const interest = movements
+    .filter(income => income > 0)
+    .map(income => (income * account1.interestRate) / 100)
+
+    // - To see all the interest calculated
+    // .filter((income, index, arr) => {
+    //   console.log(arr);
+    //   return income >= 1;
+    // })
+    .filter(int => int >= 1)
+    .reduce((acc, curr) => acc + curr, 0);
+  // - Display the calculated income
+  labelSumInterest.textContent = `${interest}€`;
+};
+
+calcDisplaySummary(account1.movements);
+
+// --- D) Computing Usernames for each Account:
 
 // --- Process Using Map Method
 // - 1. Convert the username to lowercase
