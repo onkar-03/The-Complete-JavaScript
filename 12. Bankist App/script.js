@@ -95,14 +95,15 @@ const displayMovements = function (movements) {
 };
 
 // --- B) Calculate Balance
-const calcDisplayBalance = function (movements) {
+const calcDisplayBalance = function (account) {
   // - Calculating Balance using the reduce method
-  const balance = movements.reduce(function (acc, curr) {
+  // - Also creating a new property called balance to store the balance of the User
+  account.balance = account.movements.reduce(function (acc, curr) {
     return acc + curr;
   }, 0);
 
   // - Insert the Value to the HTML Element
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${account.balance}€`;
 };
 
 // --- C) Calculate Account Summary
@@ -167,7 +168,8 @@ createUserNames(accounts);
 
 // ------------------- Event Handlers :
 
-// --- 1. Checking Correct Credentials (As per the Flow Chart):
+// --- 1. Implementing Login:
+// - Checking Correct Credentials (As per the Flow Chart):
 // - Either we click the Button / Press Enter after entering details in required fields,both refer to the click even only
 let currentAccount;
 btnLogin.addEventListener('click', function (e) {
@@ -198,7 +200,7 @@ btnLogin.addEventListener('click', function (e) {
     displayMovements(currentAccount.movements);
 
     // - 3. Display Balance
-    calcDisplayBalance(currentAccount.movements);
+    calcDisplayBalance(currentAccount);
 
     // - 4. Display Summary
     // - Passing teh whole account as interest rates are different for different account, hence we pass in the accounts and then retrieve the interest rates according to the account Logged In
@@ -213,4 +215,26 @@ btnLogin.addEventListener('click', function (e) {
   }
 
   // --- Important : Remember that the function returns undefined in case of wrong user/pin input
+});
+
+// 2. Implementing Transfers:
+// - Transfer Money from one account to another
+btnTransfer.addEventListener('click', function (e) {
+  // - Prevent teh Default Reload
+  e.preventDefault();
+
+  // - Fetching Transfer Amount
+  const amount = Number(inputTransferAmount.value);
+
+  // - Fetching Receivers Account
+  // - To make sure the account entered is in out database we use the .find() method to fetch the account name and store it in receiversAcc if the entered account is correct
+  const receiversAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+
+  // - Transfer only if L:
+  // - 1. Positive Balance
+  // - 2. Enough money should be in my account there to carry the transfer
+  if (amount > 0 && amount >= acc.balance) {
+  }
 });
