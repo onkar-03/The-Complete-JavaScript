@@ -171,7 +171,23 @@ createUserNames(accounts);
 // --- 1. Implementing Login:
 // - Checking Correct Credentials (As per the Flow Chart):
 // - Either we click the Button / Press Enter after entering details in required fields,both refer to the click even only
+
+// - Storing Current Account Globally as we need to access the Account at several places
 let currentAccount;
+
+// - Function to Update UI with every transaction / Login
+const updateUi = function (acc) {
+  // - 1. Display Movements
+  displayMovements(acc.movements);
+
+  // - 2. Display Balance
+  calcDisplayBalance(acc);
+
+  // - 3. Display Summary
+  // - Passing teh whole account as interest rates are different for different account, hence we pass in the accounts and then retrieve the interest rates according to the account Logged In
+  calcDisplaySummary(acc);
+};
+
 btnLogin.addEventListener('click', function (e) {
   // - In HTML Form buttons default behavior is to reload after clicking it
   // - To disable that
@@ -196,15 +212,8 @@ btnLogin.addEventListener('click', function (e) {
     // - Display the Accounts Section / Dashboard
     containerApp.style.opacity = 100;
 
-    // - 2. Display Movements
-    displayMovements(currentAccount.movements);
-
-    // - 3. Display Balance
-    calcDisplayBalance(currentAccount);
-
-    // - 4. Display Summary
-    // - Passing teh whole account as interest rates are different for different account, hence we pass in the accounts and then retrieve the interest rates according to the account Logged In
-    calcDisplaySummary(currentAccount);
+    // - Update UI
+    updateUi(currentAccount);
 
     // - 5. Clear Input Fields
     // - Clearing teh Text Content of the Form Elements using the .value property
@@ -220,21 +229,40 @@ btnLogin.addEventListener('click', function (e) {
 // 2. Implementing Transfers:
 // - Transfer Money from one account to another
 btnTransfer.addEventListener('click', function (e) {
-  // - Prevent teh Default Reload
+  // - Prevent the Default Reload
   e.preventDefault();
 
-  // - Fetching Transfer Amount
+  // - 1. Fetching Transfer Amount
   const amount = Number(inputTransferAmount.value);
 
-  // - Fetching Receivers Account
+  // - 2. Fetching Receivers Account
   // - To make sure the account entered is in out database we use the .find() method to fetch the account name and store it in receiversAcc if the entered account is correct
   const receiversAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
 
-  // - Transfer only if L:
-  // - 1. Positive Balance
-  // - 2. Enough money should be in my account there to carry the transfer
-  if (amount > 0 && amount >= acc.balance) {
+  // - 3. Transfer Conditions (only if) :
+  // - Positive Balance
+  // - Enough money should be in my account there to carry the transfer
+  // - Can't transfer to our own account
+  // -check if the receiversAcc is not undefined ... and does exist we do &&receiversAcc
+  if (
+    amount > 0 &&
+    receiversAcc &&
+    amount <= currentAccount.balance &&
+    receiversAcc?.username !== currentAccount.username
+  ) {
+    // console.log('Transfer Valid');s
+
+    // - 4. Add positive & Negative transactions to respective accounts
+    currentAccount.movements.push(-amount);
+    receiversAcc.movements.push(amount);
+
+    // - Updating the Transactions on the Dashboard
+    updateUi(currentAccount);
   }
+
+  // - Clear Fields
+  inputTransferTo.value = inputTransferAmount.value = '';
+  inputTransferAmount.blur();
 });
