@@ -93,8 +93,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-// Passing the account
-displayMovements(account1.movements);
 
 // --- B) Calculate Balance
 const calcDisplayBalance = function (movements) {
@@ -106,20 +104,19 @@ const calcDisplayBalance = function (movements) {
   // - Insert the Value to the HTML Element
   labelBalance.textContent = `${balance}€`;
 };
-calcDisplayBalance(account1.movements);
 
 // --- C) Calculate Account Summary
 // - Used chaining of methods to calculate Summary of Incomes
-const calcDisplaySummary = function (movements) {
+const calcDisplaySummary = function (account) {
   // - Incoming Money Amount
-  const incomes = movements
+  const incomes = account.movements
     .filter(income => income > 0)
     .reduce((acc, curr) => acc + curr, 0);
   // - Display the calculated income
   labelSumIn.textContent = `${incomes}€`;
 
   // - Outgoing Money Amount
-  const out = movements
+  const out = account.movements
     .filter(out => out < 0)
     .reduce((acc, curr) => acc + curr, 0);
   // - Display the calculated out money
@@ -128,9 +125,9 @@ const calcDisplaySummary = function (movements) {
   // - Interest Amount
   // - Calculate the incoming money and apply interest rate on that
   // - Filter used to add condition to add interest on amounts >= 1 Euro
-  const interest = movements
+  const interest = account.movements
     .filter(income => income > 0)
-    .map(income => (income * account1.interestRate) / 100)
+    .map(income => (income * account.interestRate) / 100)
 
     // - To see all the interest calculated
     // .filter((income, index, arr) => {
@@ -138,12 +135,11 @@ const calcDisplaySummary = function (movements) {
     //   return income >= 1;
     // })
     .filter(int => int >= 1)
-    .reduce((acc, curr) => acc + curr, 0);
+    .reduce((acc, curr) => acc + curr, 0)
+    .toFixed(2);
   // - Display the calculated income
   labelSumInterest.textContent = `${interest}€`;
 };
-
-calcDisplaySummary(account1.movements);
 
 // --- D) Computing Usernames for each Account:
 
@@ -168,4 +164,53 @@ const createUserNames = function (accounts) {
 
 // - Passing all the accounts
 createUserNames(accounts);
-console.log(accounts);
+
+// ------------------- Event Handlers :
+
+// --- 1. Checking Correct Credentials (As per the Flow Chart):
+// - Either we click the Button / Press Enter after entering details in required fields,both refer to the click even only
+let currentAccount;
+btnLogin.addEventListener('click', function (e) {
+  // - In HTML Form buttons default behavior is to reload after clicking it
+  // - To disable that
+  e.preventDefault();
+
+  // - A) Checking Correct UserName
+  // - To check if the entered username in 'inputLoginUsername' field matches the original userName of owner property of account
+  // - currentAccount has the correct userName if entered correctly
+  currentAccount = accounts.find(
+    account => account.username === inputLoginUsername.value
+  );
+
+  // - B) Checking Pin Entered
+  // - Remember that what ever user inputs is stored as a string so we need to convert this to a Number as well
+  // - '?' represents Optional Chaining, means the .pin is read only when the currentAccount exists
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // - 1. Display UI & Welcome Message
+    // - Display the First Name of the owner using .split(' ')[0] as split returns an array
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    // - Display the Accounts Section / Dashboard
+    containerApp.style.opacity = 100;
+
+    // - 2. Display Movements
+    displayMovements(currentAccount.movements);
+
+    // - 3. Display Balance
+    calcDisplayBalance(currentAccount.movements);
+
+    // - 4. Display Summary
+    // - Passing teh whole account as interest rates are different for different account, hence we pass in the accounts and then retrieve the interest rates according to the account Logged In
+    calcDisplaySummary(currentAccount);
+
+    // - 5. Clear Input Fields
+    // - Clearing teh Text Content of the Form Elements using the .value property
+    inputLoginUsername.value = inputLoginPin.value = '';
+
+    // - .blur() makes sure that the last selected field loses its focus after the click event is triggered
+    inputLoginPin.blur();
+  }
+
+  // --- Important : Remember that the function returns undefined in case of wrong user/pin input
+});
