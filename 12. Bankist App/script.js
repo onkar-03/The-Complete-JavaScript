@@ -267,6 +267,30 @@ btnTransfer.addEventListener('click', function (e) {
   inputTransferAmount.blur();
 });
 
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // - Gather entered Amount
+  const amount = Number(inputTransferAmount.value);
+
+  // - Loan only approve if their is a movement in the account which is equal to 10% of the amount asked as a loan
+  if (
+    amount > 0 &&
+    currentAccount.movements.some(mov => mov >= amount * 0.01)
+  ) {
+    // - Push the Requested Loan Amount => Sanction teh Loan
+    currentAccount.movements.push(amount);
+
+    // - Update UI
+    updateUi(currentAccount);
+
+    // - Clear Fields
+    inputTransferAmount.value = '';
+    inputTransferAmount.blur();
+  }
+  s;
+});
+
 // --- 3. Implementing Removal of an Account:
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
