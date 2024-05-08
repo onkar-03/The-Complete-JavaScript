@@ -166,7 +166,7 @@ const createUserNames = function (accounts) {
 // - Passing all the accounts
 createUserNames(accounts);
 
-// ------------------- Event Handlers :
+// * ------------------- Event Handlers :
 
 // --- 1. Implementing Login:
 // - Checking Correct Credentials (As per the Flow Chart):
@@ -226,7 +226,7 @@ btnLogin.addEventListener('click', function (e) {
   // --- Important : Remember that the function returns undefined in case of wrong user/pin input
 });
 
-// 2. Implementing Transfers:
+// --- 2. Implementing Transfers:
 // - Transfer Money from one account to another
 btnTransfer.addEventListener('click', function (e) {
   // - Prevent the Default Reload
@@ -265,4 +265,34 @@ btnTransfer.addEventListener('click', function (e) {
   // - Clear Fields
   inputTransferTo.value = inputTransferAmount.value = '';
   inputTransferAmount.blur();
+});
+
+// --- 3. Implementing Removal of an Account:
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // - Checking if the Pin nad userName is correct or not
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    // - Check if the entered account name is same as that of the current account name we that we have logged in
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    console.log(index);
+
+    // - Removing the Account
+    accounts.splice(index, 1);
+
+    // - After account deletion hide the UI
+    containerApp.style.opacity = 0;
+  }
+
+  // - Clear Fields
+  inputCloseUsername.value = inputClosePin.value = '';
+  inputClosePin.blur();
+
+  // - Rewrite Welcome text
+  labelWelcome.textContent = `Log in to get started`;
 });
