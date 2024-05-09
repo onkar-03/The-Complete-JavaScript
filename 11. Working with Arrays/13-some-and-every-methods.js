@@ -26,6 +26,7 @@ console.log(anyDeposits); // - true
 // - CONDITION
 console.log(movements.every(mov => mov > 0)); // - false
 
-// Separate callback
+// - Separate callback
+// - Here we wrote the function logic separately and then used them inside the some() callback function
 const deposit = mov => mov > 0;
 console.log(movements.some(deposit)); // - true

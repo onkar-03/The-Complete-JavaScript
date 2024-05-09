@@ -267,6 +267,7 @@ btnTransfer.addEventListener('click', function (e) {
   inputTransferAmount.blur();
 });
 
+// --- 3. Implementation of Loan Approval of an Account:
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -291,7 +292,7 @@ btnLoan.addEventListener('click', function (e) {
   s;
 });
 
-// --- 3. Implementing Removal of an Account:
+// --- 4. Implementing Removal of an Account:
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
 
