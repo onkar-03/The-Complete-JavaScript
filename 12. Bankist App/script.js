@@ -62,7 +62,12 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // --- A) Creating DOM Elements: (Handling Transactions )
 // - Passing all movements to a function rather than making it work with a global var
 // - Adding new transactions to the container
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
+  // - By default set sort to false
+  // - Creating copy of original movements arrays using .slice() as sort manipulated the original data which we dont want
+  // - Then sorting the movements using.sort() an compare callback function
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
   // --- 1) Firstly we want the container to be empty before adding any new transactions
   // - We want to clear the ol transactions
   containerMovements.innerHTML = '';
@@ -71,7 +76,7 @@ const displayMovements = function (movements) {
   // - We want to create a new HTML element for each transaction
   // - We want to insert the new HTML element to the page
   // - Using forEach to iterate over the entire array passed
-  movements.forEach(function (value, index, arr) {
+  movs.forEach(function (value, index, arr) {
     // - Checking type of transaction that too place
     const type = value > 0 ? 'deposit' : 'withdrawal';
 
@@ -320,4 +325,21 @@ btnClose.addEventListener('click', function (e) {
 
   // - Rewrite Welcome text
   labelWelcome.textContent = `Log in to get started`;
+});
+
+// --- 5. Sorting Movements
+
+// State variable to sort movements
+let sorted = false;
+
+btnSort.addEventListener('click', function (e) {
+  // - Prevent the Default Reload
+  e.preventDefault();
+
+  // - Sorting Movements
+  // - Ascending Order
+  displayMovements(currentAccount.movements, !sorted);
+
+  // - Changing the state again as in case we click the sorted again we want to set to descending after ascending order
+  sorted = !sorted;
 });
