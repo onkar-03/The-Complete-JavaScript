@@ -343,3 +343,18 @@ btnSort.addEventListener('click', function (e) {
   // - Changing the state again as in case we click the sorted again we want to set to descending after ascending order
   sorted = !sorted;
 });
+
+// --- Movements UI:
+// - Using the Array.from() Method
+labelBalance.addEventListener('click', function () {
+  // - Converting the NodeList to an actual array
+  // - Then mapping it to Numbers replacing the € sign
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+
+  // - It can be done this way too but we need to use the map explicitly on this now
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+});
