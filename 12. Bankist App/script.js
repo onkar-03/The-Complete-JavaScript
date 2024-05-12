@@ -87,7 +87,7 @@ const displayMovements = function (movements, sort = false) {
           <div class="movements__type movements__type--${type}">${
       index + 1
     } ${type}</div>
-          <div class="movements__value">${value}</div>
+          <div class="movements__value">${value.toFixed(2)}</div>
         </div>`;
 
     // --- 3) Inserting the newly created HTML element to the page
@@ -108,7 +108,7 @@ const calcDisplayBalance = function (account) {
   }, 0);
 
   // - Insert the Value to the HTML Element
-  labelBalance.textContent = `${account.balance}€`;
+  labelBalance.textContent = `${account.balance.toFixed(2)}€`;
 };
 
 // --- C) Calculate Account Summary
@@ -119,14 +119,14 @@ const calcDisplaySummary = function (account) {
     .filter(income => income > 0)
     .reduce((acc, curr) => acc + curr, 0);
   // - Display the calculated income
-  labelSumIn.textContent = `${incomes}€`;
+  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
   // - Outgoing Money Amount
   const out = account.movements
     .filter(out => out < 0)
     .reduce((acc, curr) => acc + curr, 0);
   // - Display the calculated out money
-  labelSumOut.textContent = `${Math.abs(out)}€`;
+  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
   // - Interest Amount
   // - Calculate the incoming money and apply interest rate on that
@@ -144,7 +144,7 @@ const calcDisplaySummary = function (account) {
     .reduce((acc, curr) => acc + curr, 0)
     .toFixed(2);
   // - Display the calculated income
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 // --- D) Computing Usernames for each Account:
@@ -208,7 +208,7 @@ btnLogin.addEventListener('click', function (e) {
   // - B) Checking Pin Entered
   // - Remember that what ever user inputs is stored as a string so we need to convert this to a Number as well
   // - '?' represents Optional Chaining, means the .pin is read only when the currentAccount exists
-  if (currentAccount?.pin === +(inputLoginPin.value)) {
+  if (currentAccount?.pin === +inputLoginPin.value) {
     // - 1. Display UI & Welcome Message
     // - Display the First Name of the owner using .split(' ')[0] as split returns an array
     labelWelcome.textContent = `Welcome back, ${
@@ -238,7 +238,7 @@ btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
 
   // - 1. Fetching Transfer Amount
-  const amount = +(inputTransferAmount.value);
+  const amount = +inputTransferAmount.value;
 
   // - 2. Fetching Receivers Account
   // - To make sure the account entered is in out database we use the .find() method to fetch the account name and store it in receiversAcc if the entered account is correct
@@ -277,7 +277,7 @@ btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
   // - Gather entered Amount
-  const amount = +(inputTransferAmount.value);
+  const amount = Math.floor(inputTransferAmount.value);
 
   // - Loan only approve if their is a movement in the account which is equal to 10% of the amount asked as a loan
   if (
@@ -304,7 +304,7 @@ btnClose.addEventListener('click', function (e) {
   // - Checking if the Pin nad userName is correct or not
   if (
     inputCloseUsername.value === currentAccount.username &&
-    +(inputClosePin.value) === currentAccount.pin
+    +inputClosePin.value === currentAccount.pin
   ) {
     // - Check if the entered account name is same as that of the current account name we that we have logged in
     const index = accounts.findIndex(
@@ -351,7 +351,7 @@ labelBalance.addEventListener('click', function () {
   // - Then mapping it to Numbers replacing the € sign
   const movementsUI = Array.from(
     document.querySelectorAll('.movements__value'),
-    el => +(el.textContent.replace('€', ''))
+    el => +el.textContent.replace('€', '')
   );
   console.log(movementsUI);
 
