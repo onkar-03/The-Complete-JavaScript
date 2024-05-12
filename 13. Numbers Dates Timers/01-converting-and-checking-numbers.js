@@ -61,7 +61,7 @@ console.log(Number.isNaN(+'20X')); // true
 console.log(Number.isNaN(23 / 0)); // false
 
 // --- Check if a value is a Number / Finite:
-// - Best ay to Check if its a Number / Not
+// - Best way to Check if its a Number / Not
 // - .isFinite() is used to determine whether a value is a finite number.
 // - It returns true if the value is a finite number, and false otherwise
 console.log(Number.isFinite(20)); // true;
@@ -70,7 +70,7 @@ console.log(Number.isFinite(+'20X')); // false;
 console.log(Number.isFinite(23 / 0)); // false;
 
 // --- Check if value is an Integer
-// -  is used to determine whether a given value is an integer or not.
+// - Is used to determine whether a given value is an integer or not.
 // - It was introduced in ECMAScript 6 (ES6).
 // - It returns true if the value is an integer, and false otherwise.
 console.log(Number.isInteger(23)); // true;
