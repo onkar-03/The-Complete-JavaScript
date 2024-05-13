@@ -25,13 +25,13 @@ console.log(BigInt(3514935834957)); // - 3514935834957n
 // - But some operations like sqrt() wont work here with bigInt()
 
 console.log(10000n + 10000n); // - 20000n
+
+// - Regular Number with bigInt():
+// - They give errors when trying to work regular Numbers with bigInt()Together
+// - Means we cant mix the bigInt() with regular Numbers
 const huge = 1412421414124124242421421412n;
 const num = 23;
-console.log(huge * num);
-
-// - TypeError: Cannot mix BigInt and other types, use explicit conversions
-// - Means we cant mix the bigInt() with regular Numbers
-// console.log(huge * num);
+// console.log(huge * num); // - TypeError: Cannot mix BigInt and other types, use explicit conversions
 
 // - So we use the bigInt() Constructor to convert the regular number to bigInt ()  and then perform the necessary operations
 console.log(huge * BigInt(num)); // - 32485692524854857575692692476n
