@@ -141,8 +141,7 @@ const calcDisplaySummary = function (account) {
     //   return income >= 1;
     // })
     .filter(int => int >= 1)
-    .reduce((acc, curr) => acc + curr, 0)
-    .toFixed(2);
+    .reduce((acc, curr) => acc + curr, 0);
   // - Display the calculated income
   labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
