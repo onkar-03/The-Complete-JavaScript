@@ -11,6 +11,7 @@ console.log(future); // Tue Nov 19 2024 15:23:00 GMT+0530 (India Standard Time)
 console.log(+future); // 1732009980000
 
 // --- Creating a Function to calculate Days Passed:
+// - date1 - date2 gives time stamp in milliseconds
 // - Ued Math.abs() to always get a positive number, irrespective of which one is greater one
 // - (1000 * 60 * 60 * 24): 1000 to convert to seconds, 60 to convert to minutes,60 to convert to hours, 24 to convert to days
 const calcDaysPassed = (date1, date2) =>

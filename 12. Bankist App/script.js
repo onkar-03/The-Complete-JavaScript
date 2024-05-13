@@ -5,9 +5,22 @@
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-07-26T17:01:17.194Z',
+    '2020-07-28T23:36:17.929Z',
+    '2020-08-01T10:51:36.790Z',
+  ],
+  currency: 'EUR',
+  locale: 'pt-PT', // de-DE
 };
 
 const account2 = {
@@ -15,23 +28,22 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+
+  movementsDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
+  ],
+  currency: 'USD',
+  locale: 'en-US',
 };
 
-const account3 = {
-  owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 3333,
-};
-
-const account4 = {
-  owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 4444,
-};
-
-const accounts = [account1, account2, account3, account4];
+const accounts = [account1, account2];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -59,35 +71,49 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-// --- A) Creating DOM Elements: (Handling Transactions )
-// - Passing all movements to a function rather than making it work with a global var
+// --- A) Creating DOM Elements: (Handling Transactions)
+// - Passing the whole account now as we not only want to work with the movements but the movement dates values as well
 // - Adding new transactions to the container
-const displayMovements = function (movements, sort = false) {
+
+function displayMovements(acc, sort = false) {
+  // --- 1) Firstly we want the container to be empty before adding any new transactions
+  // - We want to clear the old transactions
+  containerMovements.innerHTML = '';
+
   // - By default set sort to false
   // - Creating copy of original movements arrays using .slice() as sort manipulated the original data which we dont want
-  // - Then sorting the movements using.sort() an compare callback function
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
-
-  // --- 1) Firstly we want the container to be empty before adding any new transactions
-  // - We want to clear the ol transactions
-  containerMovements.innerHTML = '';
+  // - Then sorting the movements using.sort() and compare callback function
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a.amount - b.amount)
+    : acc.movements;
 
   // --- 2) Now we want to iterate over the movements array
   // - We want to create a new HTML element for each transaction
   // - We want to insert the new HTML element to the page
   // - Using forEach to iterate over the entire array passed
-  movs.forEach(function (value, index, arr) {
+  movs.forEach((mov, i) => {
     // - Checking type of transaction that too place
-    const type = value > 0 ? 'deposit' : 'withdrawal';
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+    // - Accessing the movement dates of the particular movement at which we currently are using the Index
+    // - Called forEach on movements array and used the current Index to loop over the movementDates Array as well
+    // - Time stamping the Movements Date using new Date(), in date variable
+
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    const year = date.getFullYear();
+    const displayDate = `${day}/${month}/${year}/`;
 
     // - Creating the HTML element
     // - Inserting the Movements row for each transaction
     const html = `
-       <div class="movements__row">
-          <div class="movements__type movements__type--${type}">${
-      index + 1
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${
+      i + 1
     } ${type}</div>
-          <div class="movements__value">${value.toFixed(2)}</div>
+    <div class="movements__date">${displayDate}</div>
+          <div class="movements__value">${mov.toFixed(2)}</div>
         </div>`;
 
     // --- 3) Inserting the newly created HTML element to the page
@@ -97,15 +123,13 @@ const displayMovements = function (movements, sort = false) {
     // - Using after begin as we want the latest / last transaction to be at the top
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
-};
+}
 
 // --- B) Calculate Balance
 const calcDisplayBalance = function (account) {
   // - Calculating Balance using the reduce method
   // - Also creating a new property called balance to store the balance of the User
-  account.balance = account.movements.reduce(function (acc, curr) {
-    return acc + curr;
-  }, 0);
+  account.balance = account.movements.reduce((acc, curr) => acc + curr, 0);
 
   // - Insert the Value to the HTML Element
   labelBalance.textContent = `${account.balance.toFixed(2)}€`;
@@ -118,6 +142,7 @@ const calcDisplaySummary = function (account) {
   const incomes = account.movements
     .filter(income => income > 0)
     .reduce((acc, curr) => acc + curr, 0);
+
   // - Display the calculated income
   labelSumIn.textContent = `${incomes.toFixed(2)}€`;
 
@@ -125,6 +150,7 @@ const calcDisplaySummary = function (account) {
   const out = account.movements
     .filter(out => out < 0)
     .reduce((acc, curr) => acc + curr, 0);
+
   // - Display the calculated out money
   labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
 
@@ -142,6 +168,7 @@ const calcDisplaySummary = function (account) {
     // })
     .filter(int => int >= 1)
     .reduce((acc, curr) => acc + curr, 0);
+
   // - Display the calculated income
   labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
@@ -170,6 +197,18 @@ const createUserNames = function (accounts) {
 // - Passing all the accounts
 createUserNames(accounts);
 
+// - Function to Update UI with every transaction / Login
+const updateUI = function (acc) {
+  // Display movements
+  displayMovements(acc);
+
+  // Display balance
+  calcDisplayBalance(acc);
+
+  // Display summary
+  calcDisplaySummary(acc);
+};
+
 // * ------------------- Event Handlers :
 
 // --- 1. Implementing Login:
@@ -179,18 +218,10 @@ createUserNames(accounts);
 // - Storing Current Account Globally as we need to access the Account at several places
 let currentAccount;
 
-// - Function to Update UI with every transaction / Login
-const updateUi = function (acc) {
-  // - 1. Display Movements
-  displayMovements(acc.movements);
-
-  // - 2. Display Balance
-  calcDisplayBalance(acc);
-
-  // - 3. Display Summary
-  // - Passing teh whole account as interest rates are different for different account, hence we pass in the accounts and then retrieve the interest rates according to the account Logged In
-  calcDisplaySummary(acc);
-};
+// FAKE ALWAYS LOGGED IN
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // - In HTML Form buttons default behavior is to reload after clicking it
@@ -203,6 +234,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     account => account.username === inputLoginUsername.value
   );
+  console.log(currentAccount);
 
   // - B) Checking Pin Entered
   // - Remember that what ever user inputs is stored as a string so we need to convert this to a Number as well
@@ -216,8 +248,21 @@ btnLogin.addEventListener('click', function (e) {
     // - Display the Accounts Section / Dashboard
     containerApp.style.opacity = 100;
 
+    // - Creating the current Date on Login
+    const now = new Date();
+
+    // - For Date, Month, Hours & Minutes we want to display a 0 at the Start for Numbers 0...9
+    // - Hence we pad the day and month with 0 at the beginning
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const minutes = `${now.getMinutes()}`.padStart(2, 0);
+
+    labelDate.textContent = `${day}/${month}/${year}/, ${hour}:${minutes}`;
+
     // - Update UI
-    updateUi(currentAccount);
+    updateUI(currentAccount);
 
     // - 5. Clear Input Fields
     // - Clearing teh Text Content of the Form Elements using the .value property
@@ -237,7 +282,7 @@ btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
 
   // - 1. Fetching Transfer Amount
-  const amount = +inputTransferAmount.value;
+  const amount = inputTransferAmount.value;
 
   // - 2. Fetching Receivers Account
   // - To make sure the account entered is in out database we use the .find() method to fetch the account name and store it in receiversAcc if the entered account is correct
@@ -258,12 +303,18 @@ btnTransfer.addEventListener('click', function (e) {
   ) {
     // console.log('Transfer Valid');s
 
+    // - Doing Transfers
     // - 4. Add positive & Negative transactions to respective accounts
     currentAccount.movements.push(-amount);
     receiversAcc.movements.push(amount);
 
+    // - Adding Transfer Date
+    // - Both for the Sender and the Receiver
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiversAcc.movementsDates.push(new Date().toISOString());
+
     // - Updating the Transactions on the Dashboard
-    updateUi(currentAccount);
+    updateUI(currentAccount);
   }
 
   // - Clear Fields
@@ -276,24 +327,27 @@ btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
 
   // - Gather entered Amount
-  const amount = Math.floor(inputTransferAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   // - Loan only approve if their is a movement in the account which is equal to 10% of the amount asked as a loan
   if (
     amount > 0 &&
     currentAccount.movements.some(mov => mov >= amount * 0.01)
   ) {
-    // - Push the Requested Loan Amount => Sanction teh Loan
+    // - Push the Requested Loan Amount => Sanction the Loan
     currentAccount.movements.push(amount);
+    console.log(amount);
+
+    // Add Loan Date
+    currentAccount.movementsDates.push(new Date().toISOString());
 
     // - Update UI
-    updateUi(currentAccount);
+    updateUI(currentAccount);
 
     // - Clear Fields
-    inputTransferAmount.value = '';
-    inputTransferAmount.blur();
+    // inputTransferAmount.value = '';
+    // inputTransferAmount.blur();
   }
-  s;
 });
 
 // --- 4. Implementing Removal of an Account:
