@@ -74,7 +74,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // --- A) Creating DOM Elements: (Handling Transactions)
 
 // Function Handling all the Date Movements
-const formatMovement = function (date) {
+const formatMovement = function (date, locale) {
   // - Calculating Number of Days
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
@@ -87,10 +87,14 @@ const formatMovement = function (date) {
   if (daysPassed === 1) return 'Yesterday';
   if (daysPassed <= 7) return `${daysPassed} days ago`;
 
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}/`;
+  // - Using the Normal Method
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
+  // return `${day}/${month}/${year}/`;
+
+  // - Using the Internationalizing Dates method for displaying the Dates of transactions
+  return new Intl.DateTimeFormat(locale).format(date);
 };
 
 // - Passing the whole account now as we not only want to work with the movements but the movement dates values as well
@@ -119,7 +123,7 @@ function displayMovements(acc, sort = false) {
     // - Time stamping the Movements Date using new Date(), in date variable
 
     const date = new Date(acc.movementsDates[i]);
-    const displayDate = formatMovement(date);
+    const displayDate = formatMovement(date, acc.locale);
 
     // - Creating the HTML element
     // - Inserting the Movements row for each transaction
@@ -267,15 +271,34 @@ btnLogin.addEventListener('click', function (e) {
     // - Creating the current Date on Login
     const now = new Date();
 
+    // Method 1: Using Internationalizing Dates
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+    };
+
+    // Fetching the locale from the Account Object of the User
+    labelDate.textContent = Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
+
+    // If we want to use current local of User from Browser
+    // const local = navigator.language;
+    // labelDate.textContent = Intl.DateTimeFormat(local, options).format(now);
+
+    // Method 2: Normal Way to do it
     // - For Date, Month, Hours & Minutes we want to display a 0 at the Start for Numbers 0...9
     // - Hence we pad the day and month with 0 at the beginning
-    const day = `${now.getDate()}`.padStart(2, 0);
-    const month = `${now.getMonth() + 1}`.padStart(2, 0);
-    const year = now.getFullYear();
-    const hour = `${now.getHours()}`.padStart(2, 0);
-    const minutes = `${now.getMinutes()}`.padStart(2, 0);
-
-    labelDate.textContent = `${day}/${month}/${year}/, ${hour}:${minutes}`;
+    // const day = `${now.getDate()}`.padStart(2, 0);
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    // const year = now.getFullYear();
+    // const hour = `${now.getHours()}`.padStart(2, 0);
+    // const minutes = `${now.getMinutes()}`.padStart(2, 0);
+    // labelDate.textContent = `${day}/${month}/${year}/, ${hour}:${minutes}`;
 
     // - Update UI
     updateUI(currentAccount);
