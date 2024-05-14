@@ -10,14 +10,14 @@ const account1 = {
   pin: 1111,
 
   movementsDates: [
-    '2019-11-18T21:31:17.178Z',
-    '2019-12-23T07:42:02.383Z',
-    '2020-01-28T09:15:04.904Z',
-    '2020-04-01T10:17:24.185Z',
-    '2020-05-08T14:11:59.604Z',
-    '2020-07-26T17:01:17.194Z',
-    '2020-07-28T23:36:17.929Z',
-    '2020-08-01T10:51:36.790Z',
+    '2013-11-18T21:31:17.178Z',
+    '2013-12-23T07:42:02.383Z',
+    '2024-01-01T09:15:04.904Z',
+    '2024-01-28T10:17:24.185Z',
+    '2024-02-08T14:11:59.604Z',
+    '2024-03-26T17:01:17.194Z',
+    '2024-05-10T23:36:17.929Z',
+    '2024-05-13T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -72,9 +72,28 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // --- A) Creating DOM Elements: (Handling Transactions)
-// - Passing the whole account now as we not only want to work with the movements but the movement dates values as well
-// - Adding new transactions to the container
 
+// Function Handling all the Date Movements
+const formatMovement = function (date) {
+  // - Calculating Number of Days
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  // console.log(daysPassed);
+
+  // - Printing String for Recent Transactions
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}/`;
+};
+
+// - Passing the whole account now as we not only want to work with the movements but the movement dates values as well
 function displayMovements(acc, sort = false) {
   // --- 1) Firstly we want the container to be empty before adding any new transactions
   // - We want to clear the old transactions
@@ -100,10 +119,7 @@ function displayMovements(acc, sort = false) {
     // - Time stamping the Movements Date using new Date(), in date variable
 
     const date = new Date(acc.movementsDates[i]);
-    const day = `${date.getDate()}`.padStart(2, 0);
-    const month = `${date.getMonth() + 1}`.padStart(2, 0);
-    const year = date.getFullYear();
-    const displayDate = `${day}/${month}/${year}/`;
+    const displayDate = formatMovement(date);
 
     // - Creating the HTML element
     // - Inserting the Movements row for each transaction
@@ -219,9 +235,9 @@ const updateUI = function (acc) {
 let currentAccount;
 
 // FAKE ALWAYS LOGGED IN
-// currentAccount = account1;
-// updateUI(currentAccount);
-// containerApp.style.opacity = 100;
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // - In HTML Form buttons default behavior is to reload after clicking it
@@ -345,8 +361,8 @@ btnLoan.addEventListener('click', function (e) {
     updateUI(currentAccount);
 
     // - Clear Fields
-    // inputTransferAmount.value = '';
-    // inputTransferAmount.blur();
+    inputTransferAmount.value = '';
+    inputTransferAmount.blur();
   }
 });
 

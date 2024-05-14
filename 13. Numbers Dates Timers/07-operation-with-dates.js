@@ -7,7 +7,7 @@
 const future = new Date(2024, 10, 19, 15, 23);
 console.log(future); // Tue Nov 19 2024 15:23:00 GMT+0530 (India Standard Time)
 
-// - COnverting the Date to a Number using Number() Function / + Operator
+// - Converting the Date to a Number using Number() Function / + Operator
 console.log(+future); // 1732009980000
 
 // --- Creating a Function to calculate Days Passed:
@@ -19,7 +19,7 @@ const calcDaysPassed = (date1, date2) =>
 const days1 = calcDaysPassed(new Date(2024, 3, 14), new Date(2024, 3, 24));
 console.log(days1); // 10
 
-// If you need really precise calculation -> MomentJS library
+// If you need really precise calculation we can use - MomentJS library
 
 // - What if we pass in hours and minutes etc.. too then we might need to round the whole result in the Function like this
 const calcDaysPassed2 = (date1, date2) =>
