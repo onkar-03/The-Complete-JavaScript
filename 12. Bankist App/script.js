@@ -97,6 +97,17 @@ const formatMovement = function (date, locale) {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
+// - Here we formatted the currency and its completely independent of locale, so only the currency gets formatted according to currency:'USD' which is stored in account1
+// - The UI of date display still remains the same as acc.locale format only i.e Portugal for account1
+
+// Function to format Currency as we will use the same coe in multiple places
+const formatCurr = function (value, locale, curr) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: curr,
+  }).format(value);
+};
+
 // - Passing the whole account now as we not only want to work with the movements but the movement dates values as well
 function displayMovements(acc, sort = false) {
   // --- 1) Firstly we want the container to be empty before adding any new transactions
@@ -125,6 +136,9 @@ function displayMovements(acc, sort = false) {
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovement(date, acc.locale);
 
+    // Calling currency formatter
+    const formattedMovement = formatCurr(mov, acc.locale, acc.currency);
+
     // - Creating the HTML element
     // - Inserting the Movements row for each transaction
     const html = `
@@ -133,7 +147,7 @@ function displayMovements(acc, sort = false) {
       i + 1
     } ${type}</div>
     <div class="movements__date">${displayDate}</div>
-          <div class="movements__value">${mov.toFixed(2)}</div>
+          <div class="movements__value">${formattedMovement}</div>
         </div>`;
 
     // --- 3) Inserting the newly created HTML element to the page
@@ -152,7 +166,11 @@ const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, curr) => acc + curr, 0);
 
   // - Insert the Value to the HTML Element
-  labelBalance.textContent = `${account.balance.toFixed(2)}€`;
+  labelBalance.textContent = formatCurr(
+    account.balance,
+    account.locale,
+    account.currency
+  );
 };
 
 // --- C) Calculate Account Summary
@@ -164,7 +182,11 @@ const calcDisplaySummary = function (account) {
     .reduce((acc, curr) => acc + curr, 0);
 
   // - Display the calculated income
-  labelSumIn.textContent = `${incomes.toFixed(2)}€`;
+  labelSumIn.textContent = formatCurr(
+    incomes,
+    account.locale,
+    account.currency
+  );
 
   // - Outgoing Money Amount
   const out = account.movements
@@ -172,7 +194,11 @@ const calcDisplaySummary = function (account) {
     .reduce((acc, curr) => acc + curr, 0);
 
   // - Display the calculated out money
-  labelSumOut.textContent = `${Math.abs(out).toFixed(2)}€`;
+  labelSumOut.textContent = formatCurr(
+    Math.abs(out),
+    account.locale,
+    account.currency
+  );
 
   // - Interest Amount
   // - Calculate the incoming money and apply interest rate on that
@@ -190,7 +216,11 @@ const calcDisplaySummary = function (account) {
     .reduce((acc, curr) => acc + curr, 0);
 
   // - Display the calculated income
-  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
+  labelSumInterest.textContent = formatCurr(
+    interest,
+    account.locale,
+    account.currency
+  );
 };
 
 // --- D) Computing Usernames for each Account:
