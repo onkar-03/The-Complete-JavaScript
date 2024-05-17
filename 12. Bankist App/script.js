@@ -259,6 +259,53 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+// Timer Function
+const startLogOutTimer = function () {
+  // - Writing the callback function of setInterval separately
+  // - As we want it to get executed immediately and not after 1 second delay of SetInterval()
+  const tick = function () {
+    // - Minutes Calculation
+    // - Removing the decimal part using Math.trunc
+    // - padStart() is a string method hence we convert the calculated number to string using String()
+    const minutes = String(Math.trunc(time / 60)).padStart(2, 0);
+
+    // - Seconds calculation
+    // - Removing the decimal part using Math.trunc
+    // - padStart() is a string method hence we convert the calculated number to string using String()
+    const seconds = String(time % 60).padStart(2, 0);
+
+    // - In each call, print remaining time in the UI
+    labelTimer.textContent = `${minutes}:${seconds}`;
+
+    // - When Timer countdown reaches 0
+    if (time === 0) {
+      // Stop the Timer
+      // - To stop the setInterval() function
+      clearInterval(timer);
+
+      // Label Content back to Start Page
+      labelWelcome.textContent = `Login top get started`;
+
+      // Opacity of UI to 0 = LogOut
+      containerApp.style.opacity = 0;
+    }
+
+    // Decrease 1 Seconds every Second
+    // We get logged out at 1 second if time-- written before comparison time === 0
+    // Writing this after check as when tim is 1 second its gets reduced to 0 by time-- and gets logged out
+    // Hence first we compare the current time then reduce it
+    time--;
+  };
+
+  // - Set Time to 5 minutes = 300 seconds
+  let time = 300;
+
+  // - Call the timer every second
+  // - Called the tick first as we want it to execute immediately which wont happen if we just call it in the setInterval() function as there we have a delay of 1 sec
+  tick();
+  const timer = setInterval(tick, 1000);
+};
+
 // * ------------------- Event Handlers :
 
 // --- 1. Implementing Login:
@@ -269,9 +316,9 @@ const updateUI = function (acc) {
 let currentAccount;
 
 // FAKE ALWAYS LOGGED IN
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   // - In HTML Form buttons default behavior is to reload after clicking it
@@ -329,6 +376,9 @@ btnLogin.addEventListener('click', function (e) {
     // const hour = `${now.getHours()}`.padStart(2, 0);
     // const minutes = `${now.getMinutes()}`.padStart(2, 0);
     // labelDate.textContent = `${day}/${month}/${year}/, ${hour}:${minutes}`;
+
+    // Timer called
+    startLogOutTimer();
 
     // - Update UI
     updateUI(currentAccount);
