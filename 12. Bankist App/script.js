@@ -304,6 +304,10 @@ const startLogOutTimer = function () {
   // - Called the tick first as we want it to execute immediately which wont happen if we just call it in the setInterval() function as there we have a delay of 1 sec
   tick();
   const timer = setInterval(tick, 1000);
+
+  // To tackle the multiple account timer problem, we return the timer
+  // So that we can check If there is a timer already running?? if yes we stop it using clearInterval()
+  return timer;
 };
 
 // * ------------------- Event Handlers :
@@ -314,6 +318,10 @@ const startLogOutTimer = function () {
 
 // - Storing Current Account Globally as we need to access the Account at several places
 let currentAccount;
+
+// Creating Timer global variable
+// Global because we need this variable to persist between different logins
+let timer;
 
 // FAKE ALWAYS LOGGED IN
 // currentAccount = account1;
@@ -377,8 +385,14 @@ btnLogin.addEventListener('click', function (e) {
     // const minutes = `${now.getMinutes()}`.padStart(2, 0);
     // labelDate.textContent = `${day}/${month}/${year}/, ${hour}:${minutes}`;
 
-    // Timer called
-    startLogOutTimer();
+    // Timer
+    // Saved in a variable so that we can use clearInterval()
+
+    // If already Timer exists then cleared first before another user logs in
+    if (timer) {
+      clearInterval(timer);
+    }
+    timer = startLogOutTimer();
 
     // - Update UI
     updateUI(currentAccount);
@@ -434,11 +448,18 @@ btnTransfer.addEventListener('click', function (e) {
 
     // - Updating the Transactions on the Dashboard
     updateUI(currentAccount);
-  }
 
-  // - Clear Fields
-  inputTransferTo.value = inputTransferAmount.value = '';
-  inputTransferAmount.blur();
+    // Reset Timer
+    // On any transfers performed we want to clear Interval of previous timer running
+    clearInterval(timer);
+
+    // Reset
+    timer = startLogOutTimer();
+
+    // - Clear Fields
+    inputTransferTo.value = inputTransferAmount.value = '';
+    inputTransferAmount.blur();
+  }
 });
 
 // --- 3. Implementation of Loan Approval of an Account:
@@ -462,6 +483,11 @@ btnLoan.addEventListener('click', function (e) {
 
     // - Update UI
     updateUI(currentAccount);
+
+    // Reset Timer
+    // On any transfers performed we want to clear Interval of previous timer running and reset
+    clearInterval(timer);
+    timer = startLogOutTimer();
 
     // - Clear Fields
     inputTransferAmount.value = '';
