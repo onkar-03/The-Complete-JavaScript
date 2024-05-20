@@ -1,7 +1,6 @@
-// --- Styles ---
 const header = document.querySelector('.header');
 
-// Creating an Element suing .createElement(tagName)
+// Creating an Element using .createElement(tagName)
 const message = document.createElement('div');
 
 // Adding classes to the created element
@@ -51,3 +50,61 @@ console.log(message.style.height);
 // Set or change an CSS custom property using .setProperty(propertyName,Value)
 // To select the root property we need to use the 'document.documentElement'
 document.documentElement.style.setProperty('--color-primary', 'orange');
+
+// --- Attributes ---
+// All the src, img, class, id etc... are all attributes of say <img> tag here
+// We can access and change these different attributes
+
+// A) Selecting classes
+const logo = document.querySelector('.nav__logo');
+const link = document.querySelector('.nav__link--btn');
+
+// B) Reading Standard attributes
+// <img src="img/logo.png" alt="Bankist logo" class="nav__logo" id="logo"/>
+// Standard attributes of an HTML <img> tag are the attributes that are commonly used to define the properties of an image element
+console.log(logo.alt);
+console.log(logo.src);
+console.log(logo.className);
+console.log(logo.id);
+
+// C) Setting Standard Attributes
+// Setting teh alt text for logo here
+logo.alt = 'Beautiful minimalist logo';
+
+// D) Reading Non-Standard Attributes
+// We can't read the non standard attributes using the same method like for the standard ones
+console.log(logo.designer); // undefined
+
+// We need to use the .getAttribute('nameOfAttribute') method to get the non-standard attributes
+console.log(logo.getAttribute('designer'));
+
+// E) Setting Non-Standard Attributes
+// .setAttribute('nameOfAttribute', 'Value')
+console.log(logo.setAttribute('company', 'bankist'));
+
+// F) Absolute vs Relative URL / Links
+console.log(logo.src); // http://127.0.0.1:8080/img/logo.png (absolute version)
+console.log(logo.getAttribute('src')); // img/logo.png (relative version)
+
+console.log(link.href); // http://127.0.0.1:8080/# (absolute version)
+console.log(link.getAttribute('href')); // # (relative version)
+
+// G) Data attributes (special attributes that start with data)
+// They start with 'data-' keyword at the beginning
+// Also in the .dataset.name the name is in camelCase
+// The name is data--version-number: written as .dataset.versionNumber
+
+// data-version-number
+console.log(logo.dataset.versionNumber);
+
+// --- Classes ---
+
+// Operations
+logo.classList.add('a', 'b', 'c');
+logo.classList.remove('a', 'b', 'c');
+logo.classList.toggle('a');
+logo.classList.contains('a');
+
+// We can also set class as follows
+// Don't use because it overrides all existing classes
+logo.className = 'ONKAR';
