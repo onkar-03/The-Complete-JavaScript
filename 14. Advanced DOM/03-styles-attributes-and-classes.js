@@ -106,5 +106,5 @@ logo.classList.toggle('a');
 logo.classList.contains('a');
 
 // We can also set class as follows
-// Don't use because it overrides all existing classes
+// Don't use because it overrides all existing classes, hence the LOGO image gets Bigger
 logo.className = 'ONKAR';
