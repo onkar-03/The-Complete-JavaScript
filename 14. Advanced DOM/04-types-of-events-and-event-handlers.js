@@ -8,33 +8,40 @@ const h1 = document.querySelector('h1');
 
 // Function to Display message as soon as the Event is Triggered
 function func() {
-  alert('Event triggered!');
+  console.log('Event triggered!!');
 
   // Remove event listener
   // For this we nee to mention the event we want to remove an the external function declared as well
   h1.removeEventListener('mouseenter', func);
 }
-function func() {
-  alert('Event triggered!');
+
+function func2() {
+  console.log('Event!!');
 
   // Remove event listener
   // For this we nee to mention the event we want to remove an the external function declared as well
-  h1.removeEventListener('mouseenter', func);
+  h1.removeEventListener('mouseleave', func2);
 }
 
 // Adding Events the OLD way
 // h1.onmouseenter = func;
+
 // Using the old way of adding events overrides all prior events
-// h1.onclick = func2;
+// Now on mouseenter the func2 gets triggered i.e 'Event!!' in the console
+// h1.onmouseenter = func2;
 
 // Adding Events the NEW way
 h1.addEventListener('mouseenter', func);
+
 // Using addEventListener we can attach multiple events
+// Hence now both the func() and func2 get triggered at the same time func() is not overridden by func2() on using .addEventListener(), also on click the func9) get triggered
+h1.addEventListener('mouseenter', func2);
 h1.addEventListener('click', func);
 
 // ---- NEW VS OLD Method ----
-// - 1. We can add Multiple event listeners using the .addEventListener(), whereas doing it with the .onEventName would not work as it simply overwrites the first one
+// - 1. We can add Multiple event listeners using the .addEventListener() for the same event, whereas doing it with the .onEventName would not work as it simply overwrites the first one
 // - 2. When using the .addEventListener() we can also remove an event handler incase we dont need it anymore, but fot that we need to export the callback function written into a separate named function as we id above
 
-// Third way of handling is HTML attributes
-// < onclick="alert('HTML Alert')"></h1>
+// --- Third way of handling is HTML attributes
+// However is should not be used these days
+// EG: <h1 onclick="alert('HTML Alert')"></h1>
