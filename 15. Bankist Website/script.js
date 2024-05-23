@@ -1,11 +1,14 @@
 'use strict';
 
-// Modal window
-
+// All Selections
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const buttonScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -39,9 +42,8 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+////////////////////////////////////////////////////////////////////////////
 // ---- Implementing Smooth Scrolling ----
-const buttonScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
 // Event Listener
 buttonScrollTo.addEventListener('click', e => {
@@ -88,3 +90,48 @@ buttonScrollTo.addEventListener('click', e => {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+////////////////////////////////////////////////////////////////////////////
+// ---- Implementing Page Navigation ----
+
+// Method 1 : (Inefficient)
+
+// Selecting all of the Anchor Elements on the page
+// Using .querySelectorAll() returns the node list
+// We can now use forEach method to iterate over all of them and add an event listener
+document.querySelectorAll('.nav__link').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    // Prevent scrolling to the section on click
+    e.preventDefault();
+
+    // Retrieve the value of a specific attribute 'href'
+    // Store it into a variable
+    const id = this.getAttribute('href');
+    // console.log(id);
+
+    // Implement Smooth Scrolling to that section
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// Method 2 : Event Delegation
+
+// Event delegation is a technique in JavaScript that involves leveraging the event bubbling (or propagation) mechanism to manage events more efficiently. Instead of attaching event listeners to multiple child elements, you attach a single event listener to a common parent element. This parent element can then handle events for multiple child elements.
+
+// Steps
+// 1. Add eventListener to common parent element
+// 2. Determine what originated the event
+
+// Selecting common Parent 'nav__links'
+// Adding event to This common parent
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // To know where the happened we used e.target
+  // Matching strategy, to check if the anchor links were clicked by matching their class names
+  // If they match retrieve their attribute 'href'
+  // implement the Smooth scrolling to that href attribute that was retrieved
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
