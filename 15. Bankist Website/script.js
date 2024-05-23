@@ -115,12 +115,6 @@ document.querySelectorAll('.nav__link').forEach(function (el) {
 
 // Method 2 : Event Delegation
 
-// Event delegation is a technique in JavaScript that involves leveraging the event bubbling (or propagation) mechanism to manage events more efficiently. Instead of attaching event listeners to multiple child elements, you attach a single event listener to a common parent element. This parent element can then handle events for multiple child elements.
-
-// Steps
-// 1. Add eventListener to common parent element
-// 2. Determine what originated the event
-
 // Selecting common Parent 'nav__links'
 // Adding event to This common parent
 document.querySelector('.nav__links').addEventListener('click', function (e) {
