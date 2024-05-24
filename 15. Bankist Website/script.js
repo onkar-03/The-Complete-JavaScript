@@ -136,7 +136,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 // Selecting Tabs, Container & Content
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelector('.operations__content');
+const tabsContent = document.querySelectorAll('.operations__content');
 
 // Using Event Delegation
 // On Tabs container we implement event delegation for tabs when clicked
@@ -152,19 +152,31 @@ tabsContainer.addEventListener('click', function (e) {
   // We simply return right away
   if (!clicked) return;
 
-  // First remove the active class from all the tabs
+  // Remove Active Class from Content & Tabs
+
+  // Tabs
   tabs.forEach(e => {
     e.classList.remove('operations__tab--active');
   });
 
-  // Add the active class to the Selected Tab
+  // Content
+  // First remove the active class from all the content tabs
+  tabsContent.forEach(e => {
+    e.classList.remove('operations__content--active');
+  });
+
+  console.log(clicked);
+
+  // Activate Tabs
+  // Add the active class to the clicked Tab
   clicked.classList.add('operations__tab--active');
 
   // Activate Content Area
-  // the dataset attribute contains the Content number that should be displayed
-  // All the attributes are in teh Elements dataset property
+  // Add the active class to the clicked Tab Content
+  // The dataset attribute contains the Content number that should be displayed
+  // All the attributes are in the Elements dataset property
+  console.log(clicked.dataset.tab);
   document
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
-  console.log(clicked.dataset.tab);
 });
