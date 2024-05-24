@@ -64,6 +64,7 @@ console.log(h1.parentElement); // <div class="header__title">...</div>
 // .closest() method finds the closest ancestor matching the selector
 // It receives a query string like querySelector / querySelectorAll
 // Used to select the closest ancestor element with the specified class '.header'
+// Very helpful for Event Delegation
 h1.closest('.header').style.background = 'var(--gradient-secondary)';
 
 // --- Going Sideways: Siblings ---

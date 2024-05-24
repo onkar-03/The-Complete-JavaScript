@@ -129,3 +129,42 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+////////////////////////////////////////////////////////////////////////////
+// ---- Implementing Tabbed Components ----
+
+// Selecting Tabs, Container & Content
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelector('.operations__content');
+
+// Using Event Delegation
+// On Tabs container we implement event delegation for tabs when clicked
+tabsContainer.addEventListener('click', function (e) {
+  // To know which tab / element was triggered we use e.target
+  // But in the Tab we have a button and a span containing the Number
+  // We want the operation__tab class to be there when we click the Tab / Number
+  // Hence we use the closest() method to get the element that has the operations__tab, whether we click the Button / Number
+  const clicked = e.target.closest('.operations__tab');
+
+  // Guard Clause
+  // Incase we click between the tabs we dont want any operations to happen
+  // We simply return right away
+  if (!clicked) return;
+
+  // First remove the active class from all the tabs
+  tabs.forEach(e => {
+    e.classList.remove('operations__tab--active');
+  });
+
+  // Add the active class to the Selected Tab
+  clicked.classList.add('operations__tab--active');
+
+  // Activate Content Area
+  // the dataset attribute contains the Content number that should be displayed
+  // All the attributes are in teh Elements dataset property
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+  console.log(clicked.dataset.tab);
+});
