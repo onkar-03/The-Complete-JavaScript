@@ -37,13 +37,16 @@ const h1 = document.querySelector('h1');
 // This selects only the 'highlight' classes that are children of the h1, regardless of how deep they are in the DOM Tree
 console.log(h1.querySelectorAll('.highlight'));
 
-// Selecting all Direct Child nodes of h1
-// It includes text nodes and comment nodes
-// This returns every single node type (element nodes, text nodes, comment nodes, etc.)
+// Selecting Child Nodes of h1
+// It is used to access a live NodeList of all child nodes of a specified element, including elements, text nodes, and comments
+//  This means that h1.childNodes will give you all the child nodes of the <h1> element, not just the child elements
+// The NodeList is live, meaning it automatically updates if the child nodes of the element change
+// It returns all Child Nodes Direct / Indirect
 console.log(h1.childNodes);
 
-// To get only the direct child HTML elements of the h1 element, we use .children
-// Gives us the HTML Collection, of the direct children of h1
+// Selecting Direct Children
+// It returns a live HTMLCollection of all child elements of a specified element.
+// This means that h1.children will give you all the child elements of the <h1> element, excluding text nodes, comments, and other non-element nodes.
 console.log(h1.children);
 
 // We can also select the first and last element child directly
@@ -53,11 +56,13 @@ h1.lastElementChild.style.color = 'yellow'; // Changes color of the last child e
 // --- Going Upwards: Parent ---
 
 // Selecting the direct parent node of h1
-// This can be any node type (element, text, comment, etc.)
+// So, h1.parentNode will return the direct parent element and won't include any text or comment nodes that are siblings of the <h1> element
+// Returns the parent node of the <h1> element, which could be any type of node (element, text, comment, etc.).
 console.log(h1.parentNode); // <div class="header__title">...</div>
 
 // Selecting the direct parent element of h1
-// This must be an element node, similar to the children use in the children
+// The parentElement property returns the parent element node of the specified element, similar to parentNode, but it specifically returns only the parent if it's an element node
+// If the parent is not an element node (for example, it's a text node or the document node), parentElement returns null
 console.log(h1.parentElement); // <div class="header__title">...</div>
 
 // Selecting ancestor elements of h1 (direct or indirect)
@@ -71,16 +76,24 @@ h1.closest('.header').style.background = 'var(--gradient-secondary)';
 
 // In JS, we can only access the direct siblings: previous and next
 
-// Selecting the previous sibling element of h1 (returns null if none exists)
+// .previousElementSibling specifically returns the previous sibling element node
+// If there is no previous sibling element node, it returns null
+// It only considers element nodes; text nodes, comment nodes, etc., are ignored
 console.log(h1.previousElementSibling); // null
 
-// Selecting the next sibling element of h1
-console.log(h1.nextElementSibling); // <h4>A simpler banking experience for a simpler life.</h4>
-
-// Selecting the previous sibling node of h1 (can be any node type, including text nodes)
+// .previousSibling returns the previous sibling node, which could be any type of node (element, text, comment, etc.)
+// If there is no previous sibling node, it returns null
+// It can return any type of node, not just an element node
 console.log(h1.previousSibling); // #text
 
-// Selecting the next sibling node of h1 (can be any node type, including text nodes)
+// .nextElementSibling specifically returns the next sibling element node.
+// If there is no next sibling element node, it returns null
+// It only considers element nodes; text nodes, comment nodes, etc., are ignored
+console.log(h1.nextElementSibling); // <h4>A simpler banking experience for a simpler life.</h4>
+
+// nextSibling returns the next sibling node, which could be any type of node (element, text, comment, etc.)
+// If there is no next sibling node, it returns null
+// It can return any type of node, not just an element node
 console.log(h1.nextSibling); // #text
 
 // In case we need all siblings, we can move up to the parent and then select all children
