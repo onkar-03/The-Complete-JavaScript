@@ -25,32 +25,71 @@
 </header>
 */
 
+// ---- DOM Traversing ----
+
+// Selecting the H1 element using .querySelector
 const h1 = document.querySelector('h1');
 
-// Going downwards: child
-// Selects all class with highlight within h1 (children)
+// --- Going Downwards: Children ---
+
+// .querySelector / .querySelectorAll works on both document and elements
+// Selecting all elements with the 'highlight' class that are descendants / children of the h1 element
+// This selects only the 'highlight' classes that are children of the h1, regardless of how deep they are in the DOM Tree
 console.log(h1.querySelectorAll('.highlight'));
+
+// Selecting all Direct Child nodes of h1
+// It includes text nodes and comment nodes
+// This returns every single node type (element nodes, text nodes, comment nodes, etc.)
 console.log(h1.childNodes);
+
+// To get only the direct child HTML elements of the h1 element, we use .children
+// Gives us the HTML Collection, of the direct children of h1
 console.log(h1.children);
-h1.firstElementChild.style.color = 'white';
-h1.lastElementChild.style.color = 'orange';
 
-// Going upwards: parents
-console.log(h1.parentNode);
-console.log(h1.parentElement);
+// We can also select the first and last element child directly
+h1.firstElementChild.style.color = 'red'; // Changes color of the first child element
+h1.lastElementChild.style.color = 'yellow'; // Changes color of the last child element
 
+// --- Going Upwards: Parent ---
+
+// Selecting the direct parent node of h1
+// This can be any node type (element, text, comment, etc.)
+console.log(h1.parentNode); // <div class="header__title">...</div>
+
+// Selecting the direct parent element of h1
+// This must be an element node, similar to the children use in the children
+console.log(h1.parentElement); // <div class="header__title">...</div>
+
+// Selecting ancestor elements of h1 (direct or indirect)
+// .closest() method finds the closest ancestor matching the selector
+// It receives a query string like querySelector / querySelectorAll
+// Used to select the closest ancestor element with the specified class '.header'
 h1.closest('.header').style.background = 'var(--gradient-secondary)';
 
-h1.closest('h1').style.background = 'var(--gradient-primary)';
+// --- Going Sideways: Siblings ---
 
-// Going sideways: siblings
-console.log(h1.previousElementSibling);
-console.log(h1.nextElementSibling);
+// In JS, we can only access the direct siblings: previous and next
 
-console.log(h1.previousSibling);
-console.log(h1.nextSibling);
+// Selecting the previous sibling element of h1 (returns null if none exists)
+console.log(h1.previousElementSibling); // null
 
-console.log(h1.parentElement.children); // Get all siblings
-[...h1.parentElement.children].forEach(function (el) {
-  if (el !== h1) el.style.transform = 'scale(0.5)';
+// Selecting the next sibling element of h1
+console.log(h1.nextElementSibling); // <h4>A simpler banking experience for a simpler life.</h4>
+
+// Selecting the previous sibling node of h1 (can be any node type, including text nodes)
+console.log(h1.previousSibling); // #text
+
+// Selecting the next sibling node of h1 (can be any node type, including text nodes)
+console.log(h1.nextSibling); // #text
+
+// In case we need all siblings, we can move up to the parent and then select all children
+console.log(h1.parentElement.children); // HTMLCollection(4) [h1, h4, button.btn--text.btn--scroll-to, img.header__img]
+
+// This gives us an HTMLCollection, which is not an array but is iterable
+// We can convert it into an array using the spread operator '...'
+// Then we can loop over the array using forEach and perform our manipulations
+[...h1.parentElement.children].forEach(el => {
+  if (el !== h1) {
+    el.style.transform = 'scale(0.5)'; // Scales down all siblings of h1
+  }
 });

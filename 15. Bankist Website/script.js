@@ -129,27 +129,3 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
-
-////////////////////////////////////////////////////////////////////////////
-// ---- DOM Traversing ----
-
-// Selecting the H1 using .querySelector
-const h1 = document.querySelector('h1');
-
-// --- Going Downwards
-// .querySelector works on both document & elements as well
-// Selecting the 'highlight' class which are the children of h1 element, and it does not matter how deep they are in the h1 element
-// Also h1.querySelectorAll selects only the highlight classes that are children of the h1 only
-console.log(h1.querySelectorAll('.highlight'));
-
-// To select the DirectNodes of h1 we can use
-// Text Comments etc.. all are selected
-// Gives us every single node of every single type that exists
-console.log(h1.childNodes);
-
-// To get the Direct Children HTML Elements only that are actually inside the h1 we use .children
-console.log(h1.children);
-
-// We can also select the First and Last element Child like this
-h1.firstElementChild.style.color = 'red';
-h1.lastElementChild.style.color = 'yellow';
