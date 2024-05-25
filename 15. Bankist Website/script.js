@@ -228,5 +228,26 @@ const nav = document.querySelector('.nav');
 // The bind method is used to create a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called
 // The this keyword is by default the currentTarget which is the nav container here
 // But we can set the this keyword to whatsoever we want,like we want it to be the opacity hence we use it at the place of the opacity
+
+// Passing 'arguments' to the function
 nav.addEventListener('mouseover', fade.bind(0.5));
 nav.addEventListener('mouseout', fade.bind(1));
+
+////////////////////////////////////////////////////////////////////////////
+// ---- Stick Navigation ----
+// We use the scroll method here which is not teh best solution as it fires for each and every scroll no matter how small a scroll event, we will look for a better method in the future
+
+// Getting Initial coordinates of section 1, because as soon as we want reach the section 1 we wna the nav to be sticky on the page
+
+const initialCoordinates = section1.getBoundingClientRect();
+
+window.addEventListener('scroll', () => {
+  // Check if the Coordinates reached the Section 1
+  // If yes then add the sticky class to the nav
+  // To check we use the top value of the coordinates
+  if (window.scrollY > initialCoordinates.top) nav.classList.add('sticky');
+  // Else remove the Sticky Nav
+  else {
+    nav.classList.remove('sticky');
+  }
+});
