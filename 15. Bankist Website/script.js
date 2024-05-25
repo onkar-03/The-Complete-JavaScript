@@ -180,3 +180,53 @@ tabsContainer.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+////////////////////////////////////////////////////////////////////////////
+// ---- Menu Fade Animation ----
+
+// Refactoring code using function
+const fade = function (e) {
+  // Check if its a Link, means it contains nav__link class
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+
+    // Select all sibling elements to Fade them away
+    // For this we will use the closest() method to select common parent
+    // Then use .querySelectorAll() to select all the siblings at once
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+
+    // Selecting Logo to Fade away too
+    const logo = link.closest('.nav').querySelector('.nav__logo');
+
+    // If its not the hovered link we change the opacity to .5
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this;
+    });
+
+    // If its not the hovered link we change the opacity to .5
+    logo.style.opacity = this;
+  }
+};
+
+// Using Event Delegation
+// As we need to ad eventListener() to every link & the Logo we attach it to a common parent using event delegation
+const nav = document.querySelector('.nav');
+
+// We use mouseover and not mouseenter as mouseenter does not bubble
+// Method 1 : Using repetitive code for for functions except changing the opacity value
+// Method 2 : Using Callback function and calling the function inside of it manually
+// nav.addEventListener('mouseover', function (e) {
+//   fade(e, 0.5);
+// });
+
+// For mouseout we want to set the opacity back to 1 thats it
+// nav.addEventListener('mouseout', function (e) {
+//   fade(e, 1);
+// });
+
+// Method 3 : Using the Bind Method
+// The bind method is used to create a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called
+// The this keyword is by default the currentTarget which is the nav container here
+// But we can set the this keyword to whatsoever we want,like we want it to be the opacity hence we use it at the place of the opacity
+nav.addEventListener('mouseover', fade.bind(0.5));
+nav.addEventListener('mouseout', fade.bind(1));
