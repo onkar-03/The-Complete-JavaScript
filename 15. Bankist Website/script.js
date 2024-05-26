@@ -293,14 +293,19 @@ const allSections = document.querySelectorAll('.section');
 
 const revealSections = function (entries, observer) {
   const [entry] = entries;
+  console.log(entry);
 
   if (!entry.isIntersecting) return;
 
   entry.target.classList.remove('section--hidden');
+
+  // Unobserve the section once it is revealed, on the Page
+  // Otherwise it keeps getting observed thought the scrolling on the page
   observer.unobserve(entry.target);
 };
 
 const sectionObserver = new IntersectionObserver(revealSections, {
+  root: null,
   threshold: 0.15,
 });
 
