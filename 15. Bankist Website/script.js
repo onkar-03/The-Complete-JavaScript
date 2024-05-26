@@ -234,20 +234,55 @@ nav.addEventListener('mouseover', fade.bind(0.5));
 nav.addEventListener('mouseout', fade.bind(1));
 
 ////////////////////////////////////////////////////////////////////////////
-// ---- Stick Navigation ----
+// ---- Stick Navigation: Inefficient Method----
 // We use the scroll method here which is not teh best solution as it fires for each and every scroll no matter how small a scroll event, we will look for a better method in the future
 
 // Getting Initial coordinates of section 1, because as soon as we want reach the section 1 we wna the nav to be sticky on the page
 
-const initialCoordinates = section1.getBoundingClientRect();
+// const initialCoordinates = section1.getBoundingClientRect();
 
-window.addEventListener('scroll', () => {
-  // Check if the Coordinates reached the Section 1
-  // If yes then add the sticky class to the nav
-  // To check we use the top value of the coordinates
-  if (window.scrollY > initialCoordinates.top) nav.classList.add('sticky');
-  // Else remove the Sticky Nav
-  else {
+// window.addEventListener('scroll', () => {
+// Check if the Coordinates reached the Section 1
+// If yes then add the sticky class to the nav
+// To check we use the top value of the coordinates
+// if (window.scrollY > initialCoordinates.top) nav.classList.add('sticky');
+// Else remove the Sticky Nav
+//   else {
+//     nav.classList.remove('sticky');
+//   }
+// });
+
+////////////////////////////////////////////////////////////////////////////
+// ---- Stick Navigation: Using Intersection Observer API ----
+
+//Calculate the height of the Navigation
+const navHeight = nav.getBoundingClientRect().height;
+
+// Callback Function
+const stickyNav = function (entries, headerObserver) {
+  // Destructuring
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) {
+    nav.classList.add('sticky');
+  } else {
     nav.classList.remove('sticky');
   }
-});
+};
+
+// Options
+const headerOptions = {
+  root: null,
+
+  // As we want the Navigation to be sticky as soon as we reach Section 1, means that we want the header to be completely gone hence we declare the threshold to be 0
+  threshold: 0,
+
+  rootMargin: `-${navHeight}px`,
+};
+
+const header = document.querySelector('.header');
+
+const headerObserver = new IntersectionObserver(stickyNav, headerOptions);
+
+// Using the headerObserver Intersection API to observe the header
+headerObserver.observe(header);
