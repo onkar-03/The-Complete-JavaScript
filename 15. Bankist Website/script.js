@@ -311,26 +311,36 @@ headerObserver.observe(header);
 
 ////////////////////////////////////////////////////////////////////////////
 // ---- Reveal sections effect ----
+
+// Selecting Section that we want to monitor as the target
 const allSections = document.querySelectorAll('.section');
 
+// Callback function
 const revealSections = function (entries, observer) {
+  // Destructure the entries array to get the first entry
   const [entry] = entries;
-  console.log(entry);
 
+  // If the section is not intersecting (i.e., it has scrolled out of view) then we dont want anything to happen so simply return
   if (!entry.isIntersecting) return;
 
+  // Else if its intersecting then we want to make it visible
+  // Hence making it visible on the viewport
   entry.target.classList.remove('section--hidden');
 
-  // Unobserve the section once it is revealed, on the Page
-  // Otherwise it keeps getting observed thought the scrolling on the page
+  // Unobserve the section once it is revealed, on the Page, Otherwise it keeps getting observed thought the scrolling on the page
+  // To unobserve we use the .unobserve() method
   observer.unobserve(entry.target);
 };
 
 const sectionObserver = new IntersectionObserver(revealSections, {
+  // Root as viewport
   root: null,
+
+  // Threshold for invoking the callback function is 15%, means when at least 15% of the section is in the viewport we wan tto make the section visible
   threshold: 0.15,
 });
 
+// Looping over all the Sections of the page, and calling the observe method for each of them to execute the same visible animation for each of them
 allSections.forEach(section => {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
