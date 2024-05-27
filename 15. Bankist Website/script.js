@@ -255,36 +255,58 @@ nav.addEventListener('mouseout', fade.bind(1));
 ////////////////////////////////////////////////////////////////////////////
 // ---- Stick Navigation: Using Intersection Observer API ----
 
-//Calculate the height of the Navigation
+// This API allows our code to basically observe changes to the way that a certain target element intersects another element, or the way it intersects the viewport
+
+// Calculate the height of the navigation element and store it in the variable 'navHeight'
+// We do this because we want to make the navigation bar "sticky", you need to know the height of the navigation bar to set the correct scroll threshold.
 const navHeight = nav.getBoundingClientRect().height;
 
-// Callback Function
+// Define the callback function for the Intersection Observer
+// It has 2 arguments Entries and Observer
+// The entries are an array of threshold values that we defined
 const stickyNav = function (entries, headerObserver) {
-  // Destructuring
+  // Destructure the entries array to get the first entry
   const [entry] = entries;
 
+  // We need to add the sticky class one when we reach the Section 1 i.e the Header is out of view
+  // isIntersecting means we check if the specified target is in the viewport with the defined threshold value or not
+  // Checking if the header is not intersecting (i.e., it has scrolled out of view)
   if (!entry.isIntersecting) {
+    // If header is out of the view we add the 'sticky' class to the navigation element to make it sticky
     nav.classList.add('sticky');
   } else {
+    // Otherwise, is the header is in the viewport then remove the 'sticky' class
     nav.classList.remove('sticky');
   }
 };
 
-// Options
+// Define the options for the Intersection Observer
 const headerOptions = {
+  // The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target
+  // Basically the element that the target is intersecting
+  // Defaults to the browser viewport if not specified or if null
   root: null,
 
-  // As we want the Navigation to be sticky as soon as we reach Section 1, means that we want the header to be completely gone hence we declare the threshold to be 0
+  // The number in the threshold property of the Intersection Observer API indicates the percentage of the target element's Intersection / Visibility required to trigger the observer's callback function. This value can range from 0 to 1
+  // A threshold of '0' means that as soon as even one pixel of the target element is visible in the viewport or is no longer visible within the element specified by the root option, then the callback is invoked
+  // And as we want the Nav to be sticky when no header section is visible we use the 0 value for the threshold property
+  // We can define a array of values in the threshold property of the Intersection Observer API eg: [0, 0.2]
   threshold: 0,
 
+  // The rootMargin property in the Intersection Observer API allows you to add or subtract space around the root element's bounding box when calculating intersections.
+  // This can be useful for triggering the callback function earlier or later than it would normally occur based on the target element's intersection with the root.
+  // Setting the root margin to be negative the height of the navigation element
   rootMargin: `-${navHeight}px`,
 };
 
+// Select the header element to be observed
 const header = document.querySelector('.header');
 
+// Create the intersection observer by calling its constructor and passing it a callback function to be run whenever a threshold is crossed in one direction or the other
 const headerObserver = new IntersectionObserver(stickyNav, headerOptions);
 
-// Using the headerObserver Intersection API to observe the header
+// Start observing the header element with the created Intersection Observer 'headerObserver'
+// For this we use the .observer(targetName) method
 headerObserver.observe(header);
 
 ////////////////////////////////////////////////////////////////////////////
