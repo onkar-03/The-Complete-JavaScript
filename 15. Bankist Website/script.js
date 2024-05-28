@@ -387,3 +387,66 @@ image.forEach(img => {
   // Observer each image
   imgObserver.observe(img);
 });
+
+////////////////////////////////////////////////////////////////////////////
+// ---- Slider Component ----
+
+// Selecting all the slides
+const slides = document.querySelectorAll('.slide');
+
+// Selecting Buttons
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+// Selecting current slide, the first one as 0
+let currentSlide = 0;
+
+// Calculating number of Slides
+const maxSlides = slides.length;
+
+// Goto Slide
+// The Logic remains the same no matter if the slide goes forward / backward
+const gotoSlide = function (slide) {
+  // Placing the current slide in Front
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+};
+
+// Setting the Slides Side by Side
+// First one at 0%, second at 100%, third at 200%
+gotoSlide(0);
+
+// Next Slide
+const nextSlide = function () {
+  // Check if its the last Slide ??
+  if (currentSlide === maxSlides - 1) {
+    // Reset
+    currentSlide = 0;
+  } else {
+    // Moving to the Next Slide
+    currentSlide++;
+  }
+
+  gotoSlide(currentSlide);
+};
+
+// Next Slide
+const prevSlide = function () {
+  // Check if its already the First Slide or not ??
+  if (currentSlide === 0) {
+    // If Yes Move to last slide
+    currentSlide = maxSlides - 1;
+  } else {
+    // Else Move to the Previous Slide
+    currentSlide--;
+  }
+
+  // Goto the Previous Slide
+  gotoSlide(currentSlide);
+};
+
+// Adding events to buttons
+btnRight.addEventListener('click', nextSlide);
+
+btnLeft.addEventListener('click', prevSlide);
