@@ -429,6 +429,7 @@ const nextSlide = function () {
   }
 
   gotoSlide(currentSlide);
+  activateDot(currentSlide);
 };
 
 // Next Slide
@@ -444,9 +445,63 @@ const prevSlide = function () {
 
   // Goto the Previous Slide
   gotoSlide(currentSlide);
+  activateDot(currentSlide);
 };
 
 // Adding events to buttons
 btnRight.addEventListener('click', nextSlide);
 
 btnLeft.addEventListener('click', prevSlide);
+
+// Keyboard navigation using Arrow Keys
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') {
+    prevSlide();
+  } else if (e.key === 'ArrowRight') {
+    nextSlide();
+  }
+});
+
+// Navigation by clicking Dots
+
+// Selecting the Dots Div
+const dots = document.querySelector('.dots');
+
+// Creating the Dots
+const createDots = function () {
+  slides.forEach(function (_, i) {
+    dots.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot" data-slide="${i}"></button>`
+    );
+  });
+};
+
+createDots();
+
+// Adding Event Listener using Event Delegation
+dots.addEventListener('click', function (e) {
+  // Check if we clicking only on the buttons from the parent container
+  if (e.target.classList.contains('dots__dot')) {
+    // Get current slide
+    const { slide } = e.target.dataset;
+    currentSlide = slide;
+
+    // Goto slide & Activate the Dot
+    gotoSlide(slide);
+    activateDot(currentSlide);
+  }
+});
+
+// Activate Current Slide
+const activateDot = function (slide) {
+  // Remove active class from all the dots initially
+  document.querySelectorAll('.dots__dot').forEach(dot => {
+    dot.classList.remove('dots__dot--active');
+  });
+
+  // Add active class to the current slide only
+  document
+    .querySelector(`.dots__dot[data-slide="${slide}"]`)
+    .classList.add('dots__dot--active');
+};
