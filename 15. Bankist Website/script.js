@@ -345,3 +345,45 @@ allSections.forEach(section => {
   sectionObserver.observe(section);
   section.classList.add('section--hidden');
 });
+
+////////////////////////////////////////////////////////////////////////////
+// ---- Lazy Loading Images ----
+
+// Choosing Images which are to be Lazy loaded they have the data-drc attribute in them
+const image = document.querySelectorAll('img[data-src]');
+
+// Callback Function
+const loadImg = function (entries, imgObserver) {
+  // Destructure the entries array to get the first entry
+  const [entry] = entries;
+  console.log(entry);
+
+  // If the section is not intersecting (i.e., it has scrolled out of view) then we dont want anything to happen so simply return
+  if (!entry.isIntersecting) return;
+
+  // Else if its intersecting then we want to make it visible
+  // Replacing the src attribute of img with teh data-src attribute to load the high resolution image
+  entry.target.src = entry.target.dataset.src;
+
+  // After the Loading of the Image is done by Js behind the scenes a load event is emitted, and also we want the blur filter to be removed when complete high resolution image is loaded
+  // Hence we use the emitted load event and then remove the blur filter of the lazy-img
+  entry.target.addEventListener('load', function () {
+    // Remove the blur filter
+    entry.target.classList.remove('lazy-img');
+  });
+
+  // Unobserve the section once it is revealed, on the Page, Otherwise it keeps getting observed thought the scrolling on the page
+  // To unobserve we use the .unobserve() method
+  imgObserver.unobserve(entry.target);
+};
+
+// Observer
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+});
+
+image.forEach(img => {
+  // Observer each image
+  imgObserver.observe(img);
+});
