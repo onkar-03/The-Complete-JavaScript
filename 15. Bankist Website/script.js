@@ -505,3 +505,6 @@ const activateDot = function (slide) {
     .querySelector(`.dots__dot[data-slide="${slide}"]`)
     .classList.add('dots__dot--active');
 };
+
+// Already activate the first Slide Dot
+activateDot(0);
