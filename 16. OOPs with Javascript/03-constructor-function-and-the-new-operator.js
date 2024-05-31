@@ -26,7 +26,7 @@ console.log(jonas); // → Person {firstName: 'Jonas', birthYear: 1991}
 //  What happens when we call a function with the new operator.
 // 1. A new empty object is created '{}'
 // 2. The function is called and the this keyword is set to the newly created object, this = {}
-// 3. The newly created object is linked (__proto__ property) to the constructor function's prototype // property
+// 3. The newly created object is linked (__proto__ property) to the constructor function's prototype property
 // 4. The function implicitly returns the empty object that we created {}, but at this point the Object doesn't need to be empty and this is the trick of making the constructor function work
 
 // Creating Multiple Instances from Person

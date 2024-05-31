@@ -1,5 +1,7 @@
-// Each and every function in JS automatically has a property called prototype. Every object that is created by a certain constructor function will get access to all the methods and properties that we define on the constructor prototype property
+// Each and every function in JS automatically has a property called prototype.
+// Every object that is created by a certain constructor function will get access to all the methods and properties that we define on the constructor prototype property
 
+// Object
 const Person = function (firstName, birthYear) {
   this.firstName = firstName;
   this.birthYear = birthYear;
@@ -26,23 +28,32 @@ Person.prototype.calcAge = function () {
 // .prototype is an object property
 
 const onkar = new Person('onkar', 2001);
+const matilda = new Person('Matilda', 1989);
+
+// The this keyword is set to the Object that is calling the Method
 console.log(onkar.calcAge()); // 23
+console.log(matilda.calcAge()); // 35
 
 console.log(onkar); // Person {firstName: 'onkar', birthYear: 2001}
+
+// The .__proto__ property in JavaScript is a reference to the Prototype Object / Constructor Function from which the current object has inherited
 console.log(onkar.__proto__); // {calcAge: ƒ}
+console.log(onkar.__proto__ === Person.prototype); // true
 console.log(onkar.__proto__.constructor); // points to the constructor function
 
 // Person.prototype is not the prototype of Person, it is what is going to be used as the prototype of all the objects that are created with the Person constructor function
-console.log(onkar.__proto__ === Person.prototype); // true
+// .prototype should've been named .prototypeOfLinkedObjects to be more clear and not get confused
 console.log(Person.prototype.isPrototypeOf(onkar)); // true
 
-// .prototype should've been named .prototypeOfLinkedObjects to be more clear.
-
 // We can also set properties to the prototype
+// Now all the Instances of Person will have the species property in them, inside the prototype which can be accessed using the .__proto__
 Person.prototype.species = 'Homo Sapiens';
-// species property is not directly in the object, so it's not it's own property
+
 console.log(onkar.species); // Homo Sapiens
 console.log(onkar.__proto__); // {calcAge: ƒ, species: 'Homo Sapiens', constructor: ƒ}
 
+// species property is not directly in the object, so it's not it's own property
+// We can check using the .hasOwnProperty method to know if its really contained within the Object or not
+// Means the Object has simply access to the species property coz of its prototype, which is linked to the prototype of Person Constructor Function
 console.log(onkar.hasOwnProperty('firstName')); // true
 console.log(onkar.hasOwnProperty('species')); // false
