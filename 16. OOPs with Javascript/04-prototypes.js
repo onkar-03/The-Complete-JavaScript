@@ -39,7 +39,10 @@ console.log(onkar); // Person {firstName: 'onkar', birthYear: 2001}
 // The .__proto__ property in JavaScript is a reference to the Prototype Object / Constructor Function from which the current object has inherited
 console.log(onkar.__proto__); // {calcAge: ƒ}
 console.log(onkar.__proto__ === Person.prototype); // true
-console.log(onkar.__proto__.constructor); // points to the constructor function
+
+// Person.prototype.constructor pOints to the Person itself
+// console.dir used tio view Objects
+console.dir(onkar.__proto__.constructor); // points to the constructor function   Object
 
 // Person.prototype is not the prototype of Person, it is what is going to be used as the prototype of all the objects that are created with the Person constructor function
 // .prototype should've been named .prototypeOfLinkedObjects to be more clear and not get confused

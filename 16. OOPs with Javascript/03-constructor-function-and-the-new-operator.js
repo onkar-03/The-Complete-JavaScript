@@ -23,11 +23,13 @@ const Person = function (firstName, birthYear) {
 const jonas = new Person('Jonas', 1991);
 console.log(jonas); // → Person {firstName: 'Jonas', birthYear: 1991}
 
-//  What happens when we call a function with the new operator.
+//  What happens when we call a function with the new operator ??
+// ---- Method Explanation for Function Constructors & ES6 Classes  ----
 // 1. A new empty object is created '{}'
 // 2. The function is called and the this keyword is set to the newly created object, this = {}
-// 3. The newly created object is linked (__proto__ property) to the constructor function's prototype property
+// 3. The new object is linked (__proto__ property) to the constructor function's prototype property (Here: Person.prototype), this happens internally by adding the  __proto__ property to the newly create Object. Person.prototype is now the new Objects prototype denoted in the __proto__ property of the Object.
 // 4. The function implicitly returns the empty object that we created {}, but at this point the Object doesn't need to be empty and this is the trick of making the constructor function work
+// - IMPORTANT: This method does not apply for the (.) operator method to create Objects which we will study ahead
 
 // Creating Multiple Instances from Person
 const matilda = new Person('Matilda', 1989);
