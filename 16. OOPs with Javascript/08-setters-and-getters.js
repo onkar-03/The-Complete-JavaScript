@@ -52,14 +52,46 @@ class PersonA {
     return 2024 - this.birthYear;
   }
 
+  // Setter
+  // Setting a Property that already exists
+  // The Setter argument name refers to the fullName property of the Constructor
   set fullName(name) {
-    // If name includes a space then consider it a full name
+    // LOGIC: If name includes a space then consider it a full name
+
+    // PROBLEM:
+    // Creating a new instance of Jessica with potential error
+    // When trying to create 'Jessica Davis', the error "maximum call stack size exceeded" occurs. This error is cryptic, but the root cause is a conflict in property names.
+    // Both the setter function and the constructor function are trying to set the same property name. This leads to recursion, causing the call stack to exceed its maximum size.
+
+    // SOLUTION:
+    // To resolve this, we need to rename the property to avoid the conflict.
+    // The common convention is to use an underscore prefix for the property name in the setter. This avoids naming conflicts and prevents recursion.
+    // This naming convention (using an underscore) is just a convention, not a JavaScript feature.
+    // It simply ensures different variable names are used to avoid conflicts.
     if (name.includes(' ')) {
       this._fullName = name;
     } else {
       alert(`${name} is not a Full Name !!`);
     }
   }
+
+  // PROBLEM:
+  // When we look at 'Jessica Davis' now, we see that the property that exists is '_fullName'. This means we cannot access 'jessica.fullName' directly because it doesn't exist.
+
+  // SOLUTION:
+  // To fix this, we need to create a getter for the 'fullName' property.
+  // This getter will return the '_fullName' property.
+  // Let's see how this works:
+  // Adding a getter method that returns 'this._fullName'.
+  get fullName() {
+    return this._fullName;
+  }
+
+  // Summary:
+  // With this getter in place, accessing 'jessica.fullName' will now work correctly, allowing us to see the full name again.
+  // The actual property stored in the object remains '_fullName', because that's how the setter function sets it.
+  // We can compute this full name just as we can compute the age property.
+  // This pattern is important to understand whenever we set a property that already exists to avoid conflicts and ensure proper access to the intended values.
 }
 
 // Creating Object
