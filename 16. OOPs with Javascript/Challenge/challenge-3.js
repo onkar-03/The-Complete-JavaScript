@@ -35,6 +35,9 @@ EV.prototype.chargeBattery = function (chargeTo) {
   this.charge = chargeTo;
 };
 
+// Overwriting the method which is already there in the Parent Class
+// So this will now overwrite the old accelerate method of the Parent Class, as it appears first in the prototype chain
+// Hence Overwriting the method which is already there overshadows the method which is already there
 EV.prototype.accelerate = function () {
   this.speed += 20;
   this.charge--;

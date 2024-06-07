@@ -1,4 +1,4 @@
-// Inheritance between Classes: Constructor Functions
+// ---- Inheritance between Classes: Constructor Functions ----
 // We wan to  make the Person Class the Parent of the Student Class
 // Some real inheritance now between classes / constructor functions, we use the term c,asses as its easier to understand
 
