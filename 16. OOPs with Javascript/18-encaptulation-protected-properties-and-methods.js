@@ -1,5 +1,15 @@
 // --- Encapsulation & Data Privacy: ---
+// Encapsulation is about keeping certain properties and methods private within a class, ensuring they're not accessible from outside the class. The remaining methods are exposed as the public interface or API, crucial for anything beyond a basic application.
 
+// Two primary reasons drive the need for encapsulation and data privacy:
+// 1) Firstly, it prevents external code from accidentally altering or accessing internal data. This also underscores the importance of implementing a public interface, directing external interactions
+// 2) Secondly, by exposing only a limited interface, we can confidently modify internal methods, knowing external code isn't reliant on them, thus preventing potential code breakage during internal changes.
+
+// While JavaScript classes lack built-in support for true data privacy and encapsulation, a proposal exists to introduce private class fields and methods. However, until this feature is fully realized, developers can simulate encapsulation using conventions
+
+// The convention is to use '_' (underscore) in front of property names to signify that they are protected properties and should not be accessed and manipulated from outside
+
+// Class
 class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
