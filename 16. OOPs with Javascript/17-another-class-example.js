@@ -88,7 +88,6 @@ acc1.approveLoan(1000); // Example of direct method call that can approve a loan
 // However, as it stands, this method can be called directly from outside the class, bypassing any intended security or business logic.
 
 // CONCLUSION:
-// This concern is real and important because it can lead to serious security vulnerabilities
-// and business logic errors if loans are approved without the correct checks and balances.
+// This concern is real and important because it can lead to serious security vulnerabilities and business logic errors if loans are approved without the correct checks and balances
 // This concern is both real and important.  Allowing direct access to sensitive properties can lead to serious security vulnerabilities and bugs
 // Basically just to justify that we really need data encapsulation and data privacy
