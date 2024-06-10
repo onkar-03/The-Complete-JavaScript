@@ -1,4 +1,4 @@
-// --- Encapsulation & Data Privacy: ---
+// --- Encapsulation Protected Properties & Data Privacy: ---
 // Encapsulation is about keeping certain properties and methods private within a class, ensuring they're not accessible from outside the class. The remaining methods are exposed as the public interface or API, crucial for anything beyond a basic application.
 
 // Two primary reasons drive the need for encapsulation and data privacy:
