@@ -24,14 +24,12 @@ class Account {
   // Deposit Method
   deposit(val) {
     this.movements.push(val);
-    return this;
   }
 
   // Withdrawal Method
   withdraw(val) {
     //Pushing negative value in the movements array
     this.deposit(-val);
-    return this;
   }
 
   // Loan Approval
@@ -44,7 +42,6 @@ class Account {
     if (this.approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
-      return this;
     }
   }
 }

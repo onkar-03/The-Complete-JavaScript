@@ -54,14 +54,12 @@ class Account {
   // Deposit Method
   deposit(val) {
     this.#movements.push(val);
-    return this;
   }
 
   // Withdrawal Method
   withdraw(val) {
     //Pushing negative value in the movements array
     this.deposit(-val);
-    return this;
   }
 
   // Request Loan Method
@@ -70,7 +68,6 @@ class Account {
     if (this.#approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
-      return this;
     }
   }
 
@@ -111,4 +108,3 @@ console.log(acc1.getMovements()); // [250, -140, 1000];
 // Calling static methods
 Account.helper();
 // acc1.helper(); // Not accessible to the Instances of the Class
-  

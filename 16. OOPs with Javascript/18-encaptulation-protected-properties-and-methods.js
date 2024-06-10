@@ -41,14 +41,12 @@ class Account {
   // Deposit Method
   deposit(val) {
     this._movements.push(val);
-    return this;
   }
 
   // Withdrawal Method
   withdraw(val) {
     //Pushing negative value in the movements array
     this.deposit(-val);
-    return this;
   }
 
   // Protected Method
@@ -62,7 +60,6 @@ class Account {
     if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
-      return this;
     }
   }
 }
