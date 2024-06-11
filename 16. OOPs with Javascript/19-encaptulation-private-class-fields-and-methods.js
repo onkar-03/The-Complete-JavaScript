@@ -84,6 +84,7 @@ class Account {
   // Static Methods:
   // In JavaScript, you can declare static fields and methods within a class using the static keyword. Static fields and methods are associated with the class itself rather than with instances of the class
   // This means that they are accessible directly from the class and not from instances of the class
+  // Same goes for the static properties they too are declared the same way using the static keyword and can be called without creating instances through the class name
   static helper() {
     console.log(`Helper`);
   }
