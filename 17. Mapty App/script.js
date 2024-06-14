@@ -43,8 +43,9 @@ navigator.geolocation.getCurrentPosition(
     // Remember the Global Variables of all the Scripts loaded before the current script, can be accessed bty the current script
     // This is why the script.js has access to the L variable that is defined globally in the Leaflet script that we included before the script.js in the HTML
 
+    // Storing the Map in a variable 'map'
     // 15 refers to the  Zoom level of the current location on the Map
-    const map = L.map('map').setView(coords, 15);
+    const map = L.map('map').setView(coords, 13);
 
     // The map which we see is mae of tiles which come from the URL named openstreetmap, a open source map accessible to all
     // Leaflet also does work with other maps as well like google maps if u want to use it
@@ -55,10 +56,41 @@ navigator.geolocation.getCurrentPosition(
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    L.marker(coords)
-      .addTo(map)
-      .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-      .openPopup();
+    // Adding a Marker wherever we click on the Map
+    // Cant use the normal .addEventListener() function as we want to add a marker at the exact coordinates where we click it, whereas using normal event listener we listen to the whole map and not the exact coordinates
+    // Hence we use the .on() method of the leaflet library
+    // .on() method in the Leaflet library is used to attach event listeners to Leaflet objects, such as maps, layers, and markers similar to .addEventListener() of Js
+    // Leaflet objects can trigger a wide variety of events, such as click, mouseover, zoom, and many more, depending on the type of object
+    map.on('click', function (mapEvent) {
+      // console.log(mapEvent);
+      // Extract the latitude and longitude from the Event Object & add a Marker there
+      const { lat, lng } = mapEvent.latlng;
+
+      // Using the lat and lon retrieve from the Object and adding a pointer at that place only
+      // .marker() method creates the marker
+      // .addTo() method adds the marker to the Map
+      L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(
+          // Creating a Popup Of desired Size
+          L.popup({
+            maxWidth: 250,
+            minWidth: 100,
+
+            // To disable the Auto close of popups are Markers are created
+            autoClose: false,
+
+            // Also disabling the close Popups while clicking somewhere else
+            closeOnClick: false,
+
+            // Set new class '.running-popup' to the Markers created using teh Leaflet Library
+            className: `running-popup`,
+          })
+        )
+        // Set Content in the Popup
+        .setPopupContent('Workout')
+        .openPopup();
+    });
   },
   function () {
     // If we block the Position Access Permission then we get this error Message
