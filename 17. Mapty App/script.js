@@ -40,9 +40,17 @@ navigator.geolocation.getCurrentPosition(
     const coords = [latitude, longitude];
     //////////////////////////////////////////////////////////////////////////////
     // --- Displaying Map using Leaflet Library ---
+    // Remember the Global Variables of all the Scripts loaded before the current script, can be accessed bty the current script
+    // This is why the script.js has access to the L variable that is defined globally in the Leaflet script that we included before the script.js in the HTML
+
+    // 15 refers to the  Zoom level of the current location on the Map
     const map = L.map('map').setView(coords, 15);
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    // The map which we see is mae of tiles which come from the URL named openstreetmap, a open source map accessible to all
+    // Leaflet also does work with other maps as well like google maps if u want to use it
+    // .org/ is a style of of the openstreetmap
+    // .fr/hot/ is also a style that we use instead of the .org/
+    L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
