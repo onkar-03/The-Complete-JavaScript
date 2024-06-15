@@ -12,6 +12,10 @@ const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
+// ---- Global Variables ----
+// So that we can access this var inside other functions as well
+let map, mapEvent;
+
 //////////////////////////////////////////////////////////////////////////////
 // --- Geolocation API ---
 // A Browser API, just like Internationalization / Timer etc ...used to access the current location of the User
@@ -45,7 +49,7 @@ navigator.geolocation.getCurrentPosition(
 
     // Storing the Map in a variable 'map'
     // 15 refers to the  Zoom level of the current location on the Map
-    const map = L.map('map').setView(coords, 13);
+    map = L.map('map').setView(coords, 13);
 
     // The map which we see is mae of tiles which come from the URL named openstreetmap, a open source map accessible to all
     // Leaflet also does work with other maps as well like google maps if u want to use it
@@ -56,40 +60,22 @@ navigator.geolocation.getCurrentPosition(
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
 
-    // Adding a Marker wherever we click on the Map
+    // ---- Handling Clicks on Map ----
+    // Add a Marker whenever we clock on the Map
     // Cant use the normal .addEventListener() function as we want to add a marker at the exact coordinates where we click it, whereas using normal event listener we listen to the whole map and not the exact coordinates
     // Hence we use the .on() method of the leaflet library
     // .on() method in the Leaflet library is used to attach event listeners to Leaflet objects, such as maps, layers, and markers similar to .addEventListener() of Js
     // Leaflet objects can trigger a wide variety of events, such as click, mouseover, zoom, and many more, depending on the type of object
-    map.on('click', function (mapEvent) {
-      // console.log(mapEvent);
-      // Extract the latitude and longitude from the Event Object & add a Marker there
-      const { lat, lng } = mapEvent.latlng;
+    map.on('click', function (mapE) {
+      // Assigning Global Variable
+      mapEvent = mapE;
 
-      // Using the lat and lon retrieve from the Object and adding a pointer at that place only
-      // .marker() method creates the marker
-      // .addTo() method adds the marker to the Map
-      L.marker([lat, lng])
-        .addTo(map)
-        .bindPopup(
-          // Creating a Popup Of desired Size
-          L.popup({
-            maxWidth: 250,
-            minWidth: 100,
+      // Render a From whenever we click on teh Map for a Marker
+      // Hence we remove the 'hidden' class form the form element
+      form.classList.remove('hidden');
 
-            // To disable the Auto close of popups are Markers are created
-            autoClose: false,
-
-            // Also disabling the close Popups while clicking somewhere else
-            closeOnClick: false,
-
-            // Set new class '.running-popup' to the Markers created using teh Leaflet Library
-            className: `running-popup`,
-          })
-        )
-        // Set Content in the Popup
-        .setPopupContent('Workout')
-        .openPopup();
+      // Focus on teh Input Distance field on teh Form as we click on the Map
+      inputDistance.focus();
     });
   },
   function () {
@@ -98,3 +84,65 @@ navigator.geolocation.getCurrentPosition(
     alert(`Could not get current position !!`);
   }
 );
+
+// ---- Submit Form ----
+// We want to display the Marker when the Form is Submitted /Enter is pressed
+// Remember the 'submit' action on addEventListener() works for the Enter keypress as well
+form.addEventListener('submit', function (event) {
+  // Disable auto reloading
+  event.preventDefault();
+
+  // ---- Display Marker
+  // Extract the latitude and longitude from the Event Object & add a Marker there
+  const { lat, lng } = mapEvent.latlng;
+
+  // --- Clear Input Fields
+  inputDistance.value =
+    inputDuration.value =
+    inputCadence.value =
+    inputElevation.value =
+      '';
+
+  // Using the lat and lon retrieve from the Object and adding a pointer at that place only
+  //.marker() method creates the marker
+  //.addTo() method adds the marker to the Map
+  L.marker([lat, lng])
+    .addTo(map)
+    .bindPopup(
+      // Creating a Popup Of desired Size
+      L.popup({
+        maxWidth: 250,
+        minWidth: 100,
+        // To disable the Auto close of popups are Markers are created
+        autoClose: false,
+        // Also disabling the close Popups while clicking somewhere else
+        closeOnClick: false,
+        // Set new class '.running-popup' to the Markers created using teh Leaflet Library
+        className: `running-popup`,
+      })
+    )
+    // Set Content in the Popup
+    .setPopupContent('Workout')
+    .openPopup();
+});
+
+// ---- Change Input type of running & Cycling
+inputType.addEventListener('change', function (event) {
+  // Get the value of the selected option
+  const selected = event.target.value;
+
+  // Get all the input fields
+  const fields = [inputDistance, inputDuration, inputCadence, inputElevation];
+
+  // Loop through all the input fields
+  fields.forEach(function (field) {
+    // Check if the selected option is running or cycling
+    if (selected === 'running' || selected === 'cycling') {
+      // Show the fields
+      field.closest('.form__row').classList.remove('form__row--hidden');
+    } else {
+      // Hide the fields
+      field.closest('.form__row').classList.add('form__row--hidden');
+    }
+  });
+});
