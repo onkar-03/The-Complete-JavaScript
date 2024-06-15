@@ -127,22 +127,12 @@ form.addEventListener('submit', function (event) {
 });
 
 // ---- Change Input type of running & Cycling
-inputType.addEventListener('change', function (event) {
-  // Get the value of the selected option
-  const selected = event.target.value;
-
-  // Get all the input fields
-  const fields = [inputDistance, inputDuration, inputCadence, inputElevation];
-
-  // Loop through all the input fields
-  fields.forEach(function (field) {
-    // Check if the selected option is running or cycling
-    if (selected === 'running' || selected === 'cycling') {
-      // Show the fields
-      field.closest('.form__row').classList.remove('form__row--hidden');
-    } else {
-      // Hide the fields
-      field.closest('.form__row').classList.add('form__row--hidden');
-    }
-  });
+// Whenever we change the Options an Event is Triggered called the 'change' event
+inputType.addEventListener('change', function () {
+  // .closest() selects the CLosest parent field with the Matching class
+  // ,form__row--hidden is the class that is used to hide the form field
+  // Toggle Fields as per selection suing the .toggle() method
+  // By this we make sure that one of them is hidden and then other is visible
+  inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+  inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 });
