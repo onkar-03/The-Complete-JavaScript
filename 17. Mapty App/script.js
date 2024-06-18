@@ -16,6 +16,72 @@ const inputElevation = document.querySelector('.form__input--elevation');
 // So that we can access this var inside other functions as well
 let map, mapEvent;
 
+// Class for Workout Type
+class Workout {
+  // Date for Each Object
+  // Creating Global Var by not declaring the type of variable
+  date = new Date();
+
+  // Creating Ids
+  // For this we generally use a libraries to generate nice ids
+  // But here we simply use the combination of date tio ge ta string as the id
+  id = (Date.now() + '').slice(-10);
+
+  // COnstructor
+  constructor(coors, distance, duration) {
+    // Initializing Variables
+    this.coors = coors; // [lat, lng]
+    this.distance = distance; // in km
+    this.duration = duration; // in min
+  }
+}
+
+// Cycling Class
+class Cycling extends Workout {
+  constructor(coors, distance, duration, elevationGain) {
+    // Reusing the Parent Class code for the following parameters using super()
+    // This also initializes the this keyword
+    super(coors, distance, duration);
+    this.elevationGain = elevationGain;
+
+    // Calling the Speed function
+    this.calcSpeed();
+  }
+  // Creating Function to Calculate the Speed
+  calcSpeed() {
+    // km/hr
+    this.speed = this.distance / (this.duration / 60);
+    return this.speed;
+  }
+}
+
+// Running Class
+class Running extends Workout {
+  constructor(coors, distance, duration, cadence) {
+    // Reusing the Parent Class code for the following parameters using super()
+    // This also initializes the this keyword
+    super(coors, distance, duration);
+    this.cadence = cadence;
+
+    // Calling pace function to display the pace as soon as the object is created
+    this.calcPace();
+  }
+
+  // Creating Function to Calculate the Pace
+  calcPace() {
+    // min/km
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+// Checking the Class creation
+const run1 = new Running([39, -12], 5.2, 2.4, 178);
+const cycle = new Cycling([39, -12], 27, 95, 523);
+
+console.log(run1);
+console.log(cycle);
+
+// Class For App Loading
 class App {
   // Private Properties
   #map;
