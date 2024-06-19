@@ -51,6 +51,7 @@ class Workout {
 
 // Cycling Class
 class Cycling extends Workout {
+  type = 'cycling';
   constructor(coords, distance, duration, elevationGain) {
     // Reusing the Parent Class code for the following parameters using super()
     // This also initializes the this keyword
@@ -70,6 +71,7 @@ class Cycling extends Workout {
 
 // Running Class
 class Running extends Workout {
+  type = 'running';
   constructor(coords, distance, duration, cadence) {
     // Reusing the Parent Class code for the following parameters using super()
     // This also initializes the this keyword
@@ -99,6 +101,7 @@ class App {
   // Private Properties
   #map;
   #mapEvent;
+  #workouts = [];
 
   // Constructor called immediately as soon as the object is created
   constructor() {
@@ -230,16 +233,21 @@ class App {
     // ...inputs returns an Array hence we loop over using the .forEach method
     // .every Methods returns true only when all values are Finite Numbers
     const validInputs = (...inputs) => {
-      inputs.every(inp => Number.isFinite(inp));
+      return inputs.every(inp => Number.isFinite(inp));
     };
 
     // --- Function to check Positive Value or not
+    // ...inputs returns an Array hence we loop over using the .forEach method
+    // .every Methods returns true only when all values are Finite Numbers
     const allPositive = (...inputs) => {
-      inputs.every(inp => inp > 0);
+      return inputs.every(inp => inp > 0);
     };
 
     // Disable auto reloading
     e.preventDefault();
+
+    // Extract the latitude and longitude from the Event Object & add a Marker there
+    const { lat, lng } = this.#mapEvent.latlng;
 
     ///////////////////////////////////////////////////////////////////////////
     // Render a Workout on the App: The Map & The List
@@ -258,13 +266,15 @@ class App {
     // Getting Duration
     const duration = +inputDuration.value;
 
-    // --- 3. If workout running, create running Object
+    let workout;
+
+    // --- 2. If workout running, create running Object
 
     // Get cadence only if its running type
     if (type === 'running') {
       const cadence = +inputCadence.value;
 
-      // Check if the Data is Valid
+      // --- Check if the Data is Valid
       // Alert if All Values are Not Numbers || Positive
       if (
         //Method 1 to check
@@ -281,6 +291,8 @@ class App {
       ) {
         return alert(`Inputs have to be Positive Numbers!!`);
       }
+      // Crate Running Object
+      workout = new Running([lat, lng], distance, duration, cadence);
     }
 
     // --- 4. If workout cycling , then create cycling object
@@ -289,28 +301,31 @@ class App {
     if (type === 'cycling') {
       const elevation = +inputElevation.value;
 
-      // Check if the Data is Valid
+      // --- Check if the Data is Valid
       // Alert if All Values are Not Numbers || Positive
       // Elevation Gain can be negative
       if (
         !validInputs(distance, duration, elevation) ||
         !allPositive(distance, duration)
       ) {
-        alert(`Inputs have to be Positive Numbers!!`);
+        return alert(`Inputs have to be Positive Numbers!!`);
       }
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
 
-    // --- 5. Add new Objet to workout Array
+    // --- 5. Add new Object to workout Array
+    this.#workouts.push(workout);
+    console.log(workout);
 
     // --- 6. Render workout on Map as Marker
+    this.renderWorkoutMarker(workout);
 
     // --- 7. Render Workout on List
 
     // --- 8. Hide form and clear fields
 
-    // ---- Display Marker
-    // Extract the latitude and longitude from the Event Object & add a Marker there
-    const { lat, lng } = this.#mapEvent.latlng;
+    // ---- Display Marker on Map:
+    // Using the latitude and longitude extracted above in const {lat,lng}
 
     // --- Clear Input Fields
     inputDistance.value =
@@ -318,11 +333,13 @@ class App {
       inputCadence.value =
       inputElevation.value =
         '';
+  }
 
+  renderWorkoutMarker(workout) {
     // Using the lat and lon retrieve from the Object and adding a pointer at that place only
     //.marker() method creates the marker
     //.addTo() method adds the marker to the Map
-    L.marker([lat, lng])
+    L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
         // Creating a Popup Of desired Size
@@ -333,12 +350,13 @@ class App {
           autoClose: false,
           // Also disabling the close Popups while clicking somewhere else
           closeOnClick: false,
-          // Set new class '.running-popup' to the Markers created using teh Leaflet Library
-          className: `running-popup`,
+          // Set new class '${type}-popup' to the Markers created using teh Leaflet Library
+          // If its cycling it has the yellowish color else the green for running
+          className: `${workout.type}-popup`,
         })
       )
       // Set Content in the Popup
-      .setPopupContent('Workout')
+      .setPopupContent('workout')
       .openPopup();
   }
 }
