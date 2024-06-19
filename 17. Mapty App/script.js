@@ -24,13 +24,26 @@ class Workout {
 
   // Creating Ids
   // For this we generally use a libraries to generate nice ids
-  // But here we simply use the combination of date tio ge ta string as the id
+  // But here we simply use the combination of date to get a string as the id
+
+  // Using Date.now()
+  // Date.now(): Returns the current timestamp in milliseconds since January 1, 1970
+  // + '': Converts the timestamp to a string
+  // .slice(-10): Extracts the last 10 characters from the string
+
   id = (Date.now() + '').slice(-10);
 
+  // Why not using new Date() ??
+  // new Date(): Creates a Date object representing the current date and time
+  // + '': Converts the Date object to a string. This string will be in the format like "Tue Jun 18 2024 15:06:17 GMT+0200 (Central European Summer Time)" (the exact format may vary depending on the environment)
+  // .slice(-10): Extracts the last 10 characters from this string, which are not useful as an identifier (e.g., "GMT+0200)")
+  // Remember that Date.now() returns the current timestamp ... if we use the new Date() it creates an object
+  // The new Date() method returns a formatted date string, not a numeric timestamp
+
   // COnstructor
-  constructor(coors, distance, duration) {
+  constructor(coords, distance, duration) {
     // Initializing Variables
-    this.coors = coors; // [lat, lng]
+    this.coords = coords; // [lat, lng]
     this.distance = distance; // in km
     this.duration = duration; // in min
   }
@@ -38,10 +51,10 @@ class Workout {
 
 // Cycling Class
 class Cycling extends Workout {
-  constructor(coors, distance, duration, elevationGain) {
+  constructor(coords, distance, duration, elevationGain) {
     // Reusing the Parent Class code for the following parameters using super()
     // This also initializes the this keyword
-    super(coors, distance, duration);
+    super(coords, distance, duration);
     this.elevationGain = elevationGain;
 
     // Calling the Speed function
@@ -57,10 +70,10 @@ class Cycling extends Workout {
 
 // Running Class
 class Running extends Workout {
-  constructor(coors, distance, duration, cadence) {
+  constructor(coords, distance, duration, cadence) {
     // Reusing the Parent Class code for the following parameters using super()
     // This also initializes the this keyword
-    super(coors, distance, duration);
+    super(coords, distance, duration);
     this.cadence = cadence;
 
     // Calling pace function to display the pace as soon as the object is created
@@ -74,12 +87,12 @@ class Running extends Workout {
     return this.pace;
   }
 }
-// Checking the Class creation
-const run1 = new Running([39, -12], 5.2, 2.4, 178);
-const cycle = new Cycling([39, -12], 27, 95, 523);
 
-console.log(run1);
-console.log(cycle);
+// Checking the Class creation
+// const run1 = new Running([39, -12], 5.2, 2.4, 178);
+// const cycle = new Cycling([39, -12], 27, 95, 523);
+// console.log(run1);
+// console.log(cycle);
 
 // Class For App Loading
 class App {
@@ -94,7 +107,7 @@ class App {
 
     // --- Adding 2 Default Event Listeners:
     // A) ---- Submit Form ----
-    // We want to display the Marker when the Form is Submitted /Enter is pressed
+    // We want to display the Marker when the Form is Submitted / Enter is pressed
     // Remember the 'submit' action on addEventListener() works for the Enter keypress as well
 
     // --- 'this' keyword Issue in Event Handler:
@@ -213,8 +226,88 @@ class App {
   }
 
   _newWorkout(e) {
+    // --- Function to Check if all teh Values are Numbers
+    // .every Methods returns true only when all values are positive
+    // ...inputs returns an Array hence we loop over using the .forEach method
+    const validInputs = (...inputs) => {
+      inputs.every(inp => imp.Number.isFinite(inp));
+    };
+
+    // --- Function to check Positive Value or not
+    const allPositive = (...inputs) => {
+      inputs.forEach(inp => inp > 0);
+    };
+
     // Disable auto reloading
     e.preventDefault();
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Render a Workout on the App: The Map & The List
+
+    // --- 1. Get data from form
+    // Remember that the Data from Comes as String so convert to Number if required
+    // '+' operator is used to convert the string to number
+    // Number()is used to convert String to Number
+
+    // Getting the running / cycling type from the form in 'type' variable
+    const type = Number(inputType.value);
+
+    // Getting Distance
+    const distance = +inputDistance.value;
+
+    // Getting Duration
+    const duration = +inputDuration.value;
+
+    // --- 3. If workout running, create running Object
+
+    // Get cadence only if its running type
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+      console.log(distance);
+
+      // Check if the Data is Valid
+      // Alert if All Values are Not Numbers || Positive
+      if (
+        //Method 1 to check
+        // !Number.isFinite(distance) ||
+        // !Number.isFinite(duration) ||
+        // !Number.isFinite(cadence) ||
+        // !allPositive(distance, duration, cadence)
+
+        // Method 2
+        // Using Helper Function
+        // Whenever its not true that the All are Numbers then we show the alerting Window
+        !validInputs(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence)
+      ) {
+        return alert(`Inputs have to be Positive Numbers!!`);
+      }
+    }
+
+    // --- 4. If workout cycling , then create cycling object
+
+    // Get elevationGain only if its cycling type
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+
+      // Check if the Data is Valid
+      // Alert if All Values are Not Numbers || Positive
+      // Elevation Gain can be negative
+      if (
+        !validInputs(distance, duration, elevation) ||
+        !allPositive(distance, duration)
+      ) {
+        alert(`Inputs have to be Positive Numbers!!`);
+      }
+    }
+
+    // --- 5. Add new Objet to workout Array
+
+    // --- 6. Render workout on Map as Marker
+
+    // --- 7. Render Workout on List
+
+    // --- 8. Hide form and clear fields
 
     // ---- Display Marker
     // Extract the latitude and longitude from the Event Object & add a Marker there
@@ -253,3 +346,4 @@ class App {
 
 // Creating Object
 const app = new App();
+console.log(app);
