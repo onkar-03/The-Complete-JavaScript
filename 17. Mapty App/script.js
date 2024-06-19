@@ -226,16 +226,16 @@ class App {
   }
 
   _newWorkout(e) {
-    // --- Function to Check if all teh Values are Numbers
-    // .every Methods returns true only when all values are positive
+    // --- Function to Check if all the Values are Numbers
     // ...inputs returns an Array hence we loop over using the .forEach method
+    // .every Methods returns true only when all values are Finite Numbers
     const validInputs = (...inputs) => {
-      inputs.every(inp => imp.Number.isFinite(inp));
+      inputs.every(inp => Number.isFinite(inp));
     };
 
     // --- Function to check Positive Value or not
     const allPositive = (...inputs) => {
-      inputs.forEach(inp => inp > 0);
+      inputs.every(inp => inp > 0);
     };
 
     // Disable auto reloading
@@ -250,7 +250,7 @@ class App {
     // Number()is used to convert String to Number
 
     // Getting the running / cycling type from the form in 'type' variable
-    const type = Number(inputType.value);
+    const type = inputType.value;
 
     // Getting Distance
     const distance = +inputDistance.value;
@@ -263,7 +263,6 @@ class App {
     // Get cadence only if its running type
     if (type === 'running') {
       const cadence = +inputCadence.value;
-      console.log(distance);
 
       // Check if the Data is Valid
       // Alert if All Values are Not Numbers || Positive
