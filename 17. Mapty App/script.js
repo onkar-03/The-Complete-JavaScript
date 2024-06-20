@@ -47,6 +47,18 @@ class Workout {
     this.distance = distance; // in km
     this.duration = duration; // in min
   }
+
+  // Set Description Function
+  _setDescription(description) {
+    // If we want the prettier to ignore / not format the next line we use this commented line:
+    // prettier-ignore
+    const months = ['January','February','March','April','May','June', 'July','August','September','October','November','December'];
+
+    // Creating Description Sentence
+    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)}on${
+      months[this.date.getMonth()]
+    }${this.date.getDate()}`;
+  }
 }
 
 // Cycling Class
@@ -60,6 +72,9 @@ class Cycling extends Workout {
 
     // Calling the Speed function
     this.calcSpeed();
+
+    // Setting Description of Workout
+    this._setDescription();
   }
   // Creating Function to Calculate the Speed
   calcSpeed() {
@@ -80,6 +95,9 @@ class Running extends Workout {
 
     // Calling pace function to display the pace as soon as the object is created
     this.calcPace();
+
+    // Setting Description of Workout
+    this._setDescription();
   }
 
   // Creating Function to Calculate the Pace
@@ -318,7 +336,7 @@ class App {
     console.log(workout);
 
     // --- 6. Render workout on Map as Marker
-    this.renderWorkoutMarker(workout);
+    this._renderWorkoutMarker(workout);
 
     // --- 7. Render Workout on List
 
@@ -335,7 +353,7 @@ class App {
         '';
   }
 
-  renderWorkoutMarker(workout) {
+  _renderWorkoutMarker(workout) {
     // Using the lat and lon retrieve from the Object and adding a pointer at that place only
     //.marker() method creates the marker
     //.addTo() method adds the marker to the Map
@@ -358,6 +376,26 @@ class App {
       // Set Content in the Popup
       .setPopupContent('workout')
       .openPopup();
+  }
+
+  // Rendering Workout on teh Page
+  _renderWorkout(workout) {
+    const html = `
+        <li class="workout workout--${workout.type}" data-id="${workout.id}">
+          <h2 class="workout__title">${workout.description}</h2>
+          <div class="workout__details">
+            <span class="workout__icon">${
+              workout.name === 'running' ? '🏃‍♂️' : '🚴‍♀️'
+            }</span>
+            <span class="workout__value">${workout.distance}</span>
+            <span class="workout__unit">km</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⏱</span>
+            <span class="workout__value">${workout.duration}</span>
+            <span class="workout__unit">min</span>
+          </div>
+          `;
   }
 }
 
