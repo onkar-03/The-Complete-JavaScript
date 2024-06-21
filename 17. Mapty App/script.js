@@ -55,9 +55,9 @@ class Workout {
     const months = ['January','February','March','April','May','June', 'July','August','September','October','November','December'];
 
     // Creating Description Sentence
-    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)}on${
+    this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
-    }${this.date.getDate()}`;
+    } ${this.date.getDate()}`;
   }
 }
 
@@ -237,6 +237,26 @@ class App {
     inputDistance.focus();
   }
 
+  // --- Hide Form
+  _hideForm() {
+    // Empty Inputs
+    // prettier-ignore
+    inputCadence.value = inputDuration.value = inputElevation.value = inputDistance.value= 0;
+
+    // !IMPORTANT: Hiding Form
+    // To skip the transition while hiding we quickly hide it using display:none
+    form.style.display = 'none';
+
+    // Add hidden class again
+    form.classList.add('hidden');
+
+    // Set the Layout back to Grid after 1se exact transition time of the form display and hiding
+    setTimeout(() => {
+      form.style.display = 'grid';
+    }, 1000);
+  }
+
+  // Toggle Fields
   _toggleElevationField() {
     // .closest() selects the CLosest parent field with the Matching class
     // ,form__row--hidden is the class that is used to hide the form field
@@ -246,6 +266,7 @@ class App {
     inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
   }
 
+  // Create a Workout
   _newWorkout(e) {
     // --- Function to Check if all the Values are Numbers
     // ...inputs returns an Array hence we loop over using the .forEach method
@@ -339,8 +360,10 @@ class App {
     this._renderWorkoutMarker(workout);
 
     // --- 7. Render Workout on List
+    this._renderWorkout(workout);
 
     // --- 8. Hide form and clear fields
+    this._hideForm();
 
     // ---- Display Marker on Map:
     // Using the latitude and longitude extracted above in const {lat,lng}
@@ -374,13 +397,16 @@ class App {
         })
       )
       // Set Content in the Popup
-      .setPopupContent('workout')
+      .setPopupContent(
+        `${workout.name === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${workout.description}`
+      )
       .openPopup();
   }
 
-  // Rendering Workout on teh Page
+  // Rendering Workout on the Page
+  // Generating Required HTML
   _renderWorkout(workout) {
-    const html = `
+    let html = `
         <li class="workout workout--${workout.type}" data-id="${workout.id}">
           <h2 class="workout__title">${workout.description}</h2>
           <div class="workout__details">
@@ -396,6 +422,38 @@ class App {
             <span class="workout__unit">min</span>
           </div>
           `;
+
+    // Additional HTML if its Running
+    if (workout.type === 'running')
+      html += `<div class="workout__details">
+    <span class="workout__icon">⚡️</span>
+    <span class="workout__value">${workout.pace.toFixed(1)}</span>
+    <span class="workout__unit">min/km</span>
+    </div>
+    <div class="workout__details">
+    <span class="workout__icon">🦶🏼</span>
+    <span class="workout__value">${workout.cadence}</span>
+    <span class="workout__unit">spm</span>
+    </div>
+    </li>`;
+
+    // Additional HTML if its Cycling
+    if (workout.type === 'cycling')
+      html += `
+    <div class="workout__details">
+    <span class="workout__icon">⚡️</span>
+    <span class="workout__value">${workout.speed.toFixed(1)}</span>
+            <span class="workout__unit">km/h</span>
+          </div>
+          <div class="workout__details">
+            <span class="workout__icon">⛰</span>
+            <span class="workout__value">${workout.elevationGain}</span>
+            <span class="workout__unit">m</span>
+          </div>
+        </li>`;
+
+    // Inserting the HTML Generated as  Sibling of the Form
+    form.insertAdjacentHTML('afterend', html);
   }
 }
 
