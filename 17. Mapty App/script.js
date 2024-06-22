@@ -133,9 +133,13 @@ class App {
   // Constructor called immediately as soon as the object is created
   constructor() {
     // Invoking the Location Function as soon as an object is created
+    // To get the Users Location
     this._getPosition();
 
-    // --- Adding 2 Default Event Listeners:
+    // get Data from Local Storage
+    this._getLocalStorage();
+
+    // --- Adding Event Listeners:
     // A) ---- Submit Form ----
     // We want to display the Marker when the Form is Submitted / Enter is pressed
     // Remember the 'submit' action on addEventListener() works for the Enter keypress as well
@@ -235,6 +239,10 @@ class App {
     // Hence the this keyword here refers to the map and not the Object of App
     // Hence we again use the .bind() method to set the this keyword to the App explicitly
     this.#map.on('click', this._showForm.bind(this));
+
+    // Render Marker on the Page
+    // As the map is already loaded hence we cna now load the markers from local storage
+    this.#workouts.forEach(work => this._renderWorkoutMarker(work));
   }
 
   // --- Show Form
@@ -379,18 +387,13 @@ class App {
     // --- 8. Hide form and clear fields
     this._hideForm();
 
-    // ---- Display Marker on Map:
-    // Using the latitude and longitude extracted above in const {lat,lng}
-
-    // --- Clear Input Fields
-    inputDistance.value =
-      inputDuration.value =
-      inputCadence.value =
-      inputElevation.value =
-        '';
+    // ---9 . Set Local Storage to All Workouts
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
+    // ---- Display Marker on Map:
+    // Using the latitude and longitude extracted above in const {lat,lng}
     // Using the lat and lon retrieve from the Object and adding a pointer at that place only
     //.marker() method creates the marker
     //.addTo() method adds the marker to the Map
@@ -485,7 +488,7 @@ class App {
     const workout = this.#workouts.find(
       work => work.id === workoutEl.dataset.id
     );
-    console.log(workout);
+    // console.log(workout);
 
     // Moving Marker to the Marker Place
     // Using the .setView method of the Leaflet Library
@@ -495,10 +498,64 @@ class App {
     });
 
     // Using Public Interface
-    workout.click();
+    // workout.click();
+  }
+
+  // Local Storage Function
+  // Implementing the Local Storage feature across multiple Reloads of the Page
+  // The Data is Stored and linked to the url of the Page
+  // Now whenever the page loads, then we will load all the workouts from the local storage, and render them on the map and also on the list
+  _setLocalStorage() {
+    // Using the Local Storage API provided by the Browser to store the Markers Data
+    // Using the .setItem method of Local Storage
+    // First Argument is Key / Name by which we want to store
+    // Second Argument is Value : which is a String we want to store which is associated with the Key
+    // Converting Object to String Using JSON.stringify
+    // Local Storage is very Simple API only to be used for Small Amounts of Data, because local storage is blocking which is very bad and slows down the application
+    localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+  }
+
+  _getLocalStorage() {
+    // Getting the Data in Local Storage
+    // Converting the String back to Object, Using JSON.parse() for it
+    // But now when we convert the Object => String => Back to Object we loose the Prototype chain now these objects are just regular Objects
+    // SO now the Workouts dont have clicks() method in them anymore as no chaining
+    const data = JSON.parse(localStorage.getItem('workouts'));
+    // console.log(data);
+
+    // Check if Local storage is empty or not
+    // If no data in Local Storage then simply return
+    if (!data) return;
+
+    // Restore Data across multiple reloads
+    // As this is called right at the beginning, so incase there is no data / workouts on the page then the workouts array is empty and we then use the data stored in local storage to retrieve the old workouts array and store it in the workouts
+    this.#workouts = data;
+
+    // Render the List
+    // Rendering the Previously created workout list from local storage
+    this.#workouts.forEach(work => this._renderWorkout(work));
+
+    // Render the Markers
+    // Rendering the Previously created workout markers from local storage
+    // As we said we are doing all these at the very beginning, i.e when the map isn't loaded and the  geolocation hasn't retrieved the location of the user
+    // So we can only render the Marker when some predefined conditions are executed and not at the very beginning like the list
+    // Hence we execute the Marker loading after the Map is loaded in teh _loadMap method
+  }
+
+  // Public Method
+  // To clear the Workouts form Local Storage
+  reset() {
+    // Removing Workouts
+    localStorage.removeItem('workouts');
+
+    // Reloading Page
+    // Location has a lot of methods and properties one of them is to reload the Page
+    location.reload();
   }
 }
 
 // Creating Objects
 const app = new App();
-console.log(app);
+// console.log(app);
+
+// Using app.reset() in console will reset the Page
