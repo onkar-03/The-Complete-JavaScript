@@ -18,6 +18,9 @@ let map, mapEvent;
 
 // Class for Workout Type
 class Workout {
+  // CLicks
+  clicks = 0;
+
   // Date for Each Object
   // Creating Global Var by not declaring the type of variable
   date = new Date();
@@ -58,6 +61,11 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+
+  // CLicks Incrementing Function
+  click() {
+    this.clicks++;
   }
 }
 
@@ -120,6 +128,7 @@ class App {
   #map;
   #mapEvent;
   #workouts = [];
+  #zoomLevel = 13;
 
   // Constructor called immediately as soon as the object is created
   constructor() {
@@ -146,6 +155,11 @@ class App {
     // As this keyword of Event Handlers points to the one to which the EventListener is attached to, hence we use the .bind() method to se the this keyword to the App object instead
     // However here as the toggle doesn't use the this keyword anywhere not using .bind() will work as well
     inputType.addEventListener('change', this._toggleElevationField.bind(this));
+
+    // Using Event Delegation
+    // Adding event Listener to Parent of Form Element instead of every Element
+    // Binding the this keyword as .addEventListener make the this keyword point to the one on which it is being called which we dont want hence we point the this keyword to the current object
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
   }
 
   // --- Access Current Location of the User
@@ -199,7 +213,7 @@ class App {
 
     // Storing the Map in a variable 'map'
     // 15 refers to the  Zoom level of the current location on the Map
-    this.#map = L.map('map').setView(coords, 13);
+    this.#map = L.map('map').setView(coords, this.#zoomLevel);
 
     // The map which we see is mae of tiles which come from the URL named openstreetmap, a open source map accessible to all
     // Leaflet also does work with other maps as well like google maps if u want to use it
@@ -354,7 +368,7 @@ class App {
 
     // --- 5. Add new Object to workout Array
     this.#workouts.push(workout);
-    console.log(workout);
+    // console.log(workout);
 
     // --- 6. Render workout on Map as Marker
     this._renderWorkoutMarker(workout);
@@ -455,8 +469,36 @@ class App {
     // Inserting the HTML Generated as  Sibling of the Form
     form.insertAdjacentHTML('afterend', html);
   }
+
+  // Move Marker
+  _moveToPopup(e) {
+    // We store the Form element on which we click in workoutEl
+    // Using closest to find the nearest ancestor of Target From Element on which we click that matches a given CSS selector '.workout'
+    const workoutEl = e.target.closest('.workout');
+    // console.log(workoutEl);
+
+    if (!workoutEl) {
+      return;
+    }
+
+    // Storing the Workout we created in the workout variable
+    const workout = this.#workouts.find(
+      work => work.id === workoutEl.dataset.id
+    );
+    console.log(workout);
+
+    // Moving Marker to the Marker Place
+    // Using the .setView method of the Leaflet Library
+    this.#map.setView(workout.coords, this.#zoomLevel, {
+      animate: true,
+      pan: { duration: 1 },
+    });
+
+    // Using Public Interface
+    workout.click();
+  }
 }
 
-// Creating Object
+// Creating Objects
 const app = new App();
 console.log(app);
