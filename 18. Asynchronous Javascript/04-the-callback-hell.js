@@ -59,6 +59,7 @@ const getCountryDataAndNeighbor = function (country) {
     // View Received Data
     // Json Data String Format
     // Converting JSON to Object
+    // Destructuring to an array
     const [data] = JSON.parse(this.responseText);
     console.log(data);
 
@@ -102,3 +103,23 @@ getCountryDataAndNeighbor('usa');
 // Callback Hell
 // When u have a lot of Nested Callbacks to do asynchronous tasks synchronously
 // It happens for all Asynchronous calls and not ~just for AJAX Calls
+// They are Messy, Hard to maintain and understand
+// There is a way to escape from callback hell which is called promises we will learn about them
+
+// Example
+setTimeout(function () {
+  // First Call
+  console.log(`1 Second Passed`);
+  setTimeout(function () {
+    // Nested Callback
+    console.log(`2 Second Passed`);
+    setTimeout(function () {
+      // Nested callback
+      console.log(`3 Second Passed`);
+      setTimeout(function () {
+        // Nested Callback
+        console.log(`4 Second Passed`);
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}, 1000);
