@@ -4,7 +4,7 @@ const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
-// --- 01. First AJAX Calls: ---
+// --- 04. Callback Hell: ---
 // All process is asynchronous non blocking ... behind the scene process
 
 const renderCountry = function (data, className = '') {
