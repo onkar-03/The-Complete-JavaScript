@@ -42,7 +42,7 @@ const renderCountry = function (data, className = '') {
 const getCountryData = function (country) {
   // Fetch Data from API
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    // Handling the resolved value og Promise
+    // Handling the resolved value of Promise
     // Converting the resolved value to JavaScript object
     .then(response => response.json())
 

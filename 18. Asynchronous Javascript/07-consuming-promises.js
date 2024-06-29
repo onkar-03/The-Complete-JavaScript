@@ -43,9 +43,10 @@ const getCountryData = function (country) {
     // Once the fetch request completes, it returns a promise
     // A promise is then Settle after Pending State say 'FullFilled' means we get a resolved Value as a response form server to work with
     // The .then() method is used to handle the resolved value of a promise
-    // The .catch() method is used to handle any errors that occur
 
-    // We use the .then() method to handle the resolved promise from fetch
+    // We use the .then() method to handle promises returned by fetch method
+    // The .then() method takes in 2 callback functions, first one to handle the fulfilled promise and the second to handle the rejected promise
+    // We assume that our promise is fulfilled here
     // The .then() method takes in a callback function, this contains the code we want to be execute as soon as we receive a resolved value from server
     // Calling the resolved value === response
     .then(function (response) {
