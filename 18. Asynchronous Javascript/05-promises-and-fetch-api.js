@@ -37,3 +37,9 @@ console.log(request); // Promise
 
 // --- 2.Rejected
 //  Promise transitions from "pending" to "rejected" if the asynchronous operation fails and the Promise now has a reason (an error message or object) for the failure
+
+// Benefits of Promises over Callbacks:
+// Avoids Deep Nesting: Promises help to avoid the deeply nested structure of callbacks
+// Better Error Handling: Promises provide a centralized mechanism to handle errors
+// Code Readability: Promises make the code cleaner and easier to understand
+// Control Flow Management: Promises offer more control over the flow of asynchronous operations

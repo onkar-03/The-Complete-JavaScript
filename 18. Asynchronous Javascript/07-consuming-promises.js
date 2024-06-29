@@ -52,8 +52,8 @@ const getCountryData = function (country) {
       // Log the response object to the console for viewing an Debugging
       console.log(response);
 
-      // The Data is in teh Response Boy which we cant read at present
-      // To Rea the Data we need to call the .json() method on response received from server
+      // The Data is in the Response Boy which we cant read at present
+      // To Read the Data we need to call the .json() method on response received from server
       // The .json() method is available on all the response we receive from the fetch function
       // It parses the response body into a JavaScript object
       // This .json() function is also an async function, means that it also returns a promise on being called hence we return this promise to be handled ahead
@@ -64,6 +64,7 @@ const getCountryData = function (country) {
     // The data parameter now contains the parsed JSON data
     .then(function (data) {
       // Log the data to the console for viewing
+      // The Data returned is a Array
       console.log(data);
 
       // Call the renderCountry function with the first element of the data array
