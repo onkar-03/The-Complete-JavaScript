@@ -29,24 +29,80 @@ TEST COORDINATES 2: -33.933, 18.474
 GOOD LUCK 😀
 */
 
+// Render Error
+const renderError = function (msg) {
+  // Inserting the Text to the Countries Container
+  countriesContainer.insertAdjacentText('beforeend', msg);
+
+  // Style Opacity 1 tio view it
+  countriesContainer.style.opacity = 1;
+};
+
+// Render Country Function
+const renderCountry = function (data, className = '') {
+  // Building Card Component
+  const html = `<article class="country ${className}">
+          <img class="country__img" src="${data.flags.png}" />
+          <div class="country__data">
+            <h3 class="country__name">${data.name.common}</h3>
+            <h4 class="country__region">${data.region}</h4>
+            <p class="country__row"><span>👫</span>$${(
+              +data.population / 1000000
+            ).toFixed(1)} million</p>
+            <p class="country__row"><span>🗣️</span>${Object.values(
+              data.languages
+            ).join(' ')}</p>
+            <p class="country__row"><span>💰</span>${Object.values(
+              data.currencies
+            )
+              .map(currency => `${currency.name} (${currency.symbol})`)
+              .join(' ')}</p>
+          </div>
+        </article>`;
+
+  // Insert HTML to Page
+  countriesContainer.insertAdjacentHTML('beforeend', html);
+
+  // Style Opacity 1 to view it
+  countriesContainer.style.opacity = 1;
+};
+
+//WhereAmI Function
 const whereAmI = function (lat, lng) {
   // Fetching Location based on lat & lng using Reverse Geocoding
   fetch(
     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=	861176342202477130496x5458`
   )
     .then(response => {
+      // Handling Errors
       if (!response.ok)
-        throw new Error(`Problem with Geocoding: ${response.status}`);
+        throw new Error(`Problem with Geocoding: ${response.status} !!`);
       // Converting Response to Javascript Object
       return response.json();
     })
     .then(data => {
-      console.log(data);
-      console.log(`You are in ${data.city}, ${data.country} !!`);
+      // console.log(data);
+
+      // Printing Info using the Reversed geo coded location Url
+      console.log(`You are in ${data.city}, ${data.country}!!`);
+
+      // Fetching Country Data now as Per Lng and Lat
+      return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
     })
-    .catch(err => console.log(`${err.message} 💥💥💥`));
+    .then(country => {
+      // Handling Errors
+      if (!country.ok) throw new Error(`Country not Found ${country.status}!!`);
+
+      // Converting Response to Javascript Object
+      return country.json();
+    })
+    .then(data => renderCountry(data[0]))
+    .catch(err => console.log(`${err.message} 💥💥💥`))
+    .finally(() => {
+      countriesContainer.style.opacity = 1;
+    });
 };
 
-whereAmI(19.037, 72.873);
 whereAmI(52.508, 13.381);
-whereAmI(-33.933, 18.474);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);

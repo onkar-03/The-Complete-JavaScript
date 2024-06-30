@@ -70,7 +70,7 @@ const renderCountry = function (data, className = '') {
   countriesContainer.insertAdjacentHTML('beforeend', html);
 
   // Style Opacity 1 tio view it
-  countriesContainer.style.opacity = 1;
+  // countriesContainer.style.opacity = 1;
 };
 
 // Fetch Country Data
@@ -115,7 +115,7 @@ const getCountryData = function (country) {
       renderError(`Something went wrong 💣💣💣 ${err.message}. Try Again!!`);
     })
 
-    // using Finally Method
+    // Using Finally Method
     // To always set the Opacity of the Container to 1 no matter if a promise is fulfilled or not
     .finally(() => {
       // Style Opacity 1 to view it

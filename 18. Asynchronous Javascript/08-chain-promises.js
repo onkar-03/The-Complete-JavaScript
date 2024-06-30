@@ -31,7 +31,7 @@ const renderCountry = function (data, className = '') {
   // Insert HTML to Page
   countriesContainer.insertAdjacentHTML('beforeend', html);
 
-  // Style Opacity 1 tio view it
+  // Style Opacity 1 to view it
   countriesContainer.style.opacity = 1;
 };
 
