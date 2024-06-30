@@ -58,11 +58,13 @@ const getCountryData = function (country) {
       if (!neighbour) return;
 
       // Fetching Neighbour Data from API
-      fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
-        // Converting Body to JavaScript object
-        .then(response => response.json())
-        // Render First Neighbour Card
-        .then(data => renderCountry(data[0], 'neighbour'));
+      return (
+        fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
+          // Converting Body to JavaScript object
+          .then(response => response.json())
+          // Render First Neighbour Card
+          .then(data => renderCountry(data[0], 'neighbour'))
+      );
     });
 };
 
