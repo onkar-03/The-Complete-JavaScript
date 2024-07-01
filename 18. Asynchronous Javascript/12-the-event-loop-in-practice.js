@@ -7,9 +7,9 @@ console.log(`Test Start`);
 setTimeout(() => console.log(`0 Seconds Timer`), 0);
 
 // Promise.resolved()
-// Resolved means Settled (can be rejected / fulfilled), and not Pending
+// Resolved means fulfilled promise, and not Pending
 // It's a method in JavaScript that returns a Promise object that is resolved with a given value
-// A promise is considered "resolved" when it has settled, meaning it is no longer pending. A resolved promise can be either fulfilled or rejected
+// A promise is considered "resolved" when it has settled, meaning it is no longer pending
 Promise.resolve(`Resolved Promise 1`).then(response =>
   console.log(`${response}`)
 );
