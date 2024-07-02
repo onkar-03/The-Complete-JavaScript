@@ -1,5 +1,5 @@
 ///////////////////////////////
-// --- 13. Promisifying the Geolocation API:
+// --- 14. Promisifying the Geolocation API:
 
 // --- Old Way of Using the Geolocation API:
 // First callback is to display the location

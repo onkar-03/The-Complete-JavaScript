@@ -67,7 +67,7 @@ const renderCountry = function (data, className = '') {
   countriesContainer.style.opacity = 1;
 };
 
-// Promisifying Geolocation API w
+// Promisifying Geolocation API
 const getLocation = function () {
   // Return a Promise
   return new Promise((resolve, reject) => {
@@ -113,7 +113,7 @@ const whereAmI = function () {
       // Converting Response to Javascript Object
       return country.json();
     })
-    .then(data => renderCountry(data[0]))
+    .then(data => renderCountry(data[1]))
     .catch(err => console.log(`${err.message} 💥💥💥`))
     .finally(() => {
       countriesContainer.style.opacity = 1;
