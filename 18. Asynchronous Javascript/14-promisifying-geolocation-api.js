@@ -36,7 +36,7 @@ const getLocation1 = function () {
   });
 };
 
-// Calling teh function and handling the Promise returned
+// Calling the function and handling the Promise returned
 getLocation1().then(
   /// Log the resolved value (position) to the console
   res => console.log(res)
@@ -53,7 +53,7 @@ const getLocation2 = function () {
   });
 };
 
-// Calling teh function and handling the Promise returned
+// Calling the function and handling the Promise returned
 getLocation2().then(
   // Log the resolved value (position) to the consol
   res => console.log(res)
