@@ -58,6 +58,7 @@ lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 // This allows you to use modern JavaScript features like 'async/await' & 'then/catch' for handling asynchronous operations, making your code cleaner and easier to manage
 
 // --- Creating a wait() function
+// The wait() function does not take a callback instead returns a promise
 // wait() function takes a parameter seconds, which determines the delay for the setTimeout
 // It explicitly returns a promise that resolves after seconds seconds using setTimeout(resolve, seconds * 1000)
 // wait() is similar to fetch() function as it too returns a promise all together after retrieving the data
@@ -79,7 +80,7 @@ const wait = function (seconds) {
 // We just simply log that 1 Second ahs passed as we received a resolved promise after 1 second
 wait(1)
   .then(() => {
-    console.log(' 1 Second Passed');
+    console.log('1 Second Passed');
 
     // Why return wait(1) ??
     // When you call a function that returns a promise (like wait(1)), you use return wait(1) to chain the resolution of that promise to the next .then() in your promise chain
