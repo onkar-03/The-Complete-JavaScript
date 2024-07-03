@@ -88,6 +88,10 @@ const whereAmI = async function () {
       `https://geocode.xyz/${lat},${lng}?geoit=json&auth=  861176342202477130496x5458`
     );
 
+    // 404 Error Handling
+    if (!resGeo.ok) throw new Error(`Can't Fetch the DATA`);
+
+    // Convert Data to Javascript Object
     const dataGeo = await resGeo.json();
     console.log(dataGeo);
 
@@ -98,7 +102,11 @@ const whereAmI = async function () {
     );
     // 404 Error Handling
     if (!res.ok) throw new Error(`Can't Fetch the DATA`);
+
+    // Convert Data to Javascript Object
     const data = await res.json();
+
+    // Render Country Card
     renderCountry(data[1]);
   } catch (err) {
     //Using catch to Display potential Errors

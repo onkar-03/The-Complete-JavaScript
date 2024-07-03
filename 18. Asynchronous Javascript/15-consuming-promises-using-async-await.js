@@ -109,5 +109,5 @@ whereAmI();
 console.log('First');
 
 // Output:
-// HELLO
+//  First
 // Response Javascript Objet returned
