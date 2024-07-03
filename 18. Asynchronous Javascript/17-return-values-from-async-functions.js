@@ -1,9 +1,9 @@
-///////////////////////////////
-// --- 17. Return Values form Async Function:
 ('use strict');
 
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
+///////////////////////////////
+// --- 17. Return Values form Async Function:
 
 // Render Error Message Function
 const renderError = function (msg) {

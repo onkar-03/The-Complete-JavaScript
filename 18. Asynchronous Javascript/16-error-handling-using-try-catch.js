@@ -2,7 +2,8 @@
 // --- 16. Error Handling using Try Catch:
 // In Async Await we an't use the .catch() method as we can't attach it anywhere
 // Here instead we use the try catch() method to handle errors
-// The try catch() method is used in Regular Js as well since the Beginning
+// The try{} catch(){} method is used in Regular Js as well since the Beginning
+// Always use try{} catch(){} with async functions always
 
 // Summary:
 // try: Encloses the code that might throw an error
