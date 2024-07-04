@@ -55,55 +55,72 @@ const createImage = function (imgPath) {
 let currentImage;
 
 // PART 1
-// Async Await Load Image Method
-const loadAndPause = async function () {
-  try {
-    // Load Image 1
-    let img = await createImage('./img/img-1.jpg');
-    // Log
-    console.log('Image 1 Loaded');
-    // As wait( )does not have any resolved value we dont need to save it into a variable
-    await wait(2);
-    // Hide Image Now
-    img.style.display = 'none';
+// Async Await Load Image Method for Consuming Promises
+// const loadAndPause = async function () {
+//   try {
+//     // Load Image 1
+//     let img = await createImage('./img/img-1.jpg');
+//     // Log
+//     console.log('Image 1 Loaded');
+//     // As wait() does not have any resolved value we dont need to save it into a variable
+//     await wait(2);
+//     // Hide Image after 2 seconds
+//     img.style.display = 'none';
 
-    // Load Image 2
-    img = await createImage('./img/img-2.jpg');
-    // Log
-    console.log('Image 2 Loaded');
-    // As wait() does not have any resolved value we dont need to save it into a variable
-    await wait(2);
-    // Hide Image Now
-    img.style.display = 'none';
+//     // Load Image 2
+//     img = await createImage('./img/img-2.jpg');
+//     // Log
+//     console.log('Image 2 Loaded');
+//     // As wait() does not have any resolved value we dont need to save it into a variable
+//     await wait(2);
+//     // Hide Image after 2 seconds
+//     img.style.display = 'none';
 
-    // Load Image 3
-    img = await createImage('./img/img-3.jpg');
-    // Log
-    console.log('Image 3 Loaded');
-    // As wait() does not have any resolved value we dont need to save it into a variable
-    await wait(2);
-    // Hide Image Now
-    img.style.display = 'none';
-  } catch (err) {
-    err => console.log(err.message);
-  }
-};
+//     // Load Image 3
+//     img = await createImage('./img/img-3.jpg');
+//     // Log
+//     console.log('Image 3 Loaded');
+//     // As wait() does not have any resolved value we dont need to save it into a variable
+//     await wait(2);
+//     // Hide Image after 2 seconds
+//     img.style.display = 'none';
+//   } catch (err) {
+//     err => console.log(err.message);
+//   }
+// };
 
-loadAndPause();
+// Calling Function
+// loadAndPause();
 
 // PART 2
+// Async function 'loadAll' that takes an array of image paths 'imgArr'
 const loadAll = async function (imgArr) {
   try {
+    // Use .map to loop over the image paths array 'imgArr'
+    // .map used to create a new Array and store it as 'imgs'
+    // For each path, call the 'createImage' function asynchronously and await its result
+    // Create Image function returns a Promise & so does the async Function
     const imgs = imgArr.map(async img => await createImage(img));
-    // console.log(imgs);
 
-    const imgEl = Promise.all(imgs);
-    // console.log(imgEl);
+    // Log the 'imgs' array to the console to check its structure
+    // It's an array of resolved Promises from the async function
+    console.log(imgs);
 
+    // As its an Array of Promises we can use the Promise.all function to resolve all of the promises simultaneously
+    // Using Promise.all to wait for all Promises in 'imgs' to resolve
+    // 'imgEl' will be an array of resolved image elements
+    const imgEl = await Promise.all(imgs);
+
+    // Log the resolved 'imgEl' array to the console to check its structure
+    console.log(imgEl);
+
+    // Loop over each resolved image element in 'imgEl' and add the 'parallel' class to it to display it on the Page
     imgEl.forEach(img => img.classList.add('parallel'));
   } catch (err) {
+    // If any error occurs during the execution of the above code, catch it and log its message to the console
     console.error(err.message);
   }
 };
 
+// Test the 'loadAll' function with an array of image paths
 loadAll(['./img/img-1.jpg', './img/img-2.jpg', './img/img-3.jpg']);
