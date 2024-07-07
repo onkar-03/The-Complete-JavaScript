@@ -6,11 +6,11 @@
 // * Introduction to Module Systems:
 // Beyond native ES Modules and the module pattern, JavaScript historically used 'AMD Modules' and 'CommonJS' modules for modular development
 
-// *CommonJS Modules:
+// * CommonJS Modules:
 // CommonJS modules were pivotal, especially in Node.js
 // Each file acts as a module, exporting functionality using `exports.<name>` and `module.exports`
 
-// *Exporting Modules (CommonJS):**
+// * Exporting Modules (CommonJS):**
 //  To export a module in CommonJS, assign properties or functions to `exports` or `module.exports`
 // Example: exports.functionName = () => {};
 
@@ -26,11 +26,11 @@
 //   - Recent updates brought native support for ES Modules in Node.js, aligning server-side JavaScript with browser capabilities
 //   - ES Modules use `export` and `import` statements for modularization.
 
-// *Exporting Modules (ES Modules):
+// * Exporting Modules (ES Modules):
 // To export a module in ES Modules, use the `export` keyword.
 // Example: export const functionName = () => {};
 
-// *Importing Modules (ES Modules):
+// * Importing Modules (ES Modules):
 // To import a module in ES Modules, use the `import` keyword followed by the module path.
 //- Example: import { functionName } from './module.js';
 
