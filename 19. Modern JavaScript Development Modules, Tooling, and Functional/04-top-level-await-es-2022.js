@@ -42,6 +42,7 @@ const getLastPost = async function () {
     const data = await response.json();
 
     // Async Function returns a Promise
+    // Returning the Last Post of the Database
     return data[data.length - 1];
   } catch (err) {
     console.log(err.message);
@@ -50,7 +51,7 @@ const getLastPost = async function () {
 
 // Method 1: [WRONG]
 // Wont work as The promise returned isn't fulfilled when the console.log() is read hence we get a Pending{promise}
-// We already saw this problem in teh Last Section
+// We already saw this problem in the Last Section
 const lastPost = getLastPost();
 console.log(lastPost);
 
