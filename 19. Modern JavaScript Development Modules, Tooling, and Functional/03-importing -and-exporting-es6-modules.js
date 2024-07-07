@@ -1,5 +1,5 @@
 ///////////////////////////////////////
-// Exporting and Importing in ES6 Modules
+// 03. Exporting and Importing in ES6 Modules
 
 // --- Importing Multiple Variables & Renaming Variables during Import
 // For Importing we specify the names of variables we want to import inside the {} using ,
