@@ -62,3 +62,6 @@ console.log(ShoppingCart);
 // Attempt to log the shippingCost property, which is private and not exposed
 // This will result in 'undefined' since shippingCost is not accessible outside the IIFE
 console.log(ShoppingCart.shippingCost);
+
+// This is called the Revealing Module Pattern which is used very commonly in JavaScript
+// This pattern has limitations that is why native modules were added to ES6
