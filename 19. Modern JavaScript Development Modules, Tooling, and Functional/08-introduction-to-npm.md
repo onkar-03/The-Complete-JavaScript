@@ -180,13 +180,21 @@ const state = {
   user: { loggedIn: true },
 };
 
+// Creating a Deep Clone of the Original
 const stateClone = cloneDeep(state);
 console.log(stateClone);
+
+// Creating a Deep Clone of the Clone
 const stateDeepClone = cloneDeep(stateClone);
 
 // Change the original state
 state.user.loggedIn = false;
-console.log(stateClone.user.loggedIn); // false
+
+// Viewing Results
+console.log(state.user.loggedIn); //false
+
+// The value for the Cloned ones don't change
+console.log(stateClone.user.loggedIn); // true
 console.log(stateDeepClone.user.loggedIn); // true
 ```
 

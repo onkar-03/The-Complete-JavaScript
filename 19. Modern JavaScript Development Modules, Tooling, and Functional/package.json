@@ -1,15 +1,18 @@
 {
   "name": "modern-js",
   "version": "1.0.0",
-  "description": "using NPM to Install Dependencies and Modules",
-  "main": "shoppingCart.js",
+  "description": "Using NPM to Install Dependencies and Modules",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
   },
   "author": "Onkar",
   "license": "ISC",
   "dependencies": {
     "leaflet": "^1.9.4",
     "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
   }
 }
