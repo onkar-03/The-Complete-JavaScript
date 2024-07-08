@@ -45,6 +45,7 @@
 
 // Example: 
 
+// --- Export
 // Exporting Module in Common Js Node.js Syntax
 // The export object wont work here as its an Object of Node.js Syntax
 export.addToCart = function (product, quantity) {
@@ -56,6 +57,7 @@ export.addToCart = function (product, quantity) {
     );
   };
   
+// --- Import
 // Importing Module in Common Js Node.js Syntax
 // The require() object wont work here as its an Object of Node.js Syntax
 const cart = require('./modulePath.js')
