@@ -1,3 +1,6 @@
+//////////////////////////////////////
+// 10. Parcel Bundling
+
 // MODULE 1: 10-parcel-bundling.js
 
 console.log('Importing module');

@@ -584,6 +584,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"7G8PY":[function(require,module,exports) {
+//////////////////////////////////////
+// 10. Parcel Bundling
 // MODULE 1: 10-parcel-bundling.js
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 // MODULE 2: ./shoppingCart.js
