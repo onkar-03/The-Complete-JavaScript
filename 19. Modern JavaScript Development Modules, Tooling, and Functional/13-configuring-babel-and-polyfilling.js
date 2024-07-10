@@ -1,5 +1,5 @@
 //////////////////////////////////////
-// 10. Configuring Babel and Polyfilling
+// 13. Configuring Babel & Polyfilling
 
 // Bundling the 3 Modules using Parcel
 console.log('Importing module');
