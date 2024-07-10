@@ -1,7 +1,7 @@
 //////////////////////////////////////
 // 10. Configuring Babel and Polyfilling
 
-// MODULE 1: 10-parcel-bundling.js
+// Bundling the 3 Modules using Parcel
 console.log('Importing module');
 
 // MODULE 2: ./shoppingCart.js
@@ -12,7 +12,6 @@ add('apples', 4);
 
 console.log(cart);
 
-// MODULE 3: 'lodash-es
 import cloneDeep from 'lodash-es/cloneDeep.js';
 
 // Nested Object
@@ -42,13 +41,33 @@ console.log(stateClone.user.loggedIn); // true
 console.log(stateDeepClone.user.loggedIn); // true
 
 //--- Parcel Hot Module Rebuild
-
 if (module.hot) {
   module.hot.accept();
 }
 
-// Polifilling Array Methods, Promises & bunch of other Stuff
-import 'core-js/stable';
+// --- Class Creation
+class Person {
+  #greeting = 'Hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.#greeting}, ${this.name}`);
+  }
+}
+
+// Object
+const onkar = new Person('Onkar');
+
+// Nullish
+console.log('Onkar' ?? null);
+
+// --- Using Modern Array Methods & Promises
+console.log(cart.find(el => el.quantity >= 2));
+Promise.resolve('TEST').then(res => console.log(res));
+
+// --- Polifilling Array Methods, Promises & bunch of other Stuff
+// import 'core-js/stable';
+import 'core-js/stable/array/find.js';
+import 'core-js/stable/promise';
 
 // Polifilling async functions
-import 'regenerator-runtime/runtime.js';
+import 'regenerator-runtime';
