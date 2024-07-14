@@ -70,12 +70,7 @@ const showRecipe = async function () {
       throw new Error(`${data.message}(${res.status})`);
     }
 
-    // Checking Output
-    // console.log(res);
-    // console.log(data);
-
     // Reformat Variable Names of Data
-    // Making the variable names more readable & generic to understand
     let { recipe } = data.data;
     recipe = {
       id: recipe.id,
