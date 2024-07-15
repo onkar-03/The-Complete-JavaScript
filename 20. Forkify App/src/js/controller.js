@@ -8,14 +8,6 @@ import 'regenerator-runtime/runtime';
 // Parent Container
 const recipeContainer = document.querySelector('.recipe');
 
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
-  });
-};
-
 // --- API:
 // https://forkify-api.herokuapp.com/v2
 
@@ -60,15 +52,15 @@ const controlRecipes = async function () {
 // PART 1
 // We want to trigger the Event when the URL hash '#' code changes
 // For this we have the hashchange event in .addEventListener()
-// Also we want the function showRecipe to run on hashchange only
-// window.addEventListener('hashchange', showRecipe);
+// Also we want the function controlRecipes to run on hashchange only
+// window.addEventListener('hashchange', controlRecipes);
 
 // PART 2
 // We also want the Recipe to be displayed when we paste the valid url with id in any browser
 // For this we need to trigger the show recipe on 'load' event of .addEventListener
-// window.addEventListener('load', showRecipe);
+// window.addEventListener('load', controlRecipes);
 
 // Refactored Code
 ['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, showRecipe)
+  window.addEventListener(event, controlRecipes)
 );

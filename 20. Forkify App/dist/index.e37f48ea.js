@@ -592,13 +592,6 @@ var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 // Parent Container
 const recipeContainer = document.querySelector(".recipe");
-const timeout = function(s) {
-    return new Promise(function(_, reject) {
-        setTimeout(function() {
-            reject(new Error(`Request took too long! Timeout after ${s} second`));
-        }, s * 1000);
-    });
-};
 // --- API:
 // https://forkify-api.herokuapp.com/v2
 // Loading a Recipe from API
@@ -631,10 +624,15 @@ const controlRecipes = async function() {
     }
 };
 //////////////////////////////////
-// --- Adding Event Listeners for Load & HashChange
+// --- 3) Adding Event Listeners for Load & HashChange
+// PART 1
 // We want to trigger the Event when the URL hash '#' code changes
+// For this we have the hashchange event in .addEventListener()
+// Also we want the function controlRecipes to run on hashchange only
 // window.addEventListener('hashchange', controlRecipes);
+// PART 2
 // We also want the Recipe to be displayed when we paste the valid url with id in any browser
+// For this we need to trigger the show recipe on 'load' event of .addEventListener
 // window.addEventListener('load', controlRecipes);
 // Refactored Code
 [
@@ -1876,23 +1874,24 @@ module.exports = function(scheduler, hasTimeArg) {
 /* global Bun -- Bun case */ module.exports = typeof Bun == "function" && Bun && typeof Bun.version == "string";
 
 },{}],"Y4A21":[function(require,module,exports) {
-// State Object
-// Holds Data necessary for making the Application work
+// Polyfilling Async Functions
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
+var _runtime = require("regenerator-runtime/runtime");
+// URL Import
+var _config = require("./config");
+//Importing Commonly used Functions
+var _helpers = require("./helpers");
 const state = {
     recipe: {}
 };
 const loadRecipe = async function(id) {
     try {
-        // API Request
-        const res = await fetch(`https://forkify-api.herokuapp.com/api/v2/recipes/${id}`);
-        // Convert to Js Object
-        const data = await res.json();
-        // Check Response
-        if (!res.ok) throw new Error(`${data.message}(${res.status})`);
+        // Fetch Recipe and JSON Data as well together
+        // Storing the returning ata from getJSON helper function in data variable
+        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
         // Reformat Variable Names of Data
         // Making the variable names more readable & generic to understand
         const { recipe } = data.data;
@@ -1907,11 +1906,11 @@ const loadRecipe = async function(id) {
             publisher: recipe.publisher
         };
     } catch (err) {
-        alert(err.message);
+        alert(`${err.message} \u{1F4A3}\u{1F4A3}\u{1F4A3}`);
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","./helpers":"hGI1E"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -2526,7 +2525,55 @@ try {
     else Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"l60JC":[function(require,module,exports) {
+},{}],"k5Hzs":[function(require,module,exports) {
+// Store all Variables that are constant & used across multiple modules
+// Using Uppercase for constant variables as they never change
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "API_URL", ()=>API_URL);
+parcelHelpers.export(exports, "TIMEOUT_SECONDS", ()=>TIMEOUT_SECONDS);
+const API_URL = `https://forkify-api.herokuapp.com/api/v2/recipes/`;
+const TIMEOUT_SECONDS = 10;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hGI1E":[function(require,module,exports) {
+// Polyfilling Async Functions
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getJSON", ()=>getJSON);
+var _runtime = require("regenerator-runtime/runtime");
+// Importing Config Variable
+var _config = require("./config");
+// Functions that are used again and again are store here
+// Timeout Function in case of Bad Internet Connection
+const timeout = function(s) {
+    return new Promise(function(_, reject) {
+        setTimeout(function() {
+            reject(new Error(`Request took too long! Timeout after ${s} second`));
+        }, s * 1000);
+    });
+};
+const getJSON = async function(url) {
+    try {
+        // API Request
+        // Using Promise.race[] to race between fetch or timeout seconds .. and fail the fetch if it exceeds the timeout limit
+        // Fetch time Limit 10 seconds
+        const res = await Promise.race([
+            fetch(`${url}`),
+            timeout((0, _config.TIMEOUT_SECONDS))
+        ]);
+        // Convert to Js Object
+        const data = await res.json();
+        // Check Response
+        if (!res.ok) throw new Error(`${data.message}(${res.status})`);
+        // Return the JSON Data
+        return data;
+    } catch (err) {
+        // If we want the model.js to present the error encountered here we need to throw the error from here in order to be catch it by the other catch method in the model.js
+        throw err;
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs"}],"l60JC":[function(require,module,exports) {
 // --- Importing Icons
 // A) Asset Management:
 // During development, assets like images and SVG icons are often located in a source directory (e.g., src/img)
@@ -2543,7 +2590,6 @@ var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 // --- Handling Fractional Values using fractional npm package
 var _fractional = require("fractional");
-console.log((0, _fractional.Fraction));
 // --- Using Classes for recipeView
 // Class is the best way to go here as we will want many properties & methods private to recipes
 // Also we will want many Methods to be inherited by Children from Parent class as well
@@ -2580,10 +2626,11 @@ class RecipeView {
         // Clear the Content of the Container first
         this.#clear();
         // Render the spinner in Parent Container
+        // Rendering as first child of the Container using 'afterbegin' method
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     };
     //Private Methods
-    // 1
+    // 1. Clear the Content of the Container
     #clear() {
         this.#parentElement.innerHTML = "";
     }

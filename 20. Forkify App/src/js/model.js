@@ -34,6 +34,6 @@ export const loadRecipe = async function (id) {
       publisher: recipe.publisher,
     };
   } catch (err) {
-    alert(`${err.message} 💣💣💣s`);
+    alert(`${err.message} 💣💣💣`);
   }
 };

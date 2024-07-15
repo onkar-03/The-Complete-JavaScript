@@ -14,7 +14,6 @@ import icons from '../../img/icons.svg';
 
 // --- Handling Fractional Values using fractional npm package
 import { Fraction } from 'fractional';
-console.log(Fraction);
 
 // --- Using Classes for recipeView
 // Class is the best way to go here as we will want many properties & methods private to recipes
