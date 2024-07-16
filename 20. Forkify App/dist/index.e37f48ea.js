@@ -589,11 +589,9 @@ var _webImmediateJs = require("core-js/modules/web.immediate.js");
 var _modelJs = require("./model.js");
 var _recipeViewJs = require("./views/recipeView.js");
 var _recipeViewJsDefault = parcelHelpers.interopDefault(_recipeViewJs);
+var _searchViewJs = require("./views/searchView.js");
+var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _runtime = require("regenerator-runtime/runtime");
-// Parent Container
-const recipeContainer = document.querySelector(".recipe");
-// --- API:
-// https://forkify-api.herokuapp.com/v2
 // Loading a Recipe from API
 const controlRecipes = async function() {
     try {
@@ -640,17 +638,34 @@ const controlRecipes = async function() {
 // ['hashchange', 'load'].forEach(event =>
 //   window.addEventListener(event, controlRecipes)
 // );
+// Search Controller
+const controlSearchResults = async function() {
+    try {
+        // 1. Get Query from Search
+        const query = (0, _searchViewJsDefault.default).getQuery();
+        // If no Query then Return
+        if (!query) return;
+        // 2. Load Results
+        await _modelJs.loadSearchResults(`${query}`);
+        // 3. Render Results
+        console.log(_modelJs.state.search.results);
+    } catch (err) {
+        console.log(err);
+    }
+};
 // Using Publisher Subscriber Pattern
-// Event Handler: ControlRecipe
+// Event Handler: ControlRecipe & controlSearchResults
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function() {
     // Passing the Subscriber ControlRecipes to the Publisher addHandleRender in recipeView
     (0, _recipeViewJsDefault.default).addHandleRender(controlRecipes);
+    // Passing the Subscriber controlSearchResults to the Publisher addHandleRender in searchView
+    (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
 };
 // Calling
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/recipeView.js":"l60JC"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/recipeView.js":"l60JC","./views/searchView.js":"9OQAM","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1889,13 +1904,20 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
+parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 var _runtime = require("regenerator-runtime/runtime");
 // URL Import
 var _config = require("./config");
 //Importing Commonly used Functions
 var _helpers = require("./helpers");
 const state = {
-    recipe: {}
+    recipe: {},
+    search: {
+        // String Searched for
+        query: "",
+        // Results of Search stored as an Array
+        results: []
+    }
 };
 const loadRecipe = async function(id) {
     try {
@@ -1924,38 +1946,36 @@ const loadRecipe = async function(id) {
         throw err;
     }
 };
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","./helpers":"hGI1E"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
+const loadSearchResults = async function(query) {
+    try {
+        // Setting the query
+        state.search.query = query;
+        // Fetch the Search Result
+        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
+        console.log(data);
+        // Creating a New Array of the recipes received in data
+        // The Array contains an Object
+        // Storing the data in State Object
+        state.search.results = data.data.recipes.map((rec)=>{
+            // Reformat Variable Names of Data
+            // Returning a new Object with Refactored Names
+            return {
+                id: rec.id,
+                title: rec.title,
+                image: rec.image_url,
+                sourceUrl: rec.source_url,
+                publisher: rec.publisher
+            };
         });
-    });
-    return dest;
+    } catch (err) {
+        console.log(`${err}\u{1F4A5}\u{1F4A5}\u{1F4A5}`);
+        // Throw error for further handling by the controller
+        throw err;
+    }
 };
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
+loadSearchResults(`pizza`);
 
-},{}],"dXNgZ":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","./helpers":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -2550,7 +2570,37 @@ parcelHelpers.export(exports, "TIMEOUT_SECONDS", ()=>TIMEOUT_SECONDS);
 const API_URL = `https://forkify-api.herokuapp.com/api/v2/recipes/`;
 const TIMEOUT_SECONDS = 10;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hGI1E":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"hGI1E":[function(require,module,exports) {
 // Polyfilling Async Functions
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -2588,7 +2638,7 @@ const getJSON = async function(url) {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs"}],"l60JC":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l60JC":[function(require,module,exports) {
 // --- Importing Icons
 // A) Asset Management:
 // During development, assets like images and SVG icons are often located in a source directory (e.g., src/img)
@@ -2605,6 +2655,8 @@ var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 // --- Handling Fractional Values using fractional npm package
 var _fractional = require("fractional");
+// --- API:
+// https://forkify-api.herokuapp.com/v2
 // --- Using Classes for recipeView
 // Class is the best way to go here as we will want many properties & methods private to recipes
 // Also we will want many Methods to be inherited by Children from Parent class as well
@@ -2788,7 +2840,7 @@ class RecipeView {
 }
 exports.default = new RecipeView();
 
-},{"../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","fractional":"3SU56"}],"cMpiy":[function(require,module,exports) {
+},{"../../img/icons.svg":"cMpiy","fractional":"3SU56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMpiy":[function(require,module,exports) {
 module.exports = require("17cff2908589362b").getBundleURL("hWUTQ") + "icons.21bad73c.svg" + "?" + Date.now();
 
 },{"17cff2908589362b":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -3079,6 +3131,33 @@ Fraction.primeFactors = function(n) {
 };
 module.exports.Fraction = Fraction;
 
-},{}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
+},{}],"9OQAM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+class SearchView {
+    #parentEl = document.querySelector(".search");
+    getQuery() {
+        const query = this.#parentEl.querySelector(".search__field").value;
+        this.#clearInput();
+        return query;
+    }
+    // Clear Search Field After the Search
+    #clearInput() {
+        this.#parentEl.querySelector(".search__field").value = "";
+    }
+    // Publisher-Subscriber Pattern
+    // Listening for the Event in the view
+    // Handling the Click on the Search button of the Search Bar
+    addHandlerSearch(handler) {
+        this.#parentEl.addEventListener("submit", function(e) {
+            // Prevent Default Loading of the Form
+            e.preventDefault();
+            handler();
+        });
+    }
+}
+exports.default = new SearchView();
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
 
 //# sourceMappingURL=index.e37f48ea.js.map

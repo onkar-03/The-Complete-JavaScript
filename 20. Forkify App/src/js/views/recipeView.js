@@ -15,6 +15,9 @@ import icons from '../../img/icons.svg';
 // --- Handling Fractional Values using fractional npm package
 import { Fraction } from 'fractional';
 
+// --- API:
+// https://forkify-api.herokuapp.com/v2
+
 // --- Using Classes for recipeView
 // Class is the best way to go here as we will want many properties & methods private to recipes
 // Also we will want many Methods to be inherited by Children from Parent class as well

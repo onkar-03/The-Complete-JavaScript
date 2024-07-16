@@ -1,15 +1,10 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
+import searchView from './views/searchView.js';
 
 // Polyfilling Packages (Methods & Async-Await)
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-
-// Parent Container
-const recipeContainer = document.querySelector('.recipe');
-
-// --- API:
-// https://forkify-api.herokuapp.com/v2
 
 // Loading a Recipe from API
 const controlRecipes = async function () {
@@ -68,12 +63,33 @@ const controlRecipes = async function () {
 //   window.addEventListener(event, controlRecipes)
 // );
 
+// Search Controller
+const controlSearchResults = async function () {
+  try {
+    // 1. Get Query from Search
+    const query = searchView.getQuery();
+
+    // If no Query then Return
+    if (!query) return;
+
+    // 2. Load Results
+    await model.loadSearchResults(`${query}`);
+
+    // 3. Render Results
+    console.log(model.state.search.results);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // Using Publisher Subscriber Pattern
-// Event Handler: ControlRecipe
+// Event Handler: ControlRecipe & controlSearchResults
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function () {
   // Passing the Subscriber ControlRecipes to the Publisher addHandleRender in recipeView
   recipeView.addHandleRender(controlRecipes);
+  // Passing the Subscriber controlSearchResults to the Publisher addHandleRender in searchView
+  searchView.addHandlerSearch(controlSearchResults);
 };
 
 // Calling

@@ -11,6 +11,12 @@ import { getJSON } from './helpers';
 // Holds Data necessary for making the Application work
 export const state = {
   recipe: {},
+  search: {
+    // String Searched for
+    query: '',
+    // Results of Search stored as an Array
+    results: [],
+  },
 };
 
 // Load Recipe from API
@@ -42,3 +48,38 @@ export const loadRecipe = async function (id) {
     throw err;
   }
 };
+
+// Search Functionality
+// Exporting in order to be used further by the controller
+export const loadSearchResults = async function (query) {
+  try {
+    // Setting the query
+    state.search.query = query;
+
+    // Fetch the Search Result
+    const data = await getJSON(`${API_URL}?search=${query}`);
+    console.log(data);
+
+    // Creating a New Array of the recipes received in data
+    // The Array contains an Object
+    // Storing the data in State Object
+    state.search.results = data.data.recipes.map(rec => {
+      // Reformat Variable Names of Data
+      // Returning a new Object with Refactored Names
+      return {
+        id: rec.id,
+        title: rec.title,
+        image: rec.image_url,
+        sourceUrl: rec.source_url,
+        publisher: rec.publisher,
+      };
+    });
+  } catch (err) {
+    console.log(`${err}💥💥💥`);
+
+    // Throw error for further handling by the controller
+    throw err;
+  }
+};
+
+loadSearchResults(`pizza`);
