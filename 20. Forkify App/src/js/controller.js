@@ -60,7 +60,18 @@ const controlRecipes = async function () {
 // For this we need to trigger the show recipe on 'load' event of .addEventListener
 // window.addEventListener('load', controlRecipes);
 
-// Refactored Code
-['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, controlRecipes)
-);
+// PART 3 Refactored Code
+// ['hashchange', 'load'].forEach(event =>
+//   window.addEventListener(event, controlRecipes)
+// );
+
+// Using Publisher Subscriber Pattern
+// Event Handler: ControlRecipe
+// Passing the event handler as soon as the program starts to the Event Listener using init() function
+const init = function () {
+  // Passing the Subscriber ControlRecipes to the Publisher addHandleRender in recipeView
+  recipeView.addHandleRender(controlRecipes);
+};
+
+// Calling
+init();

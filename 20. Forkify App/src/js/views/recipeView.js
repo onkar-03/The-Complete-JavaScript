@@ -70,7 +70,21 @@ class RecipeView {
     this.#parentElement.innerHTML = '';
   }
 
-  // 2
+  // 4. Publisher Subscriber Model
+  // Used for Event Listening in View & Event Handling in Controller
+  // Linked using Publisher Subscriber Model
+
+  // Publisher Method
+  // Getting access to the subscriber i.e. subscriber getting subscribed to publisher
+  // Subscriber is which holds the code that needs to be implemented when an event occurs
+  // Subscriber here: ControlRecipes from controller.js i.e handler here as argument
+  addHandleRender(handler) {
+    ['hashchange', 'load'].forEach(event =>
+      window.addEventListener(event, handler)
+    );
+  }
+
+  // 2. Generate Markup
   #generateMarkup() {
     // Here the recipe is stored in this.#data hence we use it to refer to all teh Data about recipe received from API server
     // It returns a String as Final Output
@@ -167,7 +181,7 @@ class RecipeView {
           `;
   }
 
-  // Generate Ingredient
+  // 3. Generate Ingredient
   #generateMarkupIngredient(ing) {
     return `
         <li class="recipe__ingredient">

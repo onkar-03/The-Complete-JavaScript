@@ -634,11 +634,19 @@ const controlRecipes = async function() {
 // We also want the Recipe to be displayed when we paste the valid url with id in any browser
 // For this we need to trigger the show recipe on 'load' event of .addEventListener
 // window.addEventListener('load', controlRecipes);
-// Refactored Code
-[
-    "hashchange",
-    "load"
-].forEach((event)=>window.addEventListener(event, controlRecipes));
+// PART 3 Refactored Code
+// ['hashchange', 'load'].forEach(event =>
+//   window.addEventListener(event, controlRecipes)
+// );
+// Using Publisher Subscriber Pattern
+// Event Handler: ControlRecipe
+// Passing the event handler as soon as the program starts to the Event Listener using init() function
+const init = function() {
+    // Passing the Subscriber ControlRecipes to the Publisher addHandleRender in recipeView
+    (0, _recipeViewJsDefault.default).addHandleRender(controlRecipes);
+};
+// Calling
+init();
 
 },{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/recipeView.js":"l60JC"}],"49tUX":[function(require,module,exports) {
 "use strict";
@@ -2634,7 +2642,20 @@ class RecipeView {
     #clear() {
         this.#parentElement.innerHTML = "";
     }
-    // 2
+    // 4. Publisher Subscriber Model
+    // Used for Event Listening in View & Event Handling in Controller
+    // Linked using Publisher Subscriber Model
+    // Publisher Method
+    // Getting access to the subscriber i.e. subscriber getting subscribed to publisher
+    // Subscriber is which holds the code that needs to be implemented when an event occurs
+    // Subscriber here: ControlRecipes from controller.js i.e handler here as argument
+    addHandleRender(handler) {
+        [
+            "hashchange",
+            "load"
+        ].forEach((event)=>window.addEventListener(event, handler));
+    }
+    // 2. Generate Markup
     #generateMarkup() {
         // Here the recipe is stored in this.#data hence we use it to refer to all teh Data about recipe received from API server
         // It returns a String as Final Output
@@ -2720,7 +2741,7 @@ class RecipeView {
           </div>
           `;
     }
-    // Generate Ingredient
+    // 3. Generate Ingredient
     #generateMarkupIngredient(ing) {
         return `
         <li class="recipe__ingredient">
