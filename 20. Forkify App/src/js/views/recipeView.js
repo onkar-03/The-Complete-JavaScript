@@ -23,6 +23,7 @@ class RecipeView {
   // Private Variables
   #parentElement = document.querySelector('.recipe');
   #data;
+  #errorMessage = 'We could not find the Recipe. Please try another one!';
 
   // Public Methods
 
@@ -63,12 +64,26 @@ class RecipeView {
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   };
 
-  //Private Methods
+  // 5. Error Handling
+  // Errors should be Handled in View and not in Model
+  // Default message is set incase of any need
+  renderError = function (message = this.#errorMessage) {
+    const markup = `
+          <div class="error">
+            <div>
+              <svg>
+                <use href="${icons}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
 
-  // 1. Clear the Content of the Container
-  #clear() {
-    this.#parentElement.innerHTML = '';
-  }
+    // Clear any already Existing Content
+    this.#clear();
+
+    // Inserting HTML
+    this.#parentElement.insertAdjacentHTML('afterbegin', markup);
+  };
 
   // 4. Publisher Subscriber Model
   // Used for Event Listening in View & Event Handling in Controller
@@ -82,6 +97,13 @@ class RecipeView {
     ['hashchange', 'load'].forEach(event =>
       window.addEventListener(event, handler)
     );
+  }
+
+  //Private Methods
+
+  // 1. Clear the Content of the Container
+  #clear() {
+    this.#parentElement.innerHTML = '';
   }
 
   // 2. Generate Markup

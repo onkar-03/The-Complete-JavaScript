@@ -34,6 +34,11 @@ export const loadRecipe = async function (id) {
       publisher: recipe.publisher,
     };
   } catch (err) {
-    alert(`${err.message} 💣💣💣`);
+    // Temp Error Handling
+    // alert(`${err.message} 💣💣💣`);
+    // Errors shouldn't be Handled in Model rather should be handled in view
+    // Only the Controller Connects the Model and the View
+    // Hence we need to throw the error Object itself from here & then the Controller will call the errors handler of the View with the thrown Error Message
+    throw err;
   }
 };

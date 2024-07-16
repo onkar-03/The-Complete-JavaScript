@@ -620,7 +620,9 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
     } catch (err) {
         // Catch and Display Error
-        alert(err.message);
+        // alert(err.message);
+        // Passing the Error message to its rightful place in teh View to be Handled
+        (0, _recipeViewJsDefault.default).renderError();
     }
 };
 //////////////////////////////////
@@ -1914,7 +1916,12 @@ const loadRecipe = async function(id) {
             publisher: recipe.publisher
         };
     } catch (err) {
-        alert(`${err.message} \u{1F4A3}\u{1F4A3}\u{1F4A3}`);
+        // Temp Error Handling
+        // alert(`${err.message} 💣💣💣`);
+        // Errors shouldn't be Handled in Model rather should be handled in view
+        // Only the Controller Connects the Model and the View
+        // Hence we need to throw the error Object itself from here & then the Controller will call the errors handler of the View with the thrown Error Message
+        throw err;
     }
 };
 
@@ -2606,6 +2613,7 @@ class RecipeView {
     // Private Variables
     #parentElement = document.querySelector(".recipe");
     #data;
+    #errorMessage = "We could not find the Recipe. Please try another one!";
     // Public Methods
     // 1. Render Method
     render(data) {
@@ -2637,11 +2645,24 @@ class RecipeView {
         // Rendering as first child of the Container using 'afterbegin' method
         this.#parentElement.insertAdjacentHTML("afterbegin", markup);
     };
-    //Private Methods
-    // 1. Clear the Content of the Container
-    #clear() {
-        this.#parentElement.innerHTML = "";
-    }
+    // 5. Error Handling
+    // Errors should be Handled in View and not in Model
+    // Default message is set incase of any need
+    renderError = function(message = this.#errorMessage) {
+        const markup = `
+          <div class="error">
+            <div>
+              <svg>
+                <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+        // Clear any already Existing Content
+        this.#clear();
+        // Inserting HTML
+        this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+    };
     // 4. Publisher Subscriber Model
     // Used for Event Listening in View & Event Handling in Controller
     // Linked using Publisher Subscriber Model
@@ -2654,6 +2675,11 @@ class RecipeView {
             "hashchange",
             "load"
         ].forEach((event)=>window.addEventListener(event, handler));
+    }
+    //Private Methods
+    // 1. Clear the Content of the Container
+    #clear() {
+        this.#parentElement.innerHTML = "";
     }
     // 2. Generate Markup
     #generateMarkup() {

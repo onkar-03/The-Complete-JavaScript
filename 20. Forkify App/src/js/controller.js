@@ -42,7 +42,10 @@ const controlRecipes = async function () {
     recipeView.render(model.state.recipe);
   } catch (err) {
     // Catch and Display Error
-    alert(err.message);
+    // alert(err.message);
+
+    // Passing the Error message to its rightful place in teh View to be Handled
+    recipeView.renderError();
   }
 };
 
