@@ -1,10 +1,16 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
+import resultsView from './views/resultsView.js';
 
 // Polyfilling Packages (Methods & Async-Await)
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+
+// Hot Module Reloading using Parcel
+if (module.hot) {
+  module.hot.accept();
+}
 
 // Loading a Recipe from API
 const controlRecipes = async function () {
@@ -66,6 +72,9 @@ const controlRecipes = async function () {
 // Search Controller
 const controlSearchResults = async function () {
   try {
+    // Render Search spinner in Results Section
+    resultsView.renderSpinner();
+
     // 1. Get Query from Search
     const query = searchView.getQuery();
 
@@ -76,7 +85,10 @@ const controlSearchResults = async function () {
     await model.loadSearchResults(`${query}`);
 
     // 3. Render Results
-    console.log(model.state.search.results);
+    // console.log(model.state.search.results);
+
+    // Render the Data in Search Results Section
+    resultsView.render(model.state.search.results);
   } catch (err) {
     console.log(err);
   }
