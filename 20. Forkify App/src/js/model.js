@@ -1,8 +1,8 @@
 // Polyfilling Async Functions
 import 'regenerator-runtime/runtime';
 
-// URL Import
-import { API_URL } from './config';
+// URL & default value Import
+import { API_URL, RES_PER_PAGE } from './config';
 
 //Importing Commonly used Functions
 import { getJSON } from './helpers';
@@ -16,6 +16,7 @@ export const state = {
     query: '',
     // Results of Search stored as an Array
     results: [],
+    resultsPerPage: RES_PER_PAGE,
   },
 };
 
@@ -82,4 +83,11 @@ export const loadSearchResults = async function (query) {
   }
 };
 
-loadSearchResults(`pizza`);
+export const getSearchResultsPage = function (page) {
+  const start = (page - 1) * state.search.resultsPerPage; // 0
+  const end = page * state.search.resultsPerPage; // 10
+
+  // Exporting 0-9 Results i.e. the 10 Results to be displayed on one page
+  // Slice does not include the end Index value
+  return state.search.results.slice(start, end);
+};

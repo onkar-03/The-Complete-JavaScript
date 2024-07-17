@@ -88,7 +88,11 @@ const controlSearchResults = async function () {
     // console.log(model.state.search.results);
 
     // Render the Data in Search Results Section
-    resultsView.render(model.state.search.results);
+    // Here we displayed all teh Results in a single Page
+    // resultsView.render(model.state.search.results);
+
+    // Displaying only 10 Results per page
+    resultsView.render(model.getSearchResultsPage(1));
   } catch (err) {
     console.log(err);
   }
