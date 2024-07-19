@@ -93,13 +93,23 @@ const controlSearchResults = async function () {
     // resultsView.render(model.state.search.results);
 
     // Displaying only 10 Results per page
-    resultsView.render(model.getSearchResultsPage(6));
+    resultsView.render(model.getSearchResultsPage(4));
 
     // 4. Render Pagination Buttons
     paginationView.render(model.state.search);
   } catch (err) {
     console.log(err);
   }
+};
+
+// Pagination Controller
+const controlPagination = function (goToPage) {
+  console.log('Page Controller', goToPage);
+
+  // 3. Render New Results
+  // resultsView.render(model.getSearchResultsPage(goToPage));
+  // // 4. Render New Pagination Buttons
+  // paginationView.render(model.state.search);
 };
 
 // Using Publisher Subscriber Pattern
@@ -110,6 +120,8 @@ const init = function () {
   recipeView.addHandleRender(controlRecipes);
   // Passing the Subscriber controlSearchResults to the Publisher addHandleRender in searchView
   searchView.addHandlerSearch(controlSearchResults);
+
+  paginationView.addHandlerClick(controlPagination);
 };
 
 // Calling

@@ -661,12 +661,20 @@ const controlSearchResults = async function() {
         // Here we displayed all teh Results in a single Page
         // resultsView.render(model.state.search.results);
         // Displaying only 10 Results per page
-        (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(6));
+        (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(4));
         // 4. Render Pagination Buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (err) {
         console.log(err);
     }
+};
+// Pagination Controller
+const controlPagination = function(goToPage) {
+    console.log("Page Controller", goToPage);
+// 3. Render New Results
+// resultsView.render(model.getSearchResultsPage(goToPage));
+// // 4. Render New Pagination Buttons
+// paginationView.render(model.state.search);
 };
 // Using Publisher Subscriber Pattern
 // Event Handler: ControlRecipe & controlSearchResults
@@ -676,6 +684,7 @@ const init = function() {
     (0, _recipeViewJsDefault.default).addHandleRender(controlRecipes);
     // Passing the Subscriber controlSearchResults to the Publisher addHandleRender in searchView
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
+    (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
 // Calling
 init();
@@ -3298,6 +3307,17 @@ var _configJs = require("../config.js");
 // Inheritance
 class PaginationView extends (0, _viewJsDefault.default) {
     _parentElement = document.querySelector(".pagination");
+    addHandlerClick(handler) {
+        this._parentElement.addEventListener("click", function(e) {
+            // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
+            const btn = e.target.closest(".btn--inline");
+            console.log(btn);
+            if (!btn) return;
+            const goToPage = +btn.dataset.goto;
+            console.log(goToPage);
+            handler(goToPage);
+        });
+    }
     // Calculate the number of pages
     // As results is an array we use the .length to compute the size of the array
     // Math.ceil to round it off to the next highest integer
@@ -3314,7 +3334,7 @@ class PaginationView extends (0, _viewJsDefault.default) {
         // console.log(numPages);
         // If on page 1 & there are other pages
         if (curPage === 1 && numPages > 1) return `
-         <button class="btn--inline pagination__btn--next">
+         <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
             <span>Page ${curPage + 1}</span>
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
@@ -3322,7 +3342,7 @@ class PaginationView extends (0, _viewJsDefault.default) {
           </button>`;
         // If on Last Page
         if (curPage === numPages && numPages > 1) return `
-         <button class="btn--inline pagination__btn--prev">
+         <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
             </svg>
@@ -3330,13 +3350,13 @@ class PaginationView extends (0, _viewJsDefault.default) {
           </button>`;
         // If on any Other Page
         if (curPage < numPages) return `
-         <button class="btn--inline pagination__btn--prev">
+         <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
             </svg>
             <span>Page ${curPage - 1}</span>
           </button>
-          <button class="btn--inline pagination__btn--next">
+          <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">
             <span>Page ${curPage + 1}</span>
             <svg class="search__icon">
               <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
