@@ -92,8 +92,8 @@ const controlSearchResults = async function () {
     // Here we displayed all teh Results in a single Page
     // resultsView.render(model.state.search.results);
 
-    // Displaying only 10 Results per page
-    resultsView.render(model.getSearchResultsPage(4));
+    // Now displaying only 10 Results per page
+    resultsView.render(model.getSearchResultsPage(1));
 
     // 4. Render Pagination Buttons
     paginationView.render(model.state.search);
@@ -107,20 +107,22 @@ const controlPagination = function (goToPage) {
   console.log('Page Controller', goToPage);
 
   // 3. Render New Results
-  // resultsView.render(model.getSearchResultsPage(goToPage));
-  // // 4. Render New Pagination Buttons
-  // paginationView.render(model.state.search);
+  resultsView.render(model.getSearchResultsPage(goToPage));
+  // 4. Render New Pagination Buttons
+  paginationView.render(model.state.search);
 };
 
 // Using Publisher Subscriber Pattern
 // Event Handler: ControlRecipe & controlSearchResults
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function () {
-  // Passing the Subscriber ControlRecipes to the Publisher addHandleRender in recipeView
-  recipeView.addHandleRender(controlRecipes);
-  // Passing the Subscriber controlSearchResults to the Publisher addHandleRender in searchView
+  // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
+  recipeView.addHandlerRender(controlRecipes);
+
+  // Passing the Subscriber controlSearchResults to the Publisher addHandlerRender in searchView
   searchView.addHandlerSearch(controlSearchResults);
 
+  // Passing the Subscriber controlPagination to the Publisher addHandlerClick in paginationView
   paginationView.addHandlerClick(controlPagination);
 };
 

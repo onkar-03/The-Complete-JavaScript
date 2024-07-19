@@ -1,7 +1,18 @@
 // Parent Js
 // Contains all the necessary functions used multiple times across different views
 
-// Import Icons
+// --- Importing Icons
+// A) Asset Management:
+// During development, assets like images and SVG icons are often located in a source directory (e.g., src/img)
+// Parcel processes these assets and outputs them into the dist folder, where the optimized production build of your application resides
+
+// B) URL Transformation:
+// Parcel can transform the URL of assets during the build process, ensuring that references in your code point to the correct location in the dist folder
+
+// C) Using url: Prefix:
+// By using import icons from 'url:../img/icons.svg';, you instruct Parcel to treat the import as a URL
+// Parcel will handle the path transformation, so the correct path to the asset is used in the final build
+// now we can use the icons var where ever we want to refer to images in the final build
 import icons from '../../img/icons.svg';
 
 // Export the View class by default

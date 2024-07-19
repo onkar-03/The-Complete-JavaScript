@@ -9,27 +9,37 @@ import { RES_PER_PAGE } from '../config.js';
 class PaginationView extends View {
   _parentElement = document.querySelector('.pagination');
 
+  // Event Listener
+  // Publisher Subscriber Pattern
+  // Here the listener 'addHandlerClick' is the Publisher
   addHandlerClick(handler) {
+    // Using event delegation
+    // As we have two buttons/children to look for a click, we don't want to listen for both children separately
+    // Instead of attaching individual event handlers to each child element, attach a single event handler to the parent element
+    // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
     this._parentElement.addEventListener('click', function (e) {
+      // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
       // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
       const btn = e.target.closest('.btn--inline');
-      console.log(btn);
 
+      // If no button is found, do nothing
       if (!btn) return;
 
+      // Retrieve the page number from the dataset attribute of the element
+      // convert it to a Integer using +
       const goToPage = +btn.dataset.goto;
-      console.log(goToPage);
 
+      // Pass the page number to the event handler to navigate to that page
       handler(goToPage);
     });
   }
-  // Calculate the number of pages
-  // As results is an array we use the .length to compute the size of the array
-  // Math.ceil to round it off to the next highest integer
 
   _generateMarkup() {
     const curPage = this._data.page;
 
+    // Calculate the number of pages
+    // As results is an array we use the .length to compute the size of the array
+    // Math.ceil to round it off to the next highest integer
     const numPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
     );

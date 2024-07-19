@@ -660,8 +660,8 @@ const controlSearchResults = async function() {
         // Render the Data in Search Results Section
         // Here we displayed all teh Results in a single Page
         // resultsView.render(model.state.search.results);
-        // Displaying only 10 Results per page
-        (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(4));
+        // Now displaying only 10 Results per page
+        (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(1));
         // 4. Render Pagination Buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (err) {
@@ -671,19 +671,20 @@ const controlSearchResults = async function() {
 // Pagination Controller
 const controlPagination = function(goToPage) {
     console.log("Page Controller", goToPage);
-// 3. Render New Results
-// resultsView.render(model.getSearchResultsPage(goToPage));
-// // 4. Render New Pagination Buttons
-// paginationView.render(model.state.search);
+    // 3. Render New Results
+    (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(goToPage));
+    // 4. Render New Pagination Buttons
+    (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
 // Using Publisher Subscriber Pattern
 // Event Handler: ControlRecipe & controlSearchResults
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function() {
-    // Passing the Subscriber ControlRecipes to the Publisher addHandleRender in recipeView
-    (0, _recipeViewJsDefault.default).addHandleRender(controlRecipes);
-    // Passing the Subscriber controlSearchResults to the Publisher addHandleRender in searchView
+    // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
+    (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
+    // Passing the Subscriber controlSearchResults to the Publisher addHandlerRender in searchView
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
+    // Passing the Subscriber controlPagination to the Publisher addHandlerClick in paginationView
     (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
 // Calling
@@ -1999,7 +2000,7 @@ const loadSearchResults = async function(query) {
         throw err;
     }
 };
-const getSearchResultsPage = function(page = state.search.page = page) {
+const getSearchResultsPage = function(page = state.search.page) {
     state.search.page = page;
     const start = (page - 1) * state.search.resultsPerPage; // 0
     const end = page * state.search.resultsPerPage; // 10
@@ -2679,16 +2680,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./View.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
-// --- Importing Icons
-// A) Asset Management:
-// During development, assets like images and SVG icons are often located in a source directory (e.g., src/img)
-// Parcel processes these assets and outputs them into the dist folder, where the optimized production build of your application resides
-// B) URL Transformation:
-// Parcel can transform the URL of assets during the build process, ensuring that references in your code point to the correct location in the dist folder
-// C) Using url: Prefix:
-// By using import icons from 'url:../img/icons.svg';, you instruct Parcel to treat the import as a URL
-// Parcel will handle the path transformation, so the correct path to the asset is used in the final build
-// now we can use the icons var where ever we want to refer to images in the final build
+// Import Icons
 var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 // --- Handling Fractional Values using fractional npm package
@@ -2761,7 +2753,7 @@ class RecipeView extends (0, _viewJsDefault.default) {
     // Getting access to the subscriber i.e. subscriber getting subscribed to publisher
     // Subscriber is which holds the code that needs to be implemented when an event occurs
     // Subscriber here: ControlRecipes from controller.js i.e handler here as argument
-    addHandleRender(handler) {
+    addHandlerRender(handler) {
         [
             "hashchange",
             "load"
@@ -2874,7 +2866,16 @@ exports.default = new RecipeView();
 },{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","fractional":"3SU56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
 // Parent Js
 // Contains all the necessary functions used multiple times across different views
-// Import Icons
+// --- Importing Icons
+// A) Asset Management:
+// During development, assets like images and SVG icons are often located in a source directory (e.g., src/img)
+// Parcel processes these assets and outputs them into the dist folder, where the optimized production build of your application resides
+// B) URL Transformation:
+// Parcel can transform the URL of assets during the build process, ensuring that references in your code point to the correct location in the dist folder
+// C) Using url: Prefix:
+// By using import icons from 'url:../img/icons.svg';, you instruct Parcel to treat the import as a URL
+// Parcel will handle the path transformation, so the correct path to the asset is used in the final build
+// now we can use the icons var where ever we want to refer to images in the final build
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _iconsSvg = require("../../img/icons.svg");
@@ -3307,22 +3308,32 @@ var _configJs = require("../config.js");
 // Inheritance
 class PaginationView extends (0, _viewJsDefault.default) {
     _parentElement = document.querySelector(".pagination");
+    // Event Listener
+    // Publisher Subscriber Pattern
+    // Here the listener 'addHandlerClick' is the Publisher
     addHandlerClick(handler) {
+        // Using event delegation
+        // As we have two buttons/children to look for a click, we don't want to listen for both children separately
+        // Instead of attaching individual event handlers to each child element, attach a single event handler to the parent element
+        // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
         this._parentElement.addEventListener("click", function(e) {
+            // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
             // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
             const btn = e.target.closest(".btn--inline");
-            console.log(btn);
+            // If no button is found, do nothing
             if (!btn) return;
+            // Retrieve the page number from the dataset attribute of the element
+            // convert it to a Integer using +
             const goToPage = +btn.dataset.goto;
-            console.log(goToPage);
+            // Pass the page number to the event handler to navigate to that page
             handler(goToPage);
         });
     }
-    // Calculate the number of pages
-    // As results is an array we use the .length to compute the size of the array
-    // Math.ceil to round it off to the next highest integer
     _generateMarkup() {
         const curPage = this._data.page;
+        // Calculate the number of pages
+        // As results is an array we use the .length to compute the size of the array
+        // Math.ceil to round it off to the next highest integer
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
         console.log(numPages);
         // Calculate the number of pages
