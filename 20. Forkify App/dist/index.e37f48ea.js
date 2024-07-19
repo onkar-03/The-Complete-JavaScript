@@ -593,6 +593,8 @@ var _searchViewJs = require("./views/searchView.js");
 var _searchViewJsDefault = parcelHelpers.interopDefault(_searchViewJs);
 var _resultsViewJs = require("./views/resultsView.js");
 var _resultsViewJsDefault = parcelHelpers.interopDefault(_resultsViewJs);
+var _paginationViewJs = require("./views/paginationView.js");
+var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 // Hot Module Reloading using Parcel
 if (module.hot) module.hot.accept();
@@ -659,7 +661,9 @@ const controlSearchResults = async function() {
         // Here we displayed all teh Results in a single Page
         // resultsView.render(model.state.search.results);
         // Displaying only 10 Results per page
-        (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(1));
+        (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(6));
+        // 4. Render Pagination Buttons
+        (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
     } catch (err) {
         console.log(err);
     }
@@ -676,7 +680,7 @@ const init = function() {
 // Calling
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/recipeView.js":"l60JC","./views/searchView.js":"9OQAM","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/resultsView.js":"cSbZE"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/recipeView.js":"l60JC","./views/searchView.js":"9OQAM","./views/resultsView.js":"cSbZE","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/paginationView.js":"6z7bi"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -1986,7 +1990,8 @@ const loadSearchResults = async function(query) {
         throw err;
     }
 };
-const getSearchResultsPage = function(page) {
+const getSearchResultsPage = function(page = state.search.page = page) {
+    state.search.page = page;
     const start = (page - 1) * state.search.resultsPerPage; // 0
     const end = page * state.search.resultsPerPage; // 10
     // Exporting 0-9 Results i.e. the 10 Results to be displayed on one page
@@ -2857,7 +2862,76 @@ class RecipeView extends (0, _viewJsDefault.default) {
 }
 exports.default = new RecipeView();
 
-},{"../../img/icons.svg":"cMpiy","fractional":"3SU56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./View.js":"5cUXS"}],"cMpiy":[function(require,module,exports) {
+},{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","fractional":"3SU56","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5cUXS":[function(require,module,exports) {
+// Parent Js
+// Contains all the necessary functions used multiple times across different views
+// Import Icons
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _iconsSvg = require("../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+class View {
+    _data;
+    // Public Methods
+    // 1. Render Method
+    render(data) {
+        // If we get no Data / get an Empty Array then display error message
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        // Storing the Recipe data from model.js
+        this._data = data;
+        // Rendering Data on Page
+        // Storing the returned string in a variable 'markup'
+        const markup = this._generateMarkup();
+        // Remove Existing Content
+        // To remove any pre existing content in the container
+        this._clear();
+        // Rendering created HTML on Parent Container 'recipeContainer'
+        // Rendering as first child of the Container using 'afterbegin' method
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    }
+    // 2. Load Spinner Method
+    renderSpinner = function() {
+        // HTML for Spinner
+        const markup = `
+       <div class="spinner">
+          <svg>
+            <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
+          </svg>
+        </div>
+        `;
+        // Clear the Content of the Container first
+        this._clear();
+        // Render the spinner in Parent Container
+        // Rendering as first child of the Container using 'afterbegin' method
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    };
+    // 5. Error Handling
+    // Errors should be Handled in View and not in Model
+    // Default message is set incase of any need
+    renderError = function(message = this._errorMessage) {
+        const markup = `
+          <div class="error">
+            <div>
+              <svg>
+                <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+          </div>`;
+        // Clear any already Existing Content
+        this._clear();
+        // Inserting HTML
+        this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    };
+    //Protected Methods
+    // 1. Clear the Content of the Container
+    _clear() {
+        this._parentElement.innerHTML = "";
+    }
+}
+exports.default = View;
+
+},{"../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cMpiy":[function(require,module,exports) {
 module.exports = require("17cff2908589362b").getBundleURL("hWUTQ") + "icons.21bad73c.svg" + "?" + Date.now();
 
 },{"17cff2908589362b":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -3148,76 +3222,7 @@ Fraction.primeFactors = function(n) {
 };
 module.exports.Fraction = Fraction;
 
-},{}],"5cUXS":[function(require,module,exports) {
-// Parent Js
-// Contains all the necessary functions used multiple times across different views
-// Import Icons
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _iconsSvg = require("../../img/icons.svg");
-var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-class View {
-    _data;
-    // Public Methods
-    // 1. Render Method
-    render(data) {
-        // If we get no Data / get an Empty Array then display error message
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
-        // Storing the Recipe data from model.js
-        this._data = data;
-        // Rendering Data on Page
-        // Storing the returned string in a variable 'markup'
-        const markup = this._generateMarkup();
-        // Remove Existing Content
-        // To remove any pre existing content in the container
-        this._clear();
-        // Rendering created HTML on Parent Container 'recipeContainer'
-        // Rendering as first child of the Container using 'afterbegin' method
-        this._parentElement.insertAdjacentHTML("afterbegin", markup);
-    }
-    // 2. Load Spinner Method
-    renderSpinner = function() {
-        // HTML for Spinner
-        const markup = `
-       <div class="spinner">
-          <svg>
-            <use href="${(0, _iconsSvgDefault.default)}#icon-loader"></use>
-          </svg>
-        </div>
-        `;
-        // Clear the Content of the Container first
-        this._clear();
-        // Render the spinner in Parent Container
-        // Rendering as first child of the Container using 'afterbegin' method
-        this._parentElement.insertAdjacentHTML("afterbegin", markup);
-    };
-    // 5. Error Handling
-    // Errors should be Handled in View and not in Model
-    // Default message is set incase of any need
-    renderError = function(message = this._errorMessage) {
-        const markup = `
-          <div class="error">
-            <div>
-              <svg>
-                <use href="${(0, _iconsSvgDefault.default)}#icon-alert-triangle"></use>
-              </svg>
-            </div>
-            <p>${message}</p>
-          </div>`;
-        // Clear any already Existing Content
-        this._clear();
-        // Inserting HTML
-        this._parentElement.insertAdjacentHTML("afterbegin", markup);
-    };
-    //Protected Methods
-    // 1. Clear the Content of the Container
-    _clear() {
-        this._parentElement.innerHTML = "";
-    }
-}
-exports.default = View;
-
-},{"../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9OQAM":[function(require,module,exports) {
+},{}],"9OQAM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 class SearchView {
@@ -3280,6 +3285,69 @@ class ResultsView extends (0, _viewJsDefault.default) {
 // Exporting new Instance of view
 exports.default = new ResultsView();
 
-},{"./View.js":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/icons.svg":"cMpiy"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
+},{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6z7bi":[function(require,module,exports) {
+// Parent Class Import
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// Import Icons
+var _iconsSvg = require("../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+var _configJs = require("../config.js");
+// Inheritance
+class PaginationView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".pagination");
+    // Calculate the number of pages
+    // As results is an array we use the .length to compute the size of the array
+    // Math.ceil to round it off to the next highest integer
+    _generateMarkup() {
+        const curPage = this._data.page;
+        const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
+        console.log(numPages);
+        // Calculate the number of pages
+        // As results is an array we use the .length to compute the size of the array
+        // Math.ceil to round it off to the next highest integer
+        // const numPages = Math.ceil(
+        //   this._data.results.length / this._data.resultsPerPage
+        // );
+        // console.log(numPages);
+        // If on page 1 & there are other pages
+        if (curPage === 1 && numPages > 1) return `
+         <button class="btn--inline pagination__btn--next">
+            <span>Page ${curPage + 1}</span>
+            <svg class="search__icon">
+              <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+            </svg>
+          </button>`;
+        // If on Last Page
+        if (curPage === numPages && numPages > 1) return `
+         <button class="btn--inline pagination__btn--prev">
+            <svg class="search__icon">
+              <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
+            </svg>
+            <span>Page ${curPage - 1}</span>
+          </button>`;
+        // If on any Other Page
+        if (curPage < numPages) return `
+         <button class="btn--inline pagination__btn--prev">
+            <svg class="search__icon">
+              <use href="${0, _iconsSvgDefault.default}#icon-arrow-left"></use>
+            </svg>
+            <span>Page ${curPage - 1}</span>
+          </button>
+          <button class="btn--inline pagination__btn--next">
+            <span>Page ${curPage + 1}</span>
+            <svg class="search__icon">
+              <use href="${0, _iconsSvgDefault.default}#icon-arrow-right"></use>
+            </svg>
+          </button>`;
+        // If only one page, return nothing as no button is required
+        return "";
+    }
+}
+exports.default = new PaginationView();
+
+},{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","../config.js":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
 
 //# sourceMappingURL=index.e37f48ea.js.map
