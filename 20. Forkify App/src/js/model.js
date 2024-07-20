@@ -16,6 +16,7 @@ export const state = {
     query: '',
     // Results of Search stored as an Array
     results: [],
+    page: 1,
     resultsPerPage: RES_PER_PAGE,
   },
 };
@@ -59,7 +60,6 @@ export const loadSearchResults = async function (query) {
 
     // Fetch the Search Result
     const data = await getJSON(`${API_URL}?search=${query}`);
-    console.log(data);
 
     // Creating a New Array of the recipes received in data
     // The Array contains an Object
@@ -92,4 +92,15 @@ export const getSearchResultsPage = function (page = state.search.page) {
   // Exporting 0-9 Results i.e. the 10 Results to be displayed on one page
   // Slice does not include the end Index value
   return state.search.results.slice(start, end);
+};
+
+export const updateServings = function (newServings) {
+  // Update the servings in the Recipe
+  state.recipe.ingredients.forEach(ing => {
+    // New Quantity = OldQuantity * newServings / Old Servings
+    ing.quantity = (ing.quantity * newServings) / state.recipe.servings;
+  });
+
+  // Update servings in State
+  state.recipe.servings = newServings;
 };

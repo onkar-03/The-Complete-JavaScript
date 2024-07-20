@@ -14,10 +14,9 @@
 103D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\mdn-data\api133653678861681899 1
 96D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\tslib133653678861702882 1
 152D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\css-select\node_modules\dom-serializer\lib\esm\index.d.ts.map133653678861202764 0
-104D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.e37f48ea.js.map133658804768787751 0
+100D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.e37f48ea.js133659493946340142 0
 161D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\plugins\removeComments.js133653678864356640 0
 139D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\packager-js\lib\ScopeHoistingPackager.js133653678862068505 0
-100D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.e37f48ea.js133658804768725951 0
 119D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\color-convert\conversions.js133653678858975714 0
 128D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\transformer-json\package.json133653678859519085 0
 113D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\picomatch\lib\utils.js133653678860552920 0
@@ -92,7 +91,7 @@
 135D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\11-event-handlers-in-mvc-publisher-subscriber-pattern.pdf133656262073626369 0
 118D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\type-fest\source\entry.d.ts133653678861681899 0
 113D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\domelementtype\LICENSE133653678858078530 0
-82D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist133658804768807857 1
+82D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist133659493946388983 1
 113D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\mdn-data\css\readme.md133653678863526639 0
 136D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\node-gyp-build-optional-packages\package.json133653678859998783 0
 152D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\csso\node_modules\css-tree\cjs\syntax\scope\atrulePrelude.cjs133653678860791828 0
@@ -277,7 +276,7 @@
 104D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\types133653678860185468 1
 120D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\core-js\full\instance\sort.js133654301997045252 0
 128D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\core-js\proposals\function-un-this.js133654301982420619 0
-98D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\src\js\controller.js133658804695143548 0
+98D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\src\js\controller.js133659493945985107 0
 130D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\css-tree\lib\definition-syntax\parse.js133653678868524719 0
 145D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\css-select\node_modules\entities\lib\esm\escape.js.map133653678864638253 0
 118D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@swc\helpers\cjs\_throw.cjs133653678865866092 0
@@ -306,7 +305,7 @@
 127D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\css-what\lib\commonjs\types.d.ts.map133653678862183412 0
 130D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\core-js\stable\string\is-well-formed.js133654301987442508 0
 123D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\update-browserslist-db\README.md133653678860370877 0
-93D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\src\js\model.js133658798311499821 0
+93D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\src\js\model.js133659490675099676 0
 123D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\core-js\full\weak-set\add-all.js133654301968564904 0
 116D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\core-js\modules\es.set.js133654301975506646 0
 130D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\core-js\features\async-iterator\drop.js133654301973112180 0
@@ -7794,7 +7793,7 @@
 107D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\clone\.npmignore133653678858512455 0
 106D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\clone\README.md133653678858932584 0
 121D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\chrome-trace-event\LICENSE.txt133653678860083101 0
-105D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.f7626f62.css.map133658800906096422 0
+105D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.f7626f62.css.map133658805803447629 0
 147D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-svgo\node_modules\csso\lib\compress.js133653678862317389 0
 119D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\chrome-trace-event\README.md133653678859403859 0
 131D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\chrome-trace-event\dist\trace-event.d.ts133653678859788653 0
@@ -7974,7 +7973,7 @@
 129D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\caniuse-lite\data\features\auxclick.js133653678864445255 0
 124D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\caniuse-lite\data\features\av1.js133653678864494393 0
 142D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\caniuse-lite\data\features\background-attachment.js133653678864832210 0
-103D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\favicon.8b2f57bf.png133658800905760209 0
+103D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\favicon.8b2f57bf.png133658805802493800 0
 124D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\config-default\index.json133653678859456146 0
 119D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\workers\src\child.js133653678860494498 0
 135D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\caniuse-lite\data\features\battery-status.js133653678865084363 0
@@ -8476,7 +8475,7 @@
 138D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@swc\helpers\src\_object_without_properties.mjs133653678870419621 0
 128D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@swc\helpers\src\_read_only_error.mjs133653678870442576 0
 138D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@swc\helpers\src\_skip_first_generator_next.mjs133653678870468341 0
-101D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\icons.21bad73c.svg133658800905617674 0
+101D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\icons.21bad73c.svg133658805803390123 0
 128D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@swc\helpers\src\_sliced_to_array.mjs133653678870483451 0
 141D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@swc\helpers\esm\_unsupported_iterable_to_array.js133653678867810438 0
 134D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@swc\helpers\src\_sliced_to_array_loose.mjs133653678870473384 0
@@ -9065,7 +9064,7 @@
 179D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\pseudo\common\nthWithOfClause.js133653678866421761 0
 162D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\AnPlusB.js133653678859552681 0
 172D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\AttributeSelector.js133653678860990435 0
-101D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.f7626f62.css133658800906081789 0
+101D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.f7626f62.css133658805803437523 0
 160D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\Block.js133653678861162782 0
 158D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\CDC.js133653678861436586 0
 166D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\@parcel\optimizer-svgo\node_modules\css-tree\lib\syntax\node\Declaration.js133653678864191006 0
@@ -9704,5 +9703,6 @@
 122D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\node_modules\.bin\update-browserslist-db.ps1133653678876483601 0
 114D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\20. Forkify App.3464ddca.js.map133653680345135646 0
 100D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.62406edb.js133653680345058163 0
-93D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.html133658800906034791 0
-100D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\logo.726d37a8.png133658800905651618 0
+93D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.html133658805803390123 0
+100D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\logo.726d37a8.png133658805802229761 0
+104D:\coding\Web Dev\Jonas Schmedtmann - The Complete Javascript\20. Forkify App\dist\index.e37f48ea.js.map133659493946378905 0

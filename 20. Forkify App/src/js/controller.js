@@ -13,7 +13,8 @@ if (module.hot) {
   module.hot.accept();
 }
 
-// Loading a Recipe from API
+// --- Controllers / Event Handlers
+// Recipe Controller
 const controlRecipes = async function () {
   try {
     // Retrieve the hash code from url
@@ -42,6 +43,9 @@ const controlRecipes = async function () {
 
     // To render the Recipe passing the Retrieved data about recipe from API to recipe View
     recipeView.render(model.state.recipe);
+
+    // Test
+    controlServings();
   } catch (err) {
     // Catch and Display Error
     // alert(err.message);
@@ -93,6 +97,7 @@ const controlSearchResults = async function () {
     // resultsView.render(model.state.search.results);
 
     // Now displaying only 10 Results per page
+    // passing no arguments is same as stating page 1 as in getSearchResults() method in model.js we have assigned default value of page as 1
     resultsView.render(model.getSearchResultsPage(1));
 
     // 4. Render Pagination Buttons
@@ -112,8 +117,17 @@ const controlPagination = function (goToPage) {
   paginationView.render(model.state.search);
 };
 
+// Control Servings
+const controlServings = function () {
+  // Update teh Recipe Serving in the State
+  model.updateServings(8);
+
+  // Update the Recipe View
+  // Render the Recipe all of it again
+  recipeView.render(model.state.recipe);
+};
+
 // Using Publisher Subscriber Pattern
-// Event Handler: ControlRecipe & controlSearchResults
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function () {
   // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
@@ -126,5 +140,5 @@ const init = function () {
   paginationView.addHandlerClick(controlPagination);
 };
 
-// Calling
+// Calling as soon as the Program Starts
 init();

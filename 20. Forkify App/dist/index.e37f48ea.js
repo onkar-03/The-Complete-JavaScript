@@ -598,7 +598,8 @@ var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 // Hot Module Reloading using Parcel
 if (module.hot) module.hot.accept();
-// Loading a Recipe from API
+// --- Controllers / Event Handlers
+// Recipe Controller
 const controlRecipes = async function() {
     try {
         // Retrieve the hash code from url
@@ -622,6 +623,8 @@ const controlRecipes = async function() {
         // --- 2) Rendering Recipe:
         // To render the Recipe passing the Retrieved data about recipe from API to recipe View
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+        // Test
+        controlServings();
     } catch (err) {
         // Catch and Display Error
         // alert(err.message);
@@ -661,6 +664,7 @@ const controlSearchResults = async function() {
         // Here we displayed all teh Results in a single Page
         // resultsView.render(model.state.search.results);
         // Now displaying only 10 Results per page
+        // passing no arguments is same as stating page 1 as in getSearchResults() method in model.js we have assigned default value of page as 1
         (0, _resultsViewJsDefault.default).render(_modelJs.getSearchResultsPage(1));
         // 4. Render Pagination Buttons
         (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
@@ -676,8 +680,15 @@ const controlPagination = function(goToPage) {
     // 4. Render New Pagination Buttons
     (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
+// Control Servings
+const controlServings = function() {
+    // Update teh Recipe Serving in the State
+    _modelJs.updateServings(8);
+    // Update the Recipe View
+    // Render the Recipe all of it again
+    (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
+};
 // Using Publisher Subscriber Pattern
-// Event Handler: ControlRecipe & controlSearchResults
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function() {
     // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
@@ -687,7 +698,7 @@ const init = function() {
     // Passing the Subscriber controlPagination to the Publisher addHandlerClick in paginationView
     (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
 };
-// Calling
+// Calling as soon as the Program Starts
 init();
 
 },{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/recipeView.js":"l60JC","./views/searchView.js":"9OQAM","./views/resultsView.js":"cSbZE","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/paginationView.js":"6z7bi"}],"49tUX":[function(require,module,exports) {
@@ -1931,6 +1942,7 @@ parcelHelpers.export(exports, "state", ()=>state);
 parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
+parcelHelpers.export(exports, "updateServings", ()=>updateServings);
 var _runtime = require("regenerator-runtime/runtime");
 // URL & default value Import
 var _config = require("./config");
@@ -1943,6 +1955,7 @@ const state = {
         query: "",
         // Results of Search stored as an Array
         results: [],
+        page: 1,
         resultsPerPage: (0, _config.RES_PER_PAGE)
     }
 };
@@ -1979,7 +1992,6 @@ const loadSearchResults = async function(query) {
         state.search.query = query;
         // Fetch the Search Result
         const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
-        console.log(data);
         // Creating a New Array of the recipes received in data
         // The Array contains an Object
         // Storing the data in State Object
@@ -2007,6 +2019,15 @@ const getSearchResultsPage = function(page = state.search.page) {
     // Exporting 0-9 Results i.e. the 10 Results to be displayed on one page
     // Slice does not include the end Index value
     return state.search.results.slice(start, end);
+};
+const updateServings = function(newServings) {
+    // Update the servings in the Recipe
+    state.recipe.ingredients.forEach((ing)=>{
+        // New Quantity = OldQuantity * newServings / Old Servings
+        ing.quantity = ing.quantity * newServings / state.recipe.servings;
+    });
+    // Update servings in State
+    state.recipe.servings = newServings;
 };
 
 },{"regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","./helpers":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
