@@ -15,10 +15,16 @@ class ResultsView extends View {
     // Returning a String of the Array of Data we have
     return this._data.map(this._generateMarkupPreview).join('');
   }
+
   _generateMarkupPreview(result) {
+    // Retrieving the Recipe id
+    const id = window.location.hash.slice(1);
+
     return `
           <li class="preview">
-            <a class="preview__link " href="#${result.id}">
+            <a class="preview__link ${
+              result.id === id ? 'preview__link--active' : ''
+            } " href="#${result.id}">
               <figure class="preview__fig">
                 <img src="${result.image}" alt="${result.title}" />
               </figure>

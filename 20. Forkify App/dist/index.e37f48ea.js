@@ -614,6 +614,8 @@ const controlRecipes = async function() {
         if (!id) return;
         // While Loading Recipe we want the Spinner to be displayed
         (0, _recipeViewJsDefault.default).renderSpinner();
+        // 0. Update Results View to mark the selected recipe
+        (0, _resultsViewJsDefault.default).update(_modelJs.getSearchResultsPage());
         // --- 1) Loading Recipe:
         // Load Recipe
         // loadRecipe is an async function in model.js hence we get a 'Promise'
@@ -2941,28 +2943,63 @@ class View {
         // Rendering as first child of the Container using 'afterbegin' method
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
-    // Update only the Texts & attributes in DOM without re rendering the entire view
     update(data) {
         // If we get no Data / get an Empty Array then display error message
-        if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
+        if (!data || Array.isArray(data) && data.length === 0) return this.renderError(); // Call renderError() method to display an error message
         // Storing the Updated data in this._data
         this._data = data;
         // Render the new Data on the Page
-        // We will generate the whole markup again but wont render it ... instead we will compare it with the old markup and only change text and attributes that have changed from ol to new version
+        // We will generate the whole markup again but won't render it ... instead, we will compare it with the old markup and only change text and attributes that have changed from old to new version
+        // Generate new HTML markup string based on updated data
         const newMarkup = this._generateMarkup();
         // Convert the Markup String to DOM Object making it easy to compare with the already existing DOM
-        const newDom = document.createRange().createContextualFragment(newMarkup);
-        const newElements = Array.from(newDom.querySelectorAll("*"));
-        const currentElements = Array.from(this._parentElement.querySelectorAll("*"));
+        const newDom = document.createRange().createContextualFragment(newMarkup); // Convert the markup string into a DOM fragment
+        const newElements = Array.from(newDom.querySelectorAll("*")); // Get all elements from the new DOM fragment
+        const currentElements = Array.from(this._parentElement.querySelectorAll("*")); // Get all elements from the current DOM
         newElements.forEach((newEl, i)=>{
-            const currEl = currentElements[i];
-            console.log(currEl, newEl.isEqualNode(currEl));
+            const currEl = currentElements[i]; // Corresponding current element
+            console.log(currEl, newEl.isEqualNode(currEl)); // Log the elements and their equality status
             // Update Changed Texts
-            if (!newEl.isEqualNode(currEl) && newEl.firstChild?.nodeValue.trim() !== "") currEl.textContent = newEl.textContent;
+            if (!newEl.isEqualNode(currEl) && // Check if the new element is different from the current element
+            newEl.firstChild?.nodeValue.trim() !== "" // Ensure that the element has text content
+            ) currEl.textContent = newEl.textContent; // Update the text content of the current element
             // Update Changed Attributes
-            if (!newEl.isEqualNode(currEl)) Array.from(newEl.attributes).forEach((att)=>currEl.setAttribute(att.name, att.value));
+            if (!newEl.isEqualNode(currEl)) // Check if the new element is different from the current element
+            Array.from(newEl.attributes).forEach((att)=>currEl.setAttribute(att.name, att.value) // Update the attributes of the current element
+            );
         });
-    }
+    /**
+     * @method renderError
+     * This method is called when there is no data or an empty array is passed.
+     * It displays an error message to the user.
+     */ /**
+     * @method _generateMarkup
+     * This method generates a new HTML markup string based on the updated data.
+     * The new markup represents how the DOM should look after the data update.
+     */ /**
+     * @method document.createRange().createContextualFragment
+     * This method converts the new markup string into a DOM fragment.
+     * The DOM fragment allows us to compare the new elements with the current elements in the DOM.
+     */ /**
+     * @method Array.from
+     * This method converts a NodeList into an array. This is used to easily iterate over elements.
+     */ /**
+     * @method newEl.isEqualNode
+     * This method checks if the new element is identical to the current element.
+     * It compares the nodes to see if any changes are needed.
+     */ /**
+     * @method currEl.textContent
+     * This property sets or returns the text content of the specified node.
+     * If the new element has different text content, it updates the current element's text content.
+     */ /**
+     * @method newEl.attributes
+     * This property returns a live collection of all attribute nodes registered to the specified node.
+     * We use this to update the attributes of the current element to match the new element.
+     */ /**
+     * @method currEl.setAttribute
+     * This method adds a new attribute or changes the value of an existing attribute on the specified element.
+     * If the new element has different attributes, it updates the current element's attributes.
+     */ }
     // 2. Load Spinner Method
     renderSpinner = function() {
         // HTML for Spinner
@@ -3342,9 +3379,11 @@ class ResultsView extends (0, _viewJsDefault.default) {
         return this._data.map(this._generateMarkupPreview).join("");
     }
     _generateMarkupPreview(result) {
+        // Retrieving the Recipe id
+        const id = window.location.hash.slice(1);
         return `
           <li class="preview">
-            <a class="preview__link " href="#${result.id}">
+            <a class="preview__link ${result.id === id ? "preview__link--active" : ""} " href="#${result.id}">
               <figure class="preview__fig">
                 <img src="${result.image}" alt="${result.title}" />
               </figure>

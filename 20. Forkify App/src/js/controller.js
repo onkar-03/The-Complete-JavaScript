@@ -32,6 +32,9 @@ const controlRecipes = async function () {
     // While Loading Recipe we want the Spinner to be displayed
     recipeView.renderSpinner();
 
+    // 0. Update Results View to mark the selected recipe
+    resultsView.update(model.getSearchResultsPage());
+
     // --- 1) Loading Recipe:
     // Load Recipe
     // loadRecipe is an async function in model.js hence we get a 'Promise'
