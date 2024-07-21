@@ -121,7 +121,8 @@ const controlServings = function (newServings) {
 
   // Update the Recipe View
   // Render the Recipe all of it again
-  recipeView.render(model.state.recipe);
+  // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
 };
 
 // Using Publisher Subscriber Pattern

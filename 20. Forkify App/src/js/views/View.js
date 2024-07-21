@@ -42,6 +42,50 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
+  // Update only the Texts & attributes in DOM without re rendering the entire view
+  update(data) {
+    // If we get no Data / get an Empty Array then display error message
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      return this.renderError();
+    }
+
+    // Storing the Updated data in this._data
+    this._data = data;
+
+    // Render the new Data on the Page
+    // We will generate the whole markup again but wont render it ... instead we will compare it with the old markup and only change text and attributes that have changed from ol to new version
+    const newMarkup = this._generateMarkup();
+
+    // Convert the Markup String to DOM Object making it easy to compare with the already existing DOM
+    const newDom = document.createRange().createContextualFragment(newMarkup);
+
+    const newElements = Array.from(newDom.querySelectorAll('*'));
+
+    const currentElements = Array.from(
+      this._parentElement.querySelectorAll('*')
+    );
+
+    newElements.forEach((newEl, i) => {
+      const currEl = currentElements[i];
+      console.log(currEl, newEl.isEqualNode(currEl));
+
+      // Update Changed Texts
+      if (
+        !newEl.isEqualNode(currEl) &&
+        newEl.firstChild?.nodeValue.trim() !== ''
+      ) {
+        currEl.textContent = newEl.textContent;
+      }
+
+      // Update Changed Attributes
+      if (!newEl.isEqualNode(currEl)) {
+        Array.from(newEl.attributes).forEach(att =>
+          currEl.setAttribute(att.name, att.value)
+        );
+      }
+    });
+  }
+
   // 2. Load Spinner Method
   renderSpinner = function () {
     // HTML for Spinner
