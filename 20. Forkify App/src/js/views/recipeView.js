@@ -94,6 +94,30 @@ class RecipeView extends View {
     );
   }
 
+  // Handle Servings Update
+  addHandlerUpdateServings(handler) {
+    // Using event delegation
+    // As we have two buttons/children to look for a click, we don't want to listen for both children separately
+    // Instead of attaching individual event handlers to each child element, attach a single event handler to the parent element
+    // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
+    this._parentElement.addEventListener('click', event => {
+      // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
+      // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
+      const btn = event.target.closest('.btn--update-servings');
+
+      // If no button is found, do nothing
+      if (!btn) return;
+
+      // Retrieve the new Servings Number from dataset update-to of buttons
+      // Destructuring
+      const { updateTo } = btn.dataset;
+
+      // Only for positive Servings we call the handler
+      // Changing the string to Number
+      if (+updateTo > 0) handler(+updateTo);
+    });
+  }
+
   // 2. Generate Markup
   _generateMarkup() {
     // Here the recipe is stored in this._data hence we use it to refer to all teh Data about recipe received from API server
@@ -128,12 +152,16 @@ class RecipeView extends View {
     <span class="recipe__info-text">servings</span>
     
     <div class="recipe__info-buttons">
-    <button class="btn--tiny btn--increase-servings">
+    <button class="btn--tiny btn--update-servings" data-update-to =${
+      this._data.servings - 1
+    } >
     <svg>
     <use href="${icons}#icon-minus-circle"></use>
     </svg>
     </button>
-    <button class="btn--tiny btn--increase-servings">
+    <button class="btn--tiny btn--update-servings" data-update-to =${
+      this._data.servings + 1
+    } >
     <svg>
     <use href="${icons}#icon-plus-circle"></use>
     </svg>

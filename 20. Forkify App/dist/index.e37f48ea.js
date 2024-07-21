@@ -623,8 +623,6 @@ const controlRecipes = async function() {
         // --- 2) Rendering Recipe:
         // To render the Recipe passing the Retrieved data about recipe from API to recipe View
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
-        // Test
-        controlServings();
     } catch (err) {
         // Catch and Display Error
         // alert(err.message);
@@ -681,9 +679,9 @@ const controlPagination = function(goToPage) {
     (0, _paginationViewJsDefault.default).render(_modelJs.state.search);
 };
 // Control Servings
-const controlServings = function() {
+const controlServings = function(newServings) {
     // Update teh Recipe Serving in the State
-    _modelJs.updateServings(8);
+    _modelJs.updateServings(newServings);
     // Update the Recipe View
     // Render the Recipe all of it again
     (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
@@ -693,6 +691,8 @@ const controlServings = function() {
 const init = function() {
     // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
+    // Passing the Subscriber controlServings to the Publisher addHandlerUpdateServings in recipeView
+    (0, _recipeViewJsDefault.default).addHandlerUpdateServings(controlServings);
     // Passing the Subscriber controlSearchResults to the Publisher addHandlerRender in searchView
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     // Passing the Subscriber controlPagination to the Publisher addHandlerClick in paginationView
@@ -2780,6 +2780,26 @@ class RecipeView extends (0, _viewJsDefault.default) {
             "load"
         ].forEach((event)=>window.addEventListener(event, handler));
     }
+    // Handle Servings Update
+    addHandlerUpdateServings(handler) {
+        // Using event delegation
+        // As we have two buttons/children to look for a click, we don't want to listen for both children separately
+        // Instead of attaching individual event handlers to each child element, attach a single event handler to the parent element
+        // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
+        this._parentElement.addEventListener("click", (event)=>{
+            // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
+            // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
+            const btn = event.target.closest(".btn--update-servings");
+            // If no button is found, do nothing
+            if (!btn) return;
+            // Retrieve the new Servings Number from dataset update-to of buttons
+            // Destructuring
+            const { updateTo } = btn.dataset;
+            // Only for positive Servings we call the handler
+            // Changing the string to Number
+            if (+updateTo > 0) handler(+updateTo);
+        });
+    }
     // 2. Generate Markup
     _generateMarkup() {
         // Here the recipe is stored in this._data hence we use it to refer to all teh Data about recipe received from API server
@@ -2808,12 +2828,12 @@ class RecipeView extends (0, _viewJsDefault.default) {
     <span class="recipe__info-text">servings</span>
     
     <div class="recipe__info-buttons">
-    <button class="btn--tiny btn--increase-servings">
+    <button class="btn--tiny btn--update-servings" data-update-to =${this._data.servings - 1} >
     <svg>
     <use href="${0, _iconsSvgDefault.default}#icon-minus-circle"></use>
     </svg>
     </button>
-    <button class="btn--tiny btn--increase-servings">
+    <button class="btn--tiny btn--update-servings" data-update-to =${this._data.servings + 1} >
     <svg>
     <use href="${0, _iconsSvgDefault.default}#icon-plus-circle"></use>
     </svg>

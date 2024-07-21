@@ -43,9 +43,6 @@ const controlRecipes = async function () {
 
     // To render the Recipe passing the Retrieved data about recipe from API to recipe View
     recipeView.render(model.state.recipe);
-
-    // Test
-    controlServings();
   } catch (err) {
     // Catch and Display Error
     // alert(err.message);
@@ -118,9 +115,9 @@ const controlPagination = function (goToPage) {
 };
 
 // Control Servings
-const controlServings = function () {
+const controlServings = function (newServings) {
   // Update teh Recipe Serving in the State
-  model.updateServings(8);
+  model.updateServings(newServings);
 
   // Update the Recipe View
   // Render the Recipe all of it again
@@ -132,6 +129,9 @@ const controlServings = function () {
 const init = function () {
   // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
   recipeView.addHandlerRender(controlRecipes);
+
+  // Passing the Subscriber controlServings to the Publisher addHandlerUpdateServings in recipeView
+  recipeView.addHandlerUpdateServings(controlServings);
 
   // Passing the Subscriber controlSearchResults to the Publisher addHandlerRender in searchView
   searchView.addHandlerSearch(controlSearchResults);
