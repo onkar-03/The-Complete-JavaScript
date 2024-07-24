@@ -117,7 +117,7 @@ printGoals('Davies', 'Muller', 'Lewandowski', 'Kimmich');
 printGoals('Davies', 'Muller');
 
 // - Printing Number of goals form the scored array
-// - Taking teh Individual values out form the array using spread operator
+// - Taking the Individual values out form the array using spread operator
 printGoals(...game.scored);
 
 // Task 7 :

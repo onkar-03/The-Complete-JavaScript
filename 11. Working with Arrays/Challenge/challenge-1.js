@@ -28,7 +28,7 @@ const checkDogs = function (dogsJulia, dogsKate) {
   // - Crating a shallow copy of Julia Data
   const dogsJuliaCorrected = dogsJulia.slice();
 
-  // - Removing teh last 2 elements using the splice() method
+  // - Removing the last 2 elements using the splice() method
   dogsJuliaCorrected.splice(-2);
 
   // - Creating an Array containing all the correct data of Julia and Kate

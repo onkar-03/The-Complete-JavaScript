@@ -39,7 +39,7 @@ createBooking('LH123');
 // - Passing all parameters
 createBooking('LH123', 2, 305);
 
-// - Passing only first two parameters & price getting calculated on teh basis of number of passengers
+// - Passing only first two parameters & price getting calculated on the basis of number of passengers
 createBooking('LH123', 2);
 
 // - Skipping the numPassengers parameter

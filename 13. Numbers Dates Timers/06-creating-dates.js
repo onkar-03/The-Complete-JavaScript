@@ -24,7 +24,7 @@ console.log(new Date(2026, 10, 33));
 // Thu Dec 03 2026 00:00:00 GMT+0530 (India Standard Time)
 
 // Method 4
-// - We can pass in the number of milliseconds that passed in after Unix time 1970 Jan 1, in teh new Date()
+// - We can pass in the number of milliseconds that passed in after Unix time 1970 Jan 1, in the new Date()
 console.log(new Date(0)); // Thu Jan 01 1970 02:00:00 GMT+0200 (Eastern European Summer Time)
 
 // - Converting 3 days to milliseconds

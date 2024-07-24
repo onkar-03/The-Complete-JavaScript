@@ -398,7 +398,7 @@ btnLogin.addEventListener('click', function (e) {
     updateUI(currentAccount);
 
     // - 5. Clear Input Fields
-    // - Clearing teh Text Content of the Form Elements using the .value property
+    // - Clearing the Text Content of the Form Elements using the .value property
     inputLoginUsername.value = inputLoginPin.value = '';
 
     // - .blur() makes sure that the last selected field loses its focus after the click event is triggered

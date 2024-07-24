@@ -76,7 +76,7 @@ const wait = function (seconds) {
 
 // Calling the Function
 // wait(1) returns a resolved Promise that waits for 1 Second thats it no resolved values given
-// Hence we hav eno arguments in teh .then() of the promise handling
+// Hence we hav eno arguments in the .then() of the promise handling
 // We just simply log that 1 Second ahs passed as we received a resolved promise after 1 second
 wait(1)
   .then(() => {

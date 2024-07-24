@@ -98,7 +98,7 @@ console.log(rest);
 // - Fetch Values using arrays as key
 
 // - Method 1 :
-// - This wont work as its not teh same Object as in the Heap
+// - This wont work as its not the same Object as in the Heap
 // - For it to work arrays as key we need to save the array in a variable and use that variable instead to fetch the value
 // console.log(rest.get([1, 2]));
 

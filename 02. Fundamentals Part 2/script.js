@@ -814,7 +814,7 @@
 // // Log all the elements of array to console
 // // Looping through an Array
 // // Run until the array.length - 1 as Array is 0 Index Based
-// // So we want teh Loop to traverse from 0 up until the last Index which is length of array - 1
+// // So we want the Loop to traverse from 0 up until the last Index which is length of array - 1
 // // i++ used to increment the loop counter
 // for (let i = 0; i < details.length; i++) {
 //   // Reading from details array
@@ -848,7 +848,7 @@
 // for (let i = 0; i < details.length; i++) {
 //   // Reading from details array
 //   if (typeof details[i] != 'string') {
-//     // Skip the iteration if the elements in teh array are not a string
+//     // Skip the iteration if the elements in the array are not a string
 //     continue;
 //   } else {
 //     console.log(details[i]);

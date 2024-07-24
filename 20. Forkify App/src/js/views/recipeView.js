@@ -102,7 +102,7 @@ class RecipeView extends View {
     // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
     this._parentElement.addEventListener('click', event => {
       // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
-      // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
+      // Closest method looks for the closest parent up the Tree unlike the querySelector that looks for children down the Tree
       const btn = event.target.closest('.btn--update-servings');
 
       // If no button is found, do nothing
@@ -118,9 +118,26 @@ class RecipeView extends View {
     });
   }
 
+  // Function to control bookmark actions
+  addHandlerAddBookmark(handler) {
+    // Using event delegation
+    // As we have two buttons/children to look for a click, we don't want to listen for both children separately
+    // Instead of attaching individual event handlers to each child element, attach a single event handler to the parent element
+    // The bookmarks icon does not exist initially, so its impossible to listen for element from the start load phase of the page when it doesn't exist, hence we listen to the parent element for click using event delegation
+    this._parentElement.addEventListener('click', event => {
+      // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
+      // Closest method looks for the closest parent up the Tree unlike the querySelector that looks for children down the Tree
+      const btn = event.target.closest('.btn--bookmark');
+
+      // If no Button was clicked simply Return do nothing
+      if (!btn) return;
+      handler();
+    });
+  }
+
   // 2. Generate Markup
   _generateMarkup() {
-    // Here the recipe is stored in this._data hence we use it to refer to all teh Data about recipe received from API server
+    // Here the recipe is stored in this._data hence we use it to refer to all the Data about recipe received from API server
     // It returns a String as Final Output
     return `
     <figure class="recipe__fig">
@@ -171,9 +188,11 @@ class RecipeView extends View {
     
     <div class="recipe__user-generated">
     </div>
-    <button class="btn--round">
+    <button class="btn--round btn--bookmark">
     <svg class="">
-    <use href="${icons}#icon-bookmark-fill"></use>
+    <use href="${icons}#icon-bookmark${
+      this._data.bookmarked ? '-fill' : ''
+    }"></use>
     </svg>
     </button>
     </div>
@@ -184,9 +203,9 @@ class RecipeView extends View {
     
     ${
       /*
-      <!-- For all the Ingredients we want to traverse each one of them and then... render a List element for it on teh Page -->
+      <!-- For all the Ingredients we want to traverse each one of them and then... render a List element for it on the Page -->
       <!-- As we want a New String as Output we use .map() as it gives a new array as Output -->
-      <!-- We use the .join() to Produce a String from teh given Array  -->*/ ''
+      <!-- We use the .join() to Produce a String from the given Array  -->*/ ''
     }
     
     ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}

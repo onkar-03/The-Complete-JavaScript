@@ -50,7 +50,7 @@ const controlRecipes = async function () {
     // Catch and Display Error
     // alert(err.message);
 
-    // Passing the Error message to its rightful place in teh View to be Handled
+    // Passing the Error message to its rightful place in the View to be Handled
     recipeView.renderError();
   }
 };
@@ -93,7 +93,7 @@ const controlSearchResults = async function () {
     // console.log(model.state.search.results);
 
     // Render the Data in Search Results Section
-    // Here we displayed all teh Results in a single Page
+    // Here we displayed all the Results in a single Page
     // resultsView.render(model.state.search.results);
 
     // Now displaying only 10 Results per page
@@ -119,12 +119,20 @@ const controlPagination = function (goToPage) {
 
 // Control Servings
 const controlServings = function (newServings) {
-  // Update teh Recipe Serving in the State
+  // Update the Recipe Serving in the State
   model.updateServings(newServings);
 
   // Update the Recipe View
   // Render the Recipe all of it again
   // recipeView.render(model.state.recipe);
+  recipeView.update(model.state.recipe);
+};
+
+const controlAddBookmark = function () {
+  model.addBookmark(model.state.recipe);
+  console.log(model.state.recipe);
+
+  // Update recipe after being bookmarked
   recipeView.update(model.state.recipe);
 };
 
@@ -136,6 +144,9 @@ const init = function () {
 
   // Passing the Subscriber controlServings to the Publisher addHandlerUpdateServings in recipeView
   recipeView.addHandlerUpdateServings(controlServings);
+
+  // Passing the Subscriber controlAddBookmark to the Publisher addHandlerAddBookmark in recipeView
+  recipeView.addHandlerAddBookmark(controlAddBookmark);
 
   // Passing the Subscriber controlSearchResults to the Publisher addHandlerRender in searchView
   searchView.addHandlerSearch(controlSearchResults);

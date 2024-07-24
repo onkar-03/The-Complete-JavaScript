@@ -61,7 +61,7 @@ const boardPassengers = function (n, wait) {
 // - Even after the preGroup assigned as 1000 passengers we can see that the 180 is taken and not 1000 for passengers as closure variables have clear priority in scope chain
 const perGroup = 1000;
 
-// - Passing teh wait time in seconds by the user
+// - Passing the wait time in seconds by the user
 boardPassengers(180, 3);
 /* → Will start boarding in $3 seconds
      We are now boarding all 180 passengers

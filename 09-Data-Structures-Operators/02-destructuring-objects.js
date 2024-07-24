@@ -56,7 +56,7 @@ console.log(restaurantName, hours, tags);
 
 // ---------------- Assigning Default Values :
 // - Assigning default values to menu and starterMenu which we saved as start
-// - As the menu does not exist in teh object it will have the default value
+// - As the menu does not exist in the object it will have the default value
 // - Where as as the startMenu Exists in Object it will have the value assigned above
 // - Also we gave [] as default value as we are referring to arrays here and not integers etc..
 const { menu = [], starterMenu: start = [] } = restaurant;

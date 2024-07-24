@@ -139,7 +139,7 @@ const whereAmI = async function () {
 
 // Explanation:
 // async Function returns a Promise {<pending>}, and it makes sense as we already know async functions return Promises
-// But returning Promise {<pending>} actually makes sense as Js does not know what will be returned from teh function as the Async Function is still running in the Background and hasn't completed execution
+// But returning Promise {<pending>} actually makes sense as Js does not know what will be returned from the function as the Async Function is still running in the Background and hasn't completed execution
 // So it does not block the Execution and simply returns a Promise {<pending>} state, along with the rest of the Synchronous Code as for sure a Promise is going to be returned by the Async Function
 // The value we returned as String is going to be the fulfilled value of the Promise of the Async Function... means the String si the fulfilled value that the current Promise {<pending>} will have
 

@@ -2,7 +2,7 @@
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-// - Fetching teh index and value using the .entries() on Objects, an a array i alo an Object we can ue it here too
+// - Fetching the index and value using the .entries() on Objects, an a array i alo an Object we can ue it here too
 // - abs() ued to remove the negative sign and only represent the value
 
 for (const [i, mov] of movements.entries()) {

@@ -7,7 +7,7 @@ const onkar = {
   passport: 123456789,
 };
 
-// - Here teh flightNum carries the copy of value of flight & not original value
+// - Here the flightNum carries the copy of value of flight & not original value
 const checkIn = function (flightNum, passenger) {
   // - Changing the Flight Number
   // - As Strings are primitive data type hence when passed its their copy that is created, which does to affect the original data
@@ -15,7 +15,7 @@ const checkIn = function (flightNum, passenger) {
 
   // - Changing the Passenger Name
   // - As Object Copies are not really a copy but an alias pointing at the same address / reference hence changes in original data take place
-  // - Manipulating teh passenger Object is same as manipulating the onkar Object
+  // - Manipulating the passenger Object is same as manipulating the onkar Object
   passenger.name = `Mr. ${passenger.name}`;
 
   if (passenger.passport === 123456789) {
@@ -33,7 +33,7 @@ console.log(onkar.name); // Mr. Onkar Patel (Changed)
 
 // - Summary :
 // --- passing a primitive data type means creating a copy of it
-// --- Whenever Objects are copied its just an Alias that points to the same address along with teh original one, hence changes made using teh alias affect the original data
+// --- Whenever Objects are copied its just an Alias that points to the same address along with the original one, hence changes made using the alias affect the original data
 
 // - IRL we can encounter errors while sending arObjects as arguments
 // - EG :
@@ -45,7 +45,7 @@ const newPassport = function (person) {
 // - Passing the Object as Argument
 newPassport(onkar);
 
-// - Wrong Passport as we now altered teh original data / passport of 'onkar' Object
+// - Wrong Passport as we now altered the original data / passport of 'onkar' Object
 checkIn(flight, onkar);
 
 // - IMPORTANT :

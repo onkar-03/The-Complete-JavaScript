@@ -35,7 +35,7 @@ const restaurant = {
     console.log(`Here are the Ingredients : ${ing1}, ${ing2}, ${ing3}`);
   },
 
-  // - Destructuring Elements and also binding teh rest of the Ingredients except the main one into an array using rest function
+  // - Destructuring Elements and also binding the rest of the Ingredients except the main one into an array using rest function
   orderPizza: function (mainIngredient, ...otherIngredients) {
     console.log(mainIngredient);
     console.log(otherIngredients);

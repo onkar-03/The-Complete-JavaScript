@@ -40,7 +40,7 @@ console.log(new Intl.DateTimeFormat('en-GB', options).format(now)); // Friday, 1
 console.log(new Intl.DateTimeFormat('en-UK', options).format(now)); // Tuesday, 14 May 2024 at 14:58
 
 // - Get Local from users Browser:
-// - It makes no sense to define the locale manually, hence we can also get it from teh users browser and use that instead
+// - It makes no sense to define the locale manually, hence we can also get it from the users browser and use that instead
 
 // - Get the preferred language of the user, usually the language of the browser UI.
 const locale = navigator.language;

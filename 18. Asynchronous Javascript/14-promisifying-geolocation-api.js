@@ -46,7 +46,7 @@ getLocation1().then(
 const getLocation2 = function () {
   // Return a new Promise
   // Use the Geolocation API to get the current position
-  // Directly pass resolve and reject as the success and error callbacks in teh geolocation API
+  // Directly pass resolve and reject as the success and error callbacks in the geolocation API
   // As we know its first callback if for success and second oen is for reject
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);

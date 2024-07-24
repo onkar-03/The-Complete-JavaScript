@@ -37,14 +37,14 @@ console.log(`US: ${new Intl.NumberFormat('en-US', options).format(num)}`);
 console.log(`Germany: ${new Intl.NumberFormat('de-DE', options).format(num)}`);
 
 // B) Options Object
-// - On writing the currency as a value for style we need to mention the currency type to be used, also it then ignores anything else written other than teh currency value
+// - On writing the currency as a value for style we need to mention the currency type to be used, also it then ignores anything else written other than the currency value
 // - We need to give the value for currency as it does not derive itself from the locale only on its own
 const options2 = {
   style: 'currency',
   unit: 'mile-per-hour',
   currency: 'EUR',
 
-  // - If we dont want teh separators in between the Numbers we set the useGrouping to false
+  // - If we dont want the separators in between the Numbers we set the useGrouping to false
   // useGrouping: false
 };
 

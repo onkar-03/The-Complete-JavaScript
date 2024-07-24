@@ -19,7 +19,7 @@ class PaginationView extends View {
     // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
     this._parentElement.addEventListener('click', function (e) {
       // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
-      // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
+      // Closest method looks for the closest parent up the Tree unlike the querySelector that looks for children down the Tree
       const btn = e.target.closest('.btn--inline');
 
       // If no button is found, do nothing

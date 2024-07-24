@@ -58,7 +58,7 @@ const swiss = {
 };
 
 // --- Partial parameter setting using bind method
-// - Here we Bind the Object Name and the Number as well now only thing we need to pass in teh function is the name of the passenger
+// - Here we Bind the Object Name and the Number as well now only thing we need to pass in the function is the name of the passenger
 const bookSU = booking.bind(swiss, 333);
 bookSU('James');
 console.log(swiss);
@@ -83,7 +83,7 @@ lufthansa.buyPlane = function () {
 // - So we can see that the 'this' keyword refers to the button element having class 'buy'
 
 // - Solution
-// - We need to make the this keyword refer to the Oject we want to using teh .bind() method as we want, because the bind method returns a new function where the this points to the specified object
+// - We need to make the this keyword refer to the Oject we want to using the .bind() method as we want, because the bind method returns a new function where the this points to the specified object
 
 document
   .querySelector('.buy')

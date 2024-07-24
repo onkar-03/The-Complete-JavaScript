@@ -49,7 +49,7 @@ const maskCreditCard = function (number) {
   // - converting a number to a string
   const str = number + '';
 
-  // - Taking teh last 4 digits explicitly
+  // - Taking the last 4 digits explicitly
   const last = str.slice(-4);
 
   // - Padding the rest of the digits with *

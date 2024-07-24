@@ -21,7 +21,7 @@ console.log(airline.toUpperCase());
 // ---  Fix Capitalization of User Input : 'dAvId'
 // - First convert the user input to Lowe Case
 // - Then Convert the First Character to Upper Case
-// - Add the rest of the  String as it is with teh upper case character
+// - Add the rest of the  String as it is with the upper case character
 const userInput = 'dAvId';
 const userLower = userInput.toLowerCase();
 const userCorrect = userLower[0].toUpperCase() + userLower.slice(1);
@@ -43,7 +43,7 @@ console.log(trimEmail);
 const normalizedEmail = loginEmail.toLowerCase().trim();
 console.log(normalizedEmail);
 
-// --- Replacing Characters in teh String
+// --- Replacing Characters in the String
 const priceGB = '277,94£';
 const priceUS = priceGB.replace('£', '$').replace(',', '.');
 console.log(priceUS);

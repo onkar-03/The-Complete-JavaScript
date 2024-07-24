@@ -123,7 +123,7 @@ eg: let x = 'onkar';
 // ^ typeof() Operator :
 
 /*
-1. Used to tell teh Type of values the Variable Holds
+1. Used to tell the Type of values the Variable Holds
 
 2. There is a bug when using typeof() in JavaScript 
 

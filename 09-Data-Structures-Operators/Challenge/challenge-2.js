@@ -69,7 +69,7 @@ const game = {
 };
 
 // Task 1 :
-// - Fetching teh Index + Element from array
+// - Fetching the Index + Element from array
 // - Hence we use the .entries() on array
 let scores = game.scored.entries();
 for (let [i, player] of scores) {
@@ -104,7 +104,7 @@ for (const [team, odd] of Object.entries(game.odds)) {
 const scorers = {};
 
 for (const playerName of game.scored) {
-  // - objectName[propertyName] : Used to access teh properties of an Object
+  // - objectName[propertyName] : Used to access the properties of an Object
   // - objectName[propertyName] = value; used to set the values of properties of an Object
   // - If the Name already exists hence increase the score by 1
   // - If its the FIRST goal of the player set the value to 1

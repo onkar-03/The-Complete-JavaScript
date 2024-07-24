@@ -251,11 +251,11 @@ class App {
     this.#mapEvent = mapE;
 
     // Unhide
-    // Render a From whenever we click on teh Map for a Marker
+    // Render a From whenever we click on the Map for a Marker
     // Hence we remove the 'hidden' class form the form element
     form.classList.remove('hidden');
 
-    // Focus on teh Input Distance field on teh Form as we click on the Map
+    // Focus on the Input Distance field on the Form as we click on the Map
     inputDistance.focus();
   }
 
@@ -408,7 +408,7 @@ class App {
           autoClose: false,
           // Also disabling the close Popups while clicking somewhere else
           closeOnClick: false,
-          // Set new class '${type}-popup' to the Markers created using teh Leaflet Library
+          // Set new class '${type}-popup' to the Markers created using the Leaflet Library
           // If its cycling it has the yellowish color else the green for running
           className: `${workout.type}-popup`,
         })
@@ -539,7 +539,7 @@ class App {
     // Rendering the Previously created workout markers from local storage
     // As we said we are doing all these at the very beginning, i.e when the map isn't loaded and the  geolocation hasn't retrieved the location of the user
     // So we can only render the Marker when some predefined conditions are executed and not at the very beginning like the list
-    // Hence we execute the Marker loading after the Map is loaded in teh _loadMap method
+    // Hence we execute the Marker loading after the Map is loaded in the _loadMap method
   }
 
   // Public Method

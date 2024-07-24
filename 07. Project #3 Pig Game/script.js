@@ -52,7 +52,7 @@ const switchPlayer = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
   // - Now we switch the Player as soon as the Dice rolls 1
   activePlayer = activePlayer === 0 ? 1 : 0;
-  // - Setting teh Current Score to start condition
+  // - Setting the Current Score to start condition
   currentScore = 0;
 
   // Change the Background colors for Active and not Active Players

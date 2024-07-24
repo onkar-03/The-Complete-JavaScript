@@ -63,7 +63,7 @@ console.log(numDeposits1000);
 // - 1. Retrieve the movements of every account into a new array using map()
 // - 2. Reduce them to calculate the total deposits and withdrawals using reduce() method
 // - 2.1 In this reduce()method the Object is the accumulator hence we use the sums.deposits / sums.withdrawals to add to the counter
-// - 2.2 also the Initial value in teh reduce() method is an object having 2 properties called deposits and withdrawals
+// - 2.2 also the Initial value in the reduce() method is an object having 2 properties called deposits and withdrawals
 const sums = accounts
   .flatMap(acc => acc.movements)
   .reduce(
@@ -82,7 +82,7 @@ const convertTitleCase = title => {
   const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
 
   // - To capitalize First character of each Word use toUpperCase()
-  // - Use substring() to concat teh rest of the string to the Capitalized Character
+  // - Use substring() to concat the rest of the string to the Capitalized Character
   const capitalize = str => str[0].toUpperCase() + str.substring(1);
 
   // - Convert them all to lowercase

@@ -98,7 +98,7 @@ document
 
 // --- BONUS :
 // - Pass this in display results [5, 2, 3] [1, 5, 3, 9, 6, 1]
-// - For this we need to specify a new this keyword as we want to call teh display not for the answers array but for the Bonus Data, hence we use the .call() method
+// - For this we need to specify a new this keyword as we want to call the display not for the answers array but for the Bonus Data, hence we use the .call() method
 // - Also we need to display them as String hence we need to pass in parameter 'string'
 poll.displayResults.call({ answers: [5, 2, 3] }, 'string');
 poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, 'string');

@@ -75,8 +75,8 @@ const getLocation = function () {
 // Makes the Code look like Regular Synchronous Code but works Asynchronously
 
 const whereAmI = async function () {
-  // Implementing teh Try Catch Method to Handle Errors
-  // Enclosed all teh code that can possibly throw an error in try block
+  // Implementing the Try Catch Method to Handle Errors
+  // Enclosed all the code that can possibly throw an error in try block
   try {
     // GeoLocation
     // As getLocation() returns a Promise we await and then store it in a variable

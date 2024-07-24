@@ -51,7 +51,7 @@ console.log(stateDeepClone.user.loggedIn); // true
 
 //--- Parcel Hot Module Rebuild
 // Means that when ever a change occurs in one of the Modules the Parcel will automatically trigger a rebuild
-// Also the new Modified Bundle will automatically be injected into teh Browser, without triggering a Page Reload
+// Also the new Modified Bundle will automatically be injected into the Browser, without triggering a Page Reload
 
 if (module.hot) {
   module.hot.accept();

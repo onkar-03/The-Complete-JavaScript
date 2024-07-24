@@ -31,7 +31,7 @@ arr.fill(69, 4, 6);
 console.log(arr); // - [1, 2, 3, 4, 10, 10, 7]
 
 // --- Using Array.from() method:
-// - Here we are using teh .from() on Array constructor function
+// - Here we are using the .from() on Array constructor function
 // - Array is a func on which we call the .from method
 // - The first argument is the Object specifying the length of the Object
 // - The second Object is mapping function which is similar to the callback function that we pass in maps

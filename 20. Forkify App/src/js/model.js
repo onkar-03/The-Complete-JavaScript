@@ -19,6 +19,7 @@ export const state = {
     page: 1,
     resultsPerPage: RES_PER_PAGE,
   },
+  bookmarks: [],
 };
 
 // Load Recipe from API
@@ -41,6 +42,14 @@ export const loadRecipe = async function (id) {
       servings: recipe.servings,
       publisher: recipe.publisher,
     };
+
+    // Only every reload we fetch the recipe data from API hence the bookmarked recipes are reset
+    // To keep them bookmarked as initially by the owner, we check if the id of the retrieved data is same as the bookmarked recipe in the bookmarks array ?? if yes set the bookmark to true again
+    if (state.bookmarks.some(bookmark => bookmark.id === id)) {
+      state.recipe.bookmarked = true;
+    } else {
+      state.recipe.bookmarked = false;
+    }
   } catch (err) {
     // Temp Error Handling
     // alert(`${err.message} 💣💣💣`);
@@ -75,6 +84,9 @@ export const loadSearchResults = async function (query) {
         publisher: rec.publisher,
       };
     });
+
+    // Re initialize the Page to 1
+    state.search.page = 1;
   } catch (err) {
     console.log(`${err}💥💥💥`);
 
@@ -103,4 +115,14 @@ export const updateServings = function (newServings) {
 
   // Update servings in State
   state.recipe.servings = newServings;
+};
+
+// Add Bookmarks
+export const addBookmark = function (recipe) {
+  // Add bookmark to the Array having all the bookmarked recipes
+  state.bookmarks.push(recipe);
+
+  // Mark recipe as bookmarked
+  // Created a new bookmarked property in recipe with a boolean value
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
 };

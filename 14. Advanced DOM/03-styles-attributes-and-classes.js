@@ -68,7 +68,7 @@ console.log(logo.className);
 console.log(logo.id);
 
 // C) Setting Standard Attributes
-// Setting teh alt text for logo here
+// Setting the alt text for logo here
 logo.alt = 'Beautiful minimalist logo';
 
 // D) Reading Non-Standard Attributes

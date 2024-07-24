@@ -46,7 +46,7 @@ for (let i = 0; i < btnOpenModal.length; i++) {
 
   // Closing the Popup on clicking outside the popup on the overlay
   // - Important : writing only closeModal & not closeModal()
-  // - closeModal() means that we call teh function as soon as Js loads
+  // - closeModal() means that we call the function as soon as Js loads
   // - closeModal means we call the function only when the click happens
   overlay.addEventListener('click', closeModal);
 }

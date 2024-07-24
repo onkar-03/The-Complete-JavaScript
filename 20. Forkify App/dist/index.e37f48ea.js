@@ -628,7 +628,7 @@ const controlRecipes = async function() {
     } catch (err) {
         // Catch and Display Error
         // alert(err.message);
-        // Passing the Error message to its rightful place in teh View to be Handled
+        // Passing the Error message to its rightful place in the View to be Handled
         (0, _recipeViewJsDefault.default).renderError();
     }
 };
@@ -661,7 +661,7 @@ const controlSearchResults = async function() {
         // 3. Render Results
         // console.log(model.state.search.results);
         // Render the Data in Search Results Section
-        // Here we displayed all teh Results in a single Page
+        // Here we displayed all the Results in a single Page
         // resultsView.render(model.state.search.results);
         // Now displaying only 10 Results per page
         // passing no arguments is same as stating page 1 as in getSearchResults() method in model.js we have assigned default value of page as 1
@@ -682,11 +682,17 @@ const controlPagination = function(goToPage) {
 };
 // Control Servings
 const controlServings = function(newServings) {
-    // Update teh Recipe Serving in the State
+    // Update the Recipe Serving in the State
     _modelJs.updateServings(newServings);
     // Update the Recipe View
     // Render the Recipe all of it again
     // recipeView.render(model.state.recipe);
+    (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
+};
+const controlAddBookmark = function() {
+    _modelJs.addBookmark(_modelJs.state.recipe);
+    console.log(_modelJs.state.recipe);
+    // Update recipe after being bookmarked
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
 };
 // Using Publisher Subscriber Pattern
@@ -696,6 +702,8 @@ const init = function() {
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     // Passing the Subscriber controlServings to the Publisher addHandlerUpdateServings in recipeView
     (0, _recipeViewJsDefault.default).addHandlerUpdateServings(controlServings);
+    // Passing the Subscriber controlAddBookmark to the Publisher addHandlerAddBookmark in recipeView
+    (0, _recipeViewJsDefault.default).addHandlerAddBookmark(controlAddBookmark);
     // Passing the Subscriber controlSearchResults to the Publisher addHandlerRender in searchView
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     // Passing the Subscriber controlPagination to the Publisher addHandlerClick in paginationView
@@ -1946,6 +1954,7 @@ parcelHelpers.export(exports, "loadRecipe", ()=>loadRecipe);
 parcelHelpers.export(exports, "loadSearchResults", ()=>loadSearchResults);
 parcelHelpers.export(exports, "getSearchResultsPage", ()=>getSearchResultsPage);
 parcelHelpers.export(exports, "updateServings", ()=>updateServings);
+parcelHelpers.export(exports, "addBookmark", ()=>addBookmark);
 var _runtime = require("regenerator-runtime/runtime");
 // URL & default value Import
 var _config = require("./config");
@@ -1960,7 +1969,8 @@ const state = {
         results: [],
         page: 1,
         resultsPerPage: (0, _config.RES_PER_PAGE)
-    }
+    },
+    bookmarks: []
 };
 const loadRecipe = async function(id) {
     try {
@@ -1980,6 +1990,10 @@ const loadRecipe = async function(id) {
             servings: recipe.servings,
             publisher: recipe.publisher
         };
+        // Only every reload we fetch the recipe data from API hence the bookmarked recipes are reset
+        // To keep them bookmarked as initially by the owner, we check if the id of the retrieved data is same as the bookmarked recipe in the bookmarks array ?? if yes set the bookmark to true again
+        if (state.bookmarks.some((bookmark)=>bookmark.id === id)) state.recipe.bookmarked = true;
+        else state.recipe.bookmarked = false;
     } catch (err) {
         // Temp Error Handling
         // alert(`${err.message} 💣💣💣`);
@@ -2009,6 +2023,8 @@ const loadSearchResults = async function(query) {
                 publisher: rec.publisher
             };
         });
+        // Re initialize the Page to 1
+        state.search.page = 1;
     } catch (err) {
         console.log(`${err}\u{1F4A5}\u{1F4A5}\u{1F4A5}`);
         // Throw error for further handling by the controller
@@ -2031,6 +2047,13 @@ const updateServings = function(newServings) {
     });
     // Update servings in State
     state.recipe.servings = newServings;
+};
+const addBookmark = function(recipe) {
+    // Add bookmark to the Array having all the bookmarked recipes
+    state.bookmarks.push(recipe);
+    // Mark recipe as bookmarked
+    // Created a new bookmarked property in recipe with a boolean value
+    if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
 };
 
 },{"regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","./helpers":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
@@ -2791,7 +2814,7 @@ class RecipeView extends (0, _viewJsDefault.default) {
         // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
         this._parentElement.addEventListener("click", (event)=>{
             // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
-            // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
+            // Closest method looks for the closest parent up the Tree unlike the querySelector that looks for children down the Tree
             const btn = event.target.closest(".btn--update-servings");
             // If no button is found, do nothing
             if (!btn) return;
@@ -2803,9 +2826,24 @@ class RecipeView extends (0, _viewJsDefault.default) {
             if (+updateTo > 0) handler(+updateTo);
         });
     }
+    // Function to control bookmark actions
+    addHandlerAddBookmark(handler) {
+        // Using event delegation
+        // As we have two buttons/children to look for a click, we don't want to listen for both children separately
+        // Instead of attaching individual event handlers to each child element, attach a single event handler to the parent element
+        // The bookmarks icon does not exist initially, so its impossible to listen for element from the start load phase of the page when it doesn't exist, hence we listen to the parent element for click using event delegation
+        this._parentElement.addEventListener("click", (event)=>{
+            // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
+            // Closest method looks for the closest parent up the Tree unlike the querySelector that looks for children down the Tree
+            const btn = event.target.closest(".btn--bookmark");
+            // If no Button was clicked simply Return do nothing
+            if (!btn) return;
+            handler();
+        });
+    }
     // 2. Generate Markup
     _generateMarkup() {
-        // Here the recipe is stored in this._data hence we use it to refer to all teh Data about recipe received from API server
+        // Here the recipe is stored in this._data hence we use it to refer to all the Data about recipe received from API server
         // It returns a String as Final Output
         return `
     <figure class="recipe__fig">
@@ -2846,9 +2884,9 @@ class RecipeView extends (0, _viewJsDefault.default) {
     
     <div class="recipe__user-generated">
     </div>
-    <button class="btn--round">
+    <button class="btn--round btn--bookmark">
     <svg class="">
-    <use href="${0, _iconsSvgDefault.default}#icon-bookmark-fill"></use>
+    <use href="${0, _iconsSvgDefault.default}#icon-bookmark${this._data.bookmarked ? "-fill" : ""}"></use>
     </svg>
     </button>
     </div>
@@ -2858,9 +2896,9 @@ class RecipeView extends (0, _viewJsDefault.default) {
     <ul class="recipe__ingredient-list">
     
     ${/*
-      <!-- For all the Ingredients we want to traverse each one of them and then... render a List element for it on teh Page -->
+      <!-- For all the Ingredients we want to traverse each one of them and then... render a List element for it on the Page -->
       <!-- As we want a New String as Output we use .map() as it gives a new array as Output -->
-      <!-- We use the .join() to Produce a String from teh given Array  -->*/ ""}
+      <!-- We use the .join() to Produce a String from the given Array  -->*/ ""}
     
     ${this._data.ingredients.map(this._generateMarkupIngredient).join("")}
       </ul>
@@ -2953,53 +2991,47 @@ class View {
         // Generate new HTML markup string based on updated data
         const newMarkup = this._generateMarkup();
         // Convert the Markup String to DOM Object making it easy to compare with the already existing DOM
-        const newDom = document.createRange().createContextualFragment(newMarkup); // Convert the markup string into a DOM fragment
-        const newElements = Array.from(newDom.querySelectorAll("*")); // Get all elements from the new DOM fragment
-        const currentElements = Array.from(this._parentElement.querySelectorAll("*")); // Get all elements from the current DOM
-        newElements.forEach((newEl, i)=>{
-            const currEl = currentElements[i]; // Corresponding current element
-            console.log(currEl, newEl.isEqualNode(currEl)); // Log the elements and their equality status
-            // Update Changed Texts
-            if (!newEl.isEqualNode(currEl) && // Check if the new element is different from the current element
-            newEl.firstChild?.nodeValue.trim() !== "" // Ensure that the element has text content
-            ) currEl.textContent = newEl.textContent; // Update the text content of the current element
-            // Update Changed Attributes
-            if (!newEl.isEqualNode(currEl)) // Check if the new element is different from the current element
-            Array.from(newEl.attributes).forEach((att)=>currEl.setAttribute(att.name, att.value) // Update the attributes of the current element
-            );
-        });
-    /**
-     * @method renderError
-     * This method is called when there is no data or an empty array is passed.
-     * It displays an error message to the user.
-     */ /**
-     * @method _generateMarkup
-     * This method generates a new HTML markup string based on the updated data.
-     * The new markup represents how the DOM should look after the data update.
-     */ /**
+        // Convert the markup string into a DOM fragment
+        /**
      * @method document.createRange().createContextualFragment
      * This method converts the new markup string into a DOM fragment.
      * The DOM fragment allows us to compare the new elements with the current elements in the DOM.
-     */ /**
+     */ const newDom = document.createRange().createContextualFragment(newMarkup);
+        // Get all elements from the new DOM fragment
+        /**
      * @method Array.from
      * This method converts a NodeList into an array. This is used to easily iterate over elements.
-     */ /**
-     * @method newEl.isEqualNode
-     * This method checks if the new element is identical to the current element.
-     * It compares the nodes to see if any changes are needed.
-     */ /**
-     * @method currEl.textContent
-     * This property sets or returns the text content of the specified node.
-     * If the new element has different text content, it updates the current element's text content.
-     */ /**
-     * @method newEl.attributes
-     * This property returns a live collection of all attribute nodes registered to the specified node.
-     * We use this to update the attributes of the current element to match the new element.
-     */ /**
-     * @method currEl.setAttribute
-     * This method adds a new attribute or changes the value of an existing attribute on the specified element.
-     * If the new element has different attributes, it updates the current element's attributes.
-     */ }
+     */ const newElements = Array.from(newDom.querySelectorAll("*"));
+        // Get all elements from the current DOM
+        const currentElements = Array.from(this._parentElement.querySelectorAll("*"));
+        newElements.forEach((newEl, i)=>{
+            const currEl = currentElements[i]; // Corresponding current element
+            // Update Changed Texts
+            // Check if the new element is different from the current element && Ensure that the element has text content
+            /**
+       * @method newEl.isEqualNode
+       * This method checks if the new element is identical to the current element.
+       * It compares the nodes to see if any changes are needed.
+       */ if (!newEl.isEqualNode(currEl) && newEl.firstChild?.nodeValue.trim() !== "") // Update the text content of the current element
+            /**
+         * @method currEl.textContent
+         * This property sets or returns the text content of the specified node.
+         * If the new element has different text content, it updates the current element's text content.
+         */ currEl.textContent = newEl.textContent;
+            // Update Changed Attributes
+            if (!newEl.isEqualNode(currEl)) // Check if the new element is different from the current element
+            /**
+         * @method newEl.attributes
+         * This property returns a live collection of all attribute nodes registered to the specified node.
+         * We use this to update the attributes of the current element to match the new element.
+         */ Array.from(newEl.attributes).forEach(// Update the attributes of the current element
+            /**
+           * @method currEl.setAttribute
+           * This method adds a new attribute or changes the value of an existing attribute on the specified element.
+           * If the new element has different attributes, it updates the current element's attributes.
+           */ (att)=>currEl.setAttribute(att.name, att.value));
+        });
+    }
     // 2. Load Spinner Method
     renderSpinner = function() {
         // HTML for Spinner
@@ -3421,7 +3453,7 @@ class PaginationView extends (0, _viewJsDefault.default) {
         // When an event occurs on a child element, it bubbles up to the parent element where the event handler can process it
         this._parentElement.addEventListener("click", function(e) {
             // Look for the closest button that could possibly be clicked and target that button instead of the whole parent
-            // Closest method looks for the closest parent up teh Tree unlike the querySelector that looks for children down the Tree
+            // Closest method looks for the closest parent up the Tree unlike the querySelector that looks for children down the Tree
             const btn = e.target.closest(".btn--inline");
             // If no button is found, do nothing
             if (!btn) return;

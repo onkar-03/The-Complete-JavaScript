@@ -20,7 +20,7 @@ Test data:
 // - What is the X days ? Answer : Index  +1
 
 // 2) Breaking up into sub-problems
-// - Transform teh Array into a String
+// - Transform the Array into a String
 // - Transform each element to String using °C
 // - Strings need to contain day (Index + 1)
 // - Add ... between elements and start and end of string

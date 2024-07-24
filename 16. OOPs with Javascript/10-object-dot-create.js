@@ -48,7 +48,7 @@ console.log(Person.calcAge());
 // Creating Object
 const David = Object.create(personProto);
 
-// Assigning Properties using teh method declared
+// Assigning Properties using the method declared
 David.init('David', 1999);
 console.log(David.calcAge());
 

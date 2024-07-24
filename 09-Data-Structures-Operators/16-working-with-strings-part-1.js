@@ -3,7 +3,7 @@
 // - They are Primitives i.e they are not Objects and have no Methods
 // - All Primitives in Js : Null, Boolean, String, Number, Undefined, Symbol
 // - They are also Zero '0' based Index wise
-// - String characters can be accessed using teh Indexes as well
+// - String characters can be accessed using the Indexes as well
 
 // --- 1) .length : Used to determine the Length of the String, includes space as well
 
@@ -54,10 +54,10 @@ console.log(airline.indexOf('Portugal')); // 8 (Returns the Index of P of Portug
 console.log(airline.slice(4)); // Air Portugal
 console.log(airline.slice(4, 10)); // Air Po
 
-// --- Fetching teh First word of Input String
+// --- Fetching the First word of Input String
 console.log(airline.slice(0, airline.indexOf(' '))); // Tap
 
-// --- Fetching teh Last word of Input String
+// --- Fetching the Last word of Input String
 // - As we dont want the space to be included we write + 1
 // - Because we know that the startIndex is Included in the String Printed
 console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // Portugal

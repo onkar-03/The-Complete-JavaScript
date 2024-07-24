@@ -235,7 +235,7 @@ nav.addEventListener('mouseout', fade.bind(1));
 
 ////////////////////////////////////////////////////////////////////////////
 // ---- Stick Navigation: Inefficient Method----
-// We use the scroll method here which is not teh best solution as it fires for each and every scroll no matter how small a scroll event, we will look for a better method in the future
+// We use the scroll method here which is not the best solution as it fires for each and every scroll no matter how small a scroll event, we will look for a better method in the future
 
 // Getting Initial coordinates of section 1, because as soon as we want reach the section 1 we wna the nav to be sticky on the page
 
@@ -362,7 +362,7 @@ const loadImg = function (entries, imgObserver) {
   if (!entry.isIntersecting) return;
 
   // Else if its intersecting then we want to make it visible
-  // Replacing the src attribute of img with teh data-src attribute to load the high resolution image
+  // Replacing the src attribute of img with the data-src attribute to load the high resolution image
   entry.target.src = entry.target.dataset.src;
 
   // After the Loading of the Image is done by Js behind the scenes a load event is emitted, and also we want the blur filter to be removed when complete high resolution image is loaded
