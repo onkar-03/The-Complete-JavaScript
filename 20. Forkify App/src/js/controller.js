@@ -1,8 +1,9 @@
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
-import searchView from './views/searchView.js';
+import searchView from '../../../searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import bookmarksView from './views/bookmarksView.js';
 
 // Polyfilling Packages (Methods & Async-Await)
 import 'core-js/stable';
@@ -34,6 +35,9 @@ const controlRecipes = async function () {
 
     // 0. Update Results View to mark the selected recipe
     resultsView.update(model.getSearchResultsPage());
+
+    // Update bookmarks view to bookmarks
+    bookmarksView.update(model.state.bookmarks);
 
     // --- 1) Loading Recipe:
     // Load Recipe
@@ -129,13 +133,18 @@ const controlServings = function (newServings) {
 };
 
 const controlAddBookmark = function () {
+  // 1. Add / Remove Bookmarks
   // If recipe not Bookmarked run this to add the bookmark on a click
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   // Else if recipe already bookmarked run this to remove the bookmark on a click
   else model.deleteBookmark(model.state.recipe.id);
 
-  // Update recipe after the actions
+  // 2. Update recipe after the actions
   recipeView.update(model.state.recipe);
+
+  // 3. Update Bookmarks in the UI
+  // Render Bookmarks in the View
+  bookmarksView.render(model.state.bookmarks);
 };
 
 // Using Publisher Subscriber Pattern
