@@ -36,7 +36,7 @@ const controlRecipes = async function () {
     // 0. Update Results View to mark the selected recipe
     resultsView.update(model.getSearchResultsPage());
 
-    // Update bookmarks view to bookmarks
+    // Update bookmarks view whenever we update / load a recipe
     bookmarksView.update(model.state.bookmarks);
 
     // --- 1) Loading Recipe:
@@ -134,12 +134,12 @@ const controlServings = function (newServings) {
 
 const controlAddBookmark = function () {
   // 1. Add / Remove Bookmarks
-  // If recipe not Bookmarked run this to add the bookmark on a click
+  // If recipe not Bookmarked run this to add it top bookmarks on a click
   if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
   // Else if recipe already bookmarked run this to remove the bookmark on a click
   else model.deleteBookmark(model.state.recipe.id);
 
-  // 2. Update recipe after the actions
+  // 2. Update recipe after the actions to view Bookmarks
   recipeView.update(model.state.recipe);
 
   // 3. Update Bookmarks in the UI

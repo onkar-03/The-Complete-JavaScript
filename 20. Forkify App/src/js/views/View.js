@@ -33,6 +33,7 @@ export default class View {
     // Storing the returned string in a variable 'markup'
     const markup = this._generateMarkup();
 
+    // If render passed is false simply return the generated markup
     if (!render) return markup;
 
     // Remove Existing Content

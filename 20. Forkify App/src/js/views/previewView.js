@@ -4,7 +4,7 @@ import View from './View.js';
 // Import Icons
 import icons from '../../img/icons.svg';
 
-// Its the Parent View Class for the Results and Bookmarks View
+// Its the Child View Class for the Results and Bookmarks View
 class PreviewView extends View {
   _parentElement = '';
 
@@ -30,4 +30,5 @@ class PreviewView extends View {
 }
 
 // Exporting new Instance of view
+// This generates only one preview markup as above only which is used by bookmarksView and resultsView to show the Results
 export default new PreviewView();

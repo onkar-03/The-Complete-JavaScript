@@ -618,7 +618,7 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).renderSpinner();
         // 0. Update Results View to mark the selected recipe
         (0, _resultsViewJsDefault.default).update(_modelJs.getSearchResultsPage());
-        // Update bookmarks view to bookmarks
+        // Update bookmarks view whenever we update / load a recipe
         (0, _bookmarksViewJsDefault.default).update(_modelJs.state.bookmarks);
         // --- 1) Loading Recipe:
         // Load Recipe
@@ -695,10 +695,10 @@ const controlServings = function(newServings) {
 };
 const controlAddBookmark = function() {
     // 1. Add / Remove Bookmarks
-    // If recipe not Bookmarked run this to add the bookmark on a click
+    // If recipe not Bookmarked run this to add it top bookmarks on a click
     if (!_modelJs.state.recipe.bookmarked) _modelJs.addBookmark(_modelJs.state.recipe);
     else _modelJs.deleteBookmark(_modelJs.state.recipe.id);
-    // 2. Update recipe after the actions
+    // 2. Update recipe after the actions to view Bookmarks
     (0, _recipeViewJsDefault.default).update(_modelJs.state.recipe);
     // 3. Update Bookmarks in the UI
     // Render Bookmarks in the View
@@ -1980,6 +1980,7 @@ const state = {
         page: 1,
         resultsPerPage: (0, _config.RES_PER_PAGE)
     },
+    // An Array to store all the recipes as Bookmarks
     bookmarks: []
 };
 const loadRecipe = async function(id) {
@@ -2001,7 +2002,8 @@ const loadRecipe = async function(id) {
             publisher: recipe.publisher
         };
         // Only every reload we fetch the recipe data from API hence the bookmarked recipes are reset
-        // To keep them bookmarked as initially by the owner, we check if the id of the retrieved data is same as the bookmarked recipe in the bookmarks array ?? if yes set the bookmark to true again
+        // To keep them bookmarked as initially by the owner, we check if the id of the retrieved recipe is same as for some of the recipes int the bookmarked array using .some() ?? if yes we set the recipes bookmark to 'true' again
+        // Hence we use the Create Bookmarks Array to mark recipes as bookmarked on every reload
         if (state.bookmarks.some((bookmark)=>bookmark.id === id)) state.recipe.bookmarked = true;
         else state.recipe.bookmarked = false;
     } catch (err) {
@@ -2033,7 +2035,7 @@ const loadSearchResults = async function(query) {
                 publisher: rec.publisher
             };
         });
-        // Re initialize the Page to 1
+        // Re-initialize the Page to 1 for new search results
         state.search.page = 1;
     } catch (err) {
         console.log(`${err}\u{1F4A5}\u{1F4A5}\u{1F4A5}`);
@@ -2059,18 +2061,18 @@ const updateServings = function(newServings) {
     state.recipe.servings = newServings;
 };
 const addBookmark = function(recipe) {
-    // Add bookmark to the Array having all the bookmarked recipes
+    // Add recipe to the Array which will contain all the bookmarked recipes
     state.bookmarks.push(recipe);
-    // Mark recipe as bookmarked
+    // Mark current recipe as bookmarked
     // Created a new bookmarked property in recipe with a boolean value
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
 };
 const deleteBookmark = function(id) {
     // Find index of recipe in bookmarks array for removal
-    // And Delete the Bookmark
+    // And Delete the Recipe from Bookmarks Array using splice() method
     const index = state.bookmarks.findIndex((el)=>el.id === id);
-    state.bookmarks.slice(index, 1);
-    // Mark recipe as not a bookmark
+    state.bookmarks.splice(index, 1);
+    // Mark recipes bookmarked value as false as well
     if (id === state.recipe.id) state.recipe.bookmarked = false;
 };
 
@@ -2856,6 +2858,7 @@ class RecipeView extends (0, _viewJsDefault.default) {
             const btn = event.target.closest(".btn--bookmark");
             // If no Button was clicked simply Return do nothing
             if (!btn) return;
+            // Calling Handler
             handler();
         });
     }
@@ -2992,6 +2995,7 @@ class View {
         // Rendering Data on Page
         // Storing the returned string in a variable 'markup'
         const markup = this._generateMarkup();
+        // If render passed is false simply return the generated markup
         if (!render) return markup;
         // Remove Existing Content
         // To remove any pre existing content in the container
@@ -3445,7 +3449,7 @@ var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
 // Import Icons
 var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
-// Its the Parent View Class for the Results and Bookmarks View
+// Its the Child View Class for the Results and Bookmarks View
 class PreviewView extends (0, _viewJsDefault.default) {
     _parentElement = "";
     _generateMarkup() {
@@ -3466,6 +3470,7 @@ class PreviewView extends (0, _viewJsDefault.default) {
     }
 }
 // Exporting new Instance of view
+// This generates only one preview markup as above only which is used by bookmarksView and resultsView to show the Results
 exports.default = new PreviewView();
 
 },{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6z7bi":[function(require,module,exports) {
@@ -3566,11 +3571,12 @@ var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
 class BookmarksView extends (0, _viewJsDefault.default) {
     _parentElement = document.querySelector(".bookmarks__list");
-    _errorMessage = "No bookmarks yet. Find a recipe and bookmark it ;)";
+    _errorMessage = "No bookmarks yet. Find a nice recipe and bookmark it ;)";
     _message = "";
     _generateMarkup() {
         // Returning a String of the Array of Data we have
-        // Here we Loop over the Bookmarks and for each of the Bookmarks we render a View in teh Bookmarks results
+        // Here we Loop over the Bookmarks i.e. 'this._data' and for each of the Bookmarks we render a View in teh Bookmarks results
+        // console.log(this._data);
         return this._data.map((bookmark)=>(0, _previewViewJsDefault.default).render(bookmark, false)).join("");
     }
 }

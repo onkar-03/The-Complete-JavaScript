@@ -131,6 +131,8 @@ class RecipeView extends View {
 
       // If no Button was clicked simply Return do nothing
       if (!btn) return;
+
+      // Calling Handler
       handler();
     });
   }
