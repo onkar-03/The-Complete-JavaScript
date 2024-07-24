@@ -126,3 +126,14 @@ export const addBookmark = function (recipe) {
   // Created a new bookmarked property in recipe with a boolean value
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
 };
+
+// Remove Bookmarks
+export const deleteBookmark = function (id) {
+  // Find index of recipe in bookmarks array for removal
+  // And Delete the Bookmark
+  const index = state.bookmarks.findIndex(el => el.id === id);
+  state.bookmarks.slice(index, 1);
+
+  // Mark recipe as not a bookmark
+  if (id === state.recipe.id) state.recipe.bookmarked = false;
+};

@@ -129,10 +129,12 @@ const controlServings = function (newServings) {
 };
 
 const controlAddBookmark = function () {
-  model.addBookmark(model.state.recipe);
-  console.log(model.state.recipe);
+  // If recipe not Bookmarked run this to add the bookmark on a click
+  if (!model.state.recipe.bookmarked) model.addBookmark(model.state.recipe);
+  // Else if recipe already bookmarked run this to remove the bookmark on a click
+  else model.deleteBookmark(model.state.recipe.id);
 
-  // Update recipe after being bookmarked
+  // Update recipe after the actions
   recipeView.update(model.state.recipe);
 };
 
