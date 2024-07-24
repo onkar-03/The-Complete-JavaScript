@@ -1,6 +1,9 @@
 // Parent Class Import
 import View from './View.js';
 
+// Parent View import
+import previewView from './previewView.js';
+
 // Import Icons
 import icons from '../../img/icons.svg';
 
@@ -11,27 +14,10 @@ class BookmarksView extends View {
 
   _generateMarkup() {
     // Returning a String of the Array of Data we have
-    return this._data.map(this._generateMarkupPreview).join('');
-  }
-
-  _generateMarkupPreview(result) {
-    // Retrieving the Recipe id
-    const id = window.location.hash.slice(1);
-
-    return `
-          <li class="preview">
-            <a class="preview__link ${
-              result.id === id ? 'preview__link--active' : ''
-            } " href="#${result.id}">
-              <figure class="preview__fig">
-                <img src="${result.image}" alt="${result.title}" />
-              </figure>
-              <div class="preview__data">
-                <h4 class="preview__title">${result.title}</h4>
-                <p class="preview__publisher">${result.publisher}</p>
-              </div>
-            </a>
-          </li>`;
+    // Here we Loop over the Bookmarks and for each of the Bookmarks we render a View in teh Bookmarks results
+    return this._data
+      .map(bookmark => previewView.render(bookmark, false))
+      .join('');
   }
 }
 

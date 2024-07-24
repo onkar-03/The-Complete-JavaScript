@@ -2984,7 +2984,7 @@ class View {
     _data;
     // Public Methods
     // 1. Render Method
-    render(data) {
+    render(data, render = true) {
         // If we get no Data / get an Empty Array then display error message
         if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
         // Storing the Recipe data from model.js
@@ -2992,6 +2992,7 @@ class View {
         // Rendering Data on Page
         // Storing the returned string in a variable 'markup'
         const markup = this._generateMarkup();
+        if (!render) return markup;
         // Remove Existing Content
         // To remove any pre existing content in the container
         this._clear();
@@ -3389,6 +3390,9 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./View.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// Parent View import
+var _previewViewJs = require("./previewView.js");
+var _previewViewJsDefault = parcelHelpers.interopDefault(_previewViewJs);
 // Import Icons
 var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
@@ -3397,29 +3401,45 @@ class ResultsView extends (0, _viewJsDefault.default) {
     _errorMessage = "No Recipes found for your Query! Please try again ;)";
     _message = "";
     _generateMarkup() {
-        // console.log(this._data);
         // Returning a String of the Array of Data we have
-        return this._data.map(this._generateMarkupPreview).join("");
+        // Here we Loop over the Bookmarks and for each of the Bookmarks we render a View in teh Bookmarks results
+        return this._data.map((result)=>(0, _previewViewJsDefault.default).render(result, false)).join("");
     }
-    _generateMarkupPreview(result) {
+}
+// Exporting new Instance of view
+exports.default = new ResultsView();
+
+},{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./previewView.js":"1FDQ6"}],"1FDQ6":[function(require,module,exports) {
+// Parent Class Import
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// Import Icons
+var _iconsSvg = require("../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+// Its the Parent View Class for the Results and Bookmarks View
+class PreviewView extends (0, _viewJsDefault.default) {
+    _parentElement = "";
+    _generateMarkup() {
         // Retrieving the Recipe id
         const id = window.location.hash.slice(1);
         return `
           <li class="preview">
-            <a class="preview__link ${result.id === id ? "preview__link--active" : ""} " href="#${result.id}">
+            <a class="preview__link ${this._data.id === id ? "preview__link--active" : ""} " href="#${this._data.id}">
               <figure class="preview__fig">
-                <img src="${result.image}" alt="${result.title}" />
+                <img src="${this._data.image}" alt="${this._data.title}" />
               </figure>
               <div class="preview__data">
-                <h4 class="preview__title">${result.title}</h4>
-                <p class="preview__publisher">${result.publisher}</p>
+                <h4 class="preview__title">${this._data.title}</h4>
+                <p class="preview__publisher">${this._data.publisher}</p>
               </div>
             </a>
           </li>`;
     }
 }
 // Exporting new Instance of view
-exports.default = new ResultsView();
+exports.default = new PreviewView();
 
 },{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6z7bi":[function(require,module,exports) {
 // Parent Class Import
@@ -3538,6 +3558,9 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _viewJs = require("./View.js");
 var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// Parent View import
+var _previewViewJs = require("./previewView.js");
+var _previewViewJsDefault = parcelHelpers.interopDefault(_previewViewJs);
 // Import Icons
 var _iconsSvg = require("../../img/icons.svg");
 var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
@@ -3547,28 +3570,13 @@ class BookmarksView extends (0, _viewJsDefault.default) {
     _message = "";
     _generateMarkup() {
         // Returning a String of the Array of Data we have
-        return this._data.map(this._generateMarkupPreview).join("");
-    }
-    _generateMarkupPreview(result) {
-        // Retrieving the Recipe id
-        const id = window.location.hash.slice(1);
-        return `
-          <li class="preview">
-            <a class="preview__link ${result.id === id ? "preview__link--active" : ""} " href="#${result.id}">
-              <figure class="preview__fig">
-                <img src="${result.image}" alt="${result.title}" />
-              </figure>
-              <div class="preview__data">
-                <h4 class="preview__title">${result.title}</h4>
-                <p class="preview__publisher">${result.publisher}</p>
-              </div>
-            </a>
-          </li>`;
+        // Here we Loop over the Bookmarks and for each of the Bookmarks we render a View in teh Bookmarks results
+        return this._data.map((bookmark)=>(0, _previewViewJsDefault.default).render(bookmark, false)).join("");
     }
 }
 // Exporting new Instance of view
 exports.default = new BookmarksView();
 
-},{"./View.js":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/icons.svg":"cMpiy"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
+},{"./View.js":"5cUXS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../img/icons.svg":"cMpiy","./previewView.js":"1FDQ6"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
 
 //# sourceMappingURL=index.e37f48ea.js.map

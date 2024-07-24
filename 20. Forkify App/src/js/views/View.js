@@ -21,7 +21,7 @@ export default class View {
 
   // Public Methods
   // 1. Render Method
-  render(data) {
+  render(data, render = true) {
     // If we get no Data / get an Empty Array then display error message
     if (!data || (Array.isArray(data) && data.length === 0)) {
       return this.renderError();
@@ -32,6 +32,8 @@ export default class View {
     // Rendering Data on Page
     // Storing the returned string in a variable 'markup'
     const markup = this._generateMarkup();
+
+    if (!render) return markup;
 
     // Remove Existing Content
     // To remove any pre existing content in the container
