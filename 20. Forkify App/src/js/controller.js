@@ -1,4 +1,5 @@
 import * as model from './model.js';
+import { MODAL_CLOSE_SEC } from './config.js';
 import recipeView from './views/recipeView.js';
 import searchView from '../../../searchView.js';
 import resultsView from './views/resultsView.js';
@@ -153,9 +154,33 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
-const controlAddRecipe = function (newRecipe) {
+const controlAddRecipe = async function (newRecipe) {
   // Log the Object created in addHandlerUpload
-  console.log(newRecipe);
+  // console.log(newRecipe);
+
+  try {
+    // Render Spinner
+    addRecipeView.renderSpinner();
+
+    // Upload the new Recipe
+    await model.uploadRecipe(newRecipe);
+    console.log(model.state.recipe);
+
+    // Render recipe in the RecipeView
+    recipeView.render(model.state.recipe);
+
+    // Success Message
+    addRecipeView.renderMessage();
+
+    // Close From Window
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
+  } catch (err) {
+    console.error('💥💥', err.message);
+
+    addRecipeView.renderError(err.message);
+  }
 };
 
 // Using Publisher Subscriber Pattern

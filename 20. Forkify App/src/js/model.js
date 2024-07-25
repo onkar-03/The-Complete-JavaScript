@@ -2,10 +2,10 @@
 import 'regenerator-runtime/runtime';
 
 // URL & default value Import
-import { API_URL, RES_PER_PAGE } from './config';
+import { API_URL, RES_PER_PAGE, KEY } from './config';
 
 //Importing Commonly used Functions
-import { getJSON } from './helpers';
+import { getJSON, sendJSON } from './helpers';
 
 // State Object
 // Holds Data necessary for making the Application work
@@ -23,6 +23,26 @@ export const state = {
   bookmarks: [],
 };
 
+// Reformat the properties of received data
+const createRecipeObject = function (data) {
+  // Reformat Variable Names of Data
+  // Making the variable names more readable & generic to understand
+  const { recipe } = data.data;
+  return {
+    id: recipe.id,
+    title: recipe.title,
+    image: recipe.image_url,
+    ingredients: recipe.ingredients,
+    sourceUrl: recipe.source_url,
+    cookingTime: recipe.cooking_time,
+    servings: recipe.servings,
+    publisher: recipe.publisher,
+    // Key handling
+    // Add key if it exists in the response
+    ...(recipe.key && { key: recipe.key }),
+  };
+};
+
 // Load Recipe from API
 export const loadRecipe = async function (id) {
   try {
@@ -30,19 +50,8 @@ export const loadRecipe = async function (id) {
     // Storing the returning ata from getJSON helper function in data variable
     const data = await getJSON(`${API_URL}/${id}`);
 
-    // Reformat Variable Names of Data
-    // Making the variable names more readable & generic to understand
-    const { recipe } = data.data;
-    state.recipe = {
-      id: recipe.id,
-      title: recipe.title,
-      image: recipe.image_url,
-      ingredients: recipe.ingredients,
-      sourceUrl: recipe.source_url,
-      cookingTime: recipe.cooking_time,
-      servings: recipe.servings,
-      publisher: recipe.publisher,
-    };
+    // Reformated properties here
+    state.recipe = createRecipeObject(data);
 
     // Only every reload we fetch the recipe data from API hence the bookmarked recipes are reset
     // To keep them bookmarked as initially by the owner, we check if the id of the retrieved recipe is same as for some of the recipes int the bookmarked array using .some() ?? if yes we set the recipes bookmark to 'true' again
@@ -168,3 +177,46 @@ const clearBookmarks = function () {
 };
 
 // clearBookmarks();
+
+// Upload Recipe
+export const uploadRecipe = async function (newRecipe) {
+  try {
+    const ingredients = Object.entries(newRecipe)
+      .filter(entry => entry[0].startsWith('ingredient') && entry[1] !== '')
+      .map(ing => {
+        const ingArr = ing[1].replaceAll(' ', '').split(',');
+        if (ingArr.length !== 3)
+          throw new Error(
+            'Wrong Ingredients format! Please use the Correct Format ;)'
+          );
+
+        const [quantity, unit, description] = ingArr;
+
+        return { quantity: quantity ? +quantity : null, unit, description };
+      });
+
+    // Creating Recipe Object to be sent to the API
+    const recipe = {
+      title: newRecipe.title,
+      image_url: newRecipe.image,
+      ingredients,
+      source_url: newRecipe.sourceUrl,
+      cooking_time: +newRecipe.cookingTime,
+      servings: +newRecipe.servings,
+      publisher: newRecipe.publisher,
+    };
+
+    // Sending the Data about the Recipe created by the User to the API using sendJSON that has the url and the recipe as well
+    // Storing the data received from the API in the data variable
+    const data = await sendJSON(`${API_URL}?key=${KEY}`, recipe);
+    // console.log(data);
+
+    // Store the Data into the state
+    state.recipe = createRecipeObject(data);
+
+    // Bookmark the recipe created by the User
+    addBookmark(state.recipe);
+  } catch (err) {
+    throw err;
+  }
+};

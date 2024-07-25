@@ -164,6 +164,27 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   };
 
+  // Render Message
+  renderMessage = function (message = this._message) {
+    const markup = `
+          <div class="message">
+            <div>
+               <svg>
+                <use href="${icons}#icon-smile"></use>
+               </svg>
+            </div>
+            <p>
+              ${message}
+            </p>
+          </div>`;
+
+    // Clear any already Existing Content
+    this._clear();
+
+    // Inserting HTML
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  };
+
   //Protected Methods
   // 1. Clear the Content of the Container
   _clear() {

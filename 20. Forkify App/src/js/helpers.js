@@ -37,3 +37,32 @@ export const getJSON = async function (url) {
     throw err;
   }
 };
+
+export const sendJSON = async function (url, uploadData) {
+  try {
+    // By default the fetch() has the GET request to retrieve data from the API
+    // If we want to send request we need to specify the POST request method
+    const fetchPromise = fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(uploadData),
+    });
+    const res = await Promise.race([fetchPromise, timeout(TIMEOUT_SECONDS)]);
+
+    // Convert to Js Object
+    const data = await res.json();
+
+    // Check Response
+    if (!res.ok) {
+      throw new Error(`${data.message}(${res.status})`);
+    }
+
+    // Return the JSON Data
+    return data;
+  } catch (err) {
+    // If we want the model.js to present the error encountered here we need to throw the error from here in order to be catch it by the other catch method in the model.js
+    throw err;
+  }
+};

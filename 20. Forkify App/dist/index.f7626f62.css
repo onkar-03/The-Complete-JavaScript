@@ -29,6 +29,10 @@ body {
   line-height: 1.6;
 }
 
+a {
+  text-decoration: none;
+}
+
 .container {
   background-color: #fff;
   border-radius: 9px;
@@ -522,7 +526,7 @@ body {
   font-size: 1.2rem;
 }
 
-.copyright .twitter-link:link, .copyright .twitter-link:visited {
+.copyright .github-link:link, .copyright .github-link:visited {
   color: #918581;
 }
 

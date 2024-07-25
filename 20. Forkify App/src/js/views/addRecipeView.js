@@ -8,6 +8,8 @@ import { RES_PER_PAGE } from '../config.js';
 // Inheritance
 class AddRecipeView extends View {
   _parentElement = document.querySelector('.upload');
+  _message = 'Recipe was successfully uploaded :)';
+
   _window = document.querySelector('.add-recipe-window');
   _overlay = document.querySelector('.overlay');
 
@@ -61,6 +63,7 @@ class AddRecipeView extends View {
 
       // newRecipe is the Data we want to add as a new recipe to our recipes list as a User Recipe
       // Object.fromEntries converts the Data Array into Object
+      // Object.fromEntries() is opposite of .entries(), where entries convert the Object to An array and .fromEntries() convert Array of Data to Object
       const newRecipeArray = [...new FormData(this)];
       const newRecipe = Object.fromEntries(newRecipeArray);
 
