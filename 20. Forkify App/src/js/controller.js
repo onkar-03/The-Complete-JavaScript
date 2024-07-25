@@ -4,6 +4,7 @@ import searchView from '../../../searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import addRecipeView from './views/addRecipeView.js';
 
 // Polyfilling Packages (Methods & Async-Await)
 import 'core-js/stable';
@@ -36,7 +37,7 @@ const controlRecipes = async function () {
     // 0. Update Results View to mark the selected recipe
     resultsView.update(model.getSearchResultsPage());
 
-    // Update bookmarks view whenever we update / load a recipe
+    //3. Update bookmarks view whenever we update / load a recipe
     bookmarksView.update(model.state.bookmarks);
 
     // --- 1) Loading Recipe:
@@ -147,9 +148,21 @@ const controlAddBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+// Bookmarks Controller
+const controlBookmarks = function () {
+  bookmarksView.render(model.state.bookmarks);
+};
+
+const controlAddRecipe = function (newRecipe) {
+  // Log the Object created in addHandlerUpload
+  console.log(newRecipe);
+};
+
 // Using Publisher Subscriber Pattern
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function () {
+  bookmarksView.addHandlerRender(controlBookmarks);
+
   // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
   recipeView.addHandlerRender(controlRecipes);
 
@@ -164,6 +177,9 @@ const init = function () {
 
   // Passing the Subscriber controlPagination to the Publisher addHandlerClick in paginationView
   paginationView.addHandlerClick(controlPagination);
+
+  // Passing the Subscriber controlAddRecipe to the Publisher addHandlerUpload in addRecipeView
+  addRecipeView.addHandlerUpload(controlAddRecipe);
 };
 
 // Calling as soon as the Program Starts

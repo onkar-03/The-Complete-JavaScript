@@ -12,6 +12,10 @@ class BookmarksView extends View {
   _errorMessage = 'No bookmarks yet. Find a nice recipe and bookmark it ;)';
   _message = '';
 
+  addHandlerRender(handler) {
+    window.addEventListener('load', handler);
+  }
+
   _generateMarkup() {
     // Returning a String of the Array of Data we have
     // Here we Loop over the Bookmarks i.e. 'this._data' and for each of the Bookmarks we render a View in teh Bookmarks results

@@ -597,6 +597,8 @@ var _paginationViewJs = require("./views/paginationView.js");
 var _paginationViewJsDefault = parcelHelpers.interopDefault(_paginationViewJs);
 var _bookmarksViewJs = require("./views/bookmarksView.js");
 var _bookmarksViewJsDefault = parcelHelpers.interopDefault(_bookmarksViewJs);
+var _addRecipeViewJs = require("./views/addRecipeView.js");
+var _addRecipeViewJsDefault = parcelHelpers.interopDefault(_addRecipeViewJs);
 var _runtime = require("regenerator-runtime/runtime");
 // Hot Module Reloading using Parcel
 if (module.hot) module.hot.accept();
@@ -618,7 +620,7 @@ const controlRecipes = async function() {
         (0, _recipeViewJsDefault.default).renderSpinner();
         // 0. Update Results View to mark the selected recipe
         (0, _resultsViewJsDefault.default).update(_modelJs.getSearchResultsPage());
-        // Update bookmarks view whenever we update / load a recipe
+        //3. Update bookmarks view whenever we update / load a recipe
         (0, _bookmarksViewJsDefault.default).update(_modelJs.state.bookmarks);
         // --- 1) Loading Recipe:
         // Load Recipe
@@ -704,9 +706,18 @@ const controlAddBookmark = function() {
     // Render Bookmarks in the View
     (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
 };
+// Bookmarks Controller
+const controlBookmarks = function() {
+    (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
+};
+const controlAddRecipe = function(newRecipe) {
+    // Log the Object created in addHandlerUpload
+    console.log(newRecipe);
+};
 // Using Publisher Subscriber Pattern
 // Passing the event handler as soon as the program starts to the Event Listener using init() function
 const init = function() {
+    (0, _bookmarksViewJsDefault.default).addHandlerRender(controlBookmarks);
     // Passing the Subscriber ControlRecipes to the Publisher addHandlerRender in recipeView
     (0, _recipeViewJsDefault.default).addHandlerRender(controlRecipes);
     // Passing the Subscriber controlServings to the Publisher addHandlerUpdateServings in recipeView
@@ -717,11 +728,13 @@ const init = function() {
     (0, _searchViewJsDefault.default).addHandlerSearch(controlSearchResults);
     // Passing the Subscriber controlPagination to the Publisher addHandlerClick in paginationView
     (0, _paginationViewJsDefault.default).addHandlerClick(controlPagination);
+    // Passing the Subscriber controlAddRecipe to the Publisher addHandlerUpload in addRecipeView
+    (0, _addRecipeViewJsDefault.default).addHandlerUpload(controlAddRecipe);
 };
 // Calling as soon as the Program Starts
 init();
 
-},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/recipeView.js":"l60JC","../../../searchView.js":"9QAWi","./views/resultsView.js":"cSbZE","./views/paginationView.js":"6z7bi","./views/bookmarksView.js":"4Lqzq","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49tUX":[function(require,module,exports) {
+},{"core-js/modules/web.immediate.js":"49tUX","./model.js":"Y4A21","./views/recipeView.js":"l60JC","../../../searchView.js":"9QAWi","./views/resultsView.js":"cSbZE","./views/paginationView.js":"6z7bi","./views/bookmarksView.js":"4Lqzq","regenerator-runtime/runtime":"dXNgZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./views/addRecipeView.js":"i6DNj"}],"49tUX":[function(require,module,exports) {
 "use strict";
 // TODO: Remove this module from `core-js@4` since it's split to modules listed below
 require("52e9b3eefbbce1ed");
@@ -2060,12 +2073,19 @@ const updateServings = function(newServings) {
     // Update servings in State
     state.recipe.servings = newServings;
 };
+// Persist Bookmarks using Local Storage
+const persistBookmarks = function() {
+    // Saving to Local Storage
+    localStorage.setItem("bookmarks", JSON.stringify(state.bookmarks));
+};
 const addBookmark = function(recipe) {
     // Add recipe to the Array which will contain all the bookmarked recipes
     state.bookmarks.push(recipe);
     // Mark current recipe as bookmarked
     // Created a new bookmarked property in recipe with a boolean value
     if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+    //Persist Bookmarks data to Storage on bookmark addition
+    persistBookmarks();
 };
 const deleteBookmark = function(id) {
     // Find index of recipe in bookmarks array for removal
@@ -2074,7 +2094,22 @@ const deleteBookmark = function(id) {
     state.bookmarks.splice(index, 1);
     // Mark recipes bookmarked value as false as well
     if (id === state.recipe.id) state.recipe.bookmarked = false;
+    // Persist Bookmarks data to Storage on bookmark deletion
+    persistBookmarks();
 };
+// Method to Retrieve data of saved Bookmarks from Local Storage
+const init = function() {
+    // Retrieve Data from Local Storage
+    const storage = localStorage.getItem("bookmarks");
+    // If storage isn't empty we convert teh String Data back to Object using JSON.parse()
+    if (storage) state.bookmarks = JSON.parse(storage);
+};
+init();
+const clearBookmarks = function() {
+    // Clear the Bookmarks stored in Local Storage
+    // Used while Debugging
+    localStorage.clearItem("bookmarks");
+}; // clearBookmarks();
 
 },{"regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","./helpers":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dXNgZ":[function(require,module,exports) {
 /**
@@ -3573,6 +3608,9 @@ class BookmarksView extends (0, _viewJsDefault.default) {
     _parentElement = document.querySelector(".bookmarks__list");
     _errorMessage = "No bookmarks yet. Find a nice recipe and bookmark it ;)";
     _message = "";
+    addHandlerRender(handler) {
+        window.addEventListener("load", handler);
+    }
     _generateMarkup() {
         // Returning a String of the Array of Data we have
         // Here we Loop over the Bookmarks i.e. 'this._data' and for each of the Bookmarks we render a View in teh Bookmarks results
@@ -3583,6 +3621,75 @@ class BookmarksView extends (0, _viewJsDefault.default) {
 // Exporting new Instance of view
 exports.default = new BookmarksView();
 
-},{"./View.js":"5cUXS","./previewView.js":"1FDQ6","../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
+},{"./View.js":"5cUXS","./previewView.js":"1FDQ6","../../img/icons.svg":"cMpiy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"i6DNj":[function(require,module,exports) {
+// Parent Class Import
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _viewJs = require("./View.js");
+var _viewJsDefault = parcelHelpers.interopDefault(_viewJs);
+// Import Icons
+var _iconsSvg = require("../../img/icons.svg");
+var _iconsSvgDefault = parcelHelpers.interopDefault(_iconsSvg);
+var _configJs = require("../config.js");
+// Inheritance
+class AddRecipeView extends (0, _viewJsDefault.default) {
+    _parentElement = document.querySelector(".upload");
+    _window = document.querySelector(".add-recipe-window");
+    _overlay = document.querySelector(".overlay");
+    //Button to Open & Close the Form
+    _btnOpen = document.querySelector(".nav__btn--add-recipe");
+    _btnClose = document.querySelector(".btn--close-modal");
+    // We want the Function Listening for events to be called as soon as the Page Loads
+    // However, there is nothing special happening in here that the controller needs to tell us, all that happens is teh Window to Show up on the Click
+    // So we create a constructor which gets called as soon as the Object is created and pass the function in it to run as soon as the page loads
+    constructor(){
+        // Call the constructor of Parent Class View first
+        super();
+        // Run functions that need to be called as soon as the page loads
+        this._addHandlerShowWindow();
+        this._addHandlerHideWindow();
+    }
+    // Toggle Window used to toggle class addition and removal
+    toggleWindow() {
+        // Remove / Add .hidden class using toggle
+        this._window.classList.toggle("hidden");
+        this._overlay.classList.toggle("hidden");
+    }
+    // Handler Function
+    // Listening to the Event of opening and closing the Form
+    _addHandlerShowWindow() {
+        // Using bind to Point this to the current Object and no the _btnOpen
+        this._btnOpen.addEventListener("click", this.toggleWindow.bind(this));
+    }
+    _addHandlerHideWindow() {
+        // Using bind to Point this to the current Object and no the _btnOpen
+        // Close on clicking on Close Button
+        this._btnClose.addEventListener("click", this.toggleWindow.bind(this));
+        // Close window on clicking outside the box on the Overlay
+        this._overlay.addEventListener("click", this.toggleWindow.bind(this));
+    }
+    // Handling Form Uploads
+    addHandlerUpload(handler) {
+        this._parentElement.addEventListener("submit", function(e) {
+            // Prevent Default Loading of the Form
+            e.preventDefault();
+            // Using FormData to Submit all the fields data on clicking Submit
+            // Inside theForm Data we need to pass the arg which is a form which here is the current Object hence 'this' keyword
+            // newRecipe is the Data we want to add as a new recipe to our recipes list as a User Recipe
+            // Object.fromEntries converts the Data Array into Object
+            const newRecipeArray = [
+                ...new FormData(this)
+            ];
+            const newRecipe = Object.fromEntries(newRecipeArray);
+            handler(newRecipe);
+        });
+    }
+    _generateMarkup() {}
+}
+// All we need to do is import it in the controller.js
+// Else this file wont be executed, hence object wont be created and we cant listen to clicks for the buttons too
+exports.default = new AddRecipeView();
+
+},{"./View.js":"5cUXS","../../img/icons.svg":"cMpiy","../config.js":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["hycaY","aenu9"], "aenu9", "parcelRequire3a11")
 
 //# sourceMappingURL=index.e37f48ea.js.map

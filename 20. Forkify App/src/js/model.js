@@ -117,6 +117,12 @@ export const updateServings = function (newServings) {
   state.recipe.servings = newServings;
 };
 
+// Persist Bookmarks using Local Storage
+const persistBookmarks = function () {
+  // Saving to Local Storage
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+};
+
 // Add Bookmarks
 export const addBookmark = function (recipe) {
   // Add recipe to the Array which will contain all the bookmarked recipes
@@ -125,6 +131,9 @@ export const addBookmark = function (recipe) {
   // Mark current recipe as bookmarked
   // Created a new bookmarked property in recipe with a boolean value
   if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+
+  //Persist Bookmarks data to Storage on bookmark addition
+  persistBookmarks();
 };
 
 // Remove Bookmarks
@@ -136,4 +145,26 @@ export const deleteBookmark = function (id) {
 
   // Mark recipes bookmarked value as false as well
   if (id === state.recipe.id) state.recipe.bookmarked = false;
+
+  // Persist Bookmarks data to Storage on bookmark deletion
+  persistBookmarks();
 };
+
+// Method to Retrieve data of saved Bookmarks from Local Storage
+const init = function () {
+  // Retrieve Data from Local Storage
+  const storage = localStorage.getItem('bookmarks');
+
+  // If storage isn't empty we convert teh String Data back to Object using JSON.parse()
+  if (storage) state.bookmarks = JSON.parse(storage);
+};
+
+init();
+
+const clearBookmarks = function () {
+  // Clear the Bookmarks stored in Local Storage
+  // Used while Debugging
+  localStorage.clearItem('bookmarks');
+};
+
+// clearBookmarks();
