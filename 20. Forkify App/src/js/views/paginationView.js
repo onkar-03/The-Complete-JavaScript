@@ -43,7 +43,6 @@ class PaginationView extends View {
     const numPages = Math.ceil(
       this._data.results.length / this._data.resultsPerPage
     );
-    console.log(numPages);
 
     // Calculate the number of pages
     // As results is an array we use the .length to compute the size of the array

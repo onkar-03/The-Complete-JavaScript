@@ -724,6 +724,16 @@ const controlAddRecipe = async function(newRecipe) {
         (0, _recipeViewJsDefault.default).render(_modelJs.state.recipe);
         // Success Message
         (0, _addRecipeViewJsDefault.default).renderMessage();
+        // Render Bookmark View
+        // To add the Newly added Recipe as a Bookmark ib the Bookmarks list on the Page
+        (0, _bookmarksViewJsDefault.default).render(_modelJs.state.bookmarks);
+        // Change Recipe Id in URL to the new Recipe Id that was added
+        // We use the History API to do this
+        // window.history.pushState(state,title,url)
+        // state: An object containing the state to be associated with the new history entry.
+        // title: A string representing the title of the new history entry. This argument is largely ignored by most browsers, so you can pass an empty string ('')
+        // url: A string representing the URL of the new history entry
+        window.history.pushState(null, "", `#${_modelJs.state.recipe.id}`);
         // Close From Window
         setTimeout(function() {
             (0, _addRecipeViewJsDefault.default).toggleWindow();
@@ -2002,6 +2012,7 @@ var _runtime = require("regenerator-runtime/runtime");
 // URL & default value Import
 var _config = require("./config");
 //Importing Commonly used Functions
+// import { getJSON, sendJSON } from './helpers';
 var _helpers = require("./helpers");
 const state = {
     recipe: {},
@@ -2041,7 +2052,7 @@ const loadRecipe = async function(id) {
     try {
         // Fetch Recipe and JSON Data as well together
         // Storing the returning ata from getJSON helper function in data variable
-        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}/${id}`);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}/${id}?key=${(0, _config.KEY)}`);
         // Reformated properties here
         state.recipe = createRecipeObject(data);
         // Only every reload we fetch the recipe data from API hence the bookmarked recipes are reset
@@ -2063,7 +2074,7 @@ const loadSearchResults = async function(query) {
         // Setting the query
         state.search.query = query;
         // Fetch the Search Result
-        const data = await (0, _helpers.getJSON)(`${(0, _config.API_URL)}?search=${query}`);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}?search=${query}&key=${(0, _config.KEY)}`);
         // Creating a New Array of the recipes received in data
         // The Array contains an Object
         // Storing the data in State Object
@@ -2075,7 +2086,12 @@ const loadSearchResults = async function(query) {
                 title: rec.title,
                 image: rec.image_url,
                 sourceUrl: rec.source_url,
-                publisher: rec.publisher
+                publisher: rec.publisher,
+                // Key handling
+                // Add key if it exists in the response
+                ...rec.key && {
+                    key: rec.key
+                }
             };
         });
         // Re-initialize the Page to 1 for new search results
@@ -2144,6 +2160,7 @@ const uploadRecipe = async function(newRecipe) {
     try {
         const ingredients = Object.entries(newRecipe).filter((entry)=>entry[0].startsWith("ingredient") && entry[1] !== "").map((ing)=>{
             const ingArr = ing[1].replaceAll(" ", "").split(",");
+            const ingArr = ing[1].replaceAll(" ", "").split(",");
             if (ingArr.length !== 3) throw new Error("Wrong Ingredients format! Please use the Correct Format ;)");
             const [quantity, unit, description] = ingArr;
             return {
@@ -2164,7 +2181,7 @@ const uploadRecipe = async function(newRecipe) {
         };
         // Sending the Data about the Recipe created by the User to the API using sendJSON that has the url and the recipe as well
         // Storing the data received from the API in the data variable
-        const data = await (0, _helpers.sendJSON)(`${(0, _config.API_URL)}?key=${(0, _config.KEY)}`, recipe);
+        const data = await (0, _helpers.AJAX)(`${(0, _config.API_URL)}?key=${(0, _config.KEY)}`, recipe);
         // console.log(data);
         // Store the Data into the state
         state.recipe = createRecipeObject(data);
@@ -2810,8 +2827,7 @@ exports.export = function(dest, destName, get) {
 // Polyfilling Async Functions
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getJSON", ()=>getJSON);
-parcelHelpers.export(exports, "sendJSON", ()=>sendJSON);
+parcelHelpers.export(exports, "AJAX", ()=>AJAX);
 var _runtime = require("regenerator-runtime/runtime");
 // Importing Config Variable
 var _config = require("./config");
@@ -2824,39 +2840,18 @@ const timeout = function(s) {
         }, s * 1000);
     });
 };
-const getJSON = async function(url) {
+const AJAX = async function(url, uploadData) {
     try {
-        // API Request
-        // Using Promise.race[] to race between fetch or timeout seconds .. and fail the fetch if it exceeds the timeout limit
-        // Fetch time Limit 10 seconds
-        const res = await Promise.race([
-            fetch(`${url}`),
-            timeout((0, _config.TIMEOUT_SECONDS))
-        ]);
-        // Convert to Js Object
-        const data = await res.json();
-        // Check Response
-        if (!res.ok) throw new Error(`${data.message}(${res.status})`);
-        // Return the JSON Data
-        return data;
-    } catch (err) {
-        // If we want the model.js to present the error encountered here we need to throw the error from here in order to be catch it by the other catch method in the model.js
-        throw err;
-    }
-};
-const sendJSON = async function(url, uploadData) {
-    try {
-        // By default the fetch() has the GET request to retrieve data from the API
-        // If we want to send request we need to specify the POST request method
-        const fetchPromise = fetch(url, {
+        // Conditional fetchPro to take different forms based on getting a Recipe from API or creating a new Recipe
+        const fetchPro = uploadData ? fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(uploadData)
-        });
+        }) : fetch(url);
         const res = await Promise.race([
-            fetchPromise,
+            fetchPro,
             timeout((0, _config.TIMEOUT_SECONDS))
         ]);
         // Convert to Js Object
@@ -2869,7 +2864,61 @@ const sendJSON = async function(url, uploadData) {
         // If we want the model.js to present the error encountered here we need to throw the error from here in order to be catch it by the other catch method in the model.js
         throw err;
     }
+}; /*
+export const getJSON = async function (url) {
+  try {
+    // API Request
+    // Using Promise.race[] to race between fetch or timeout seconds .. and fail the fetch if it exceeds the timeout limit
+    // Fetch time Limit 10 seconds
+
+    const fetchPro = fetch(url);
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SECONDS)]);
+
+    // Convert to Js Object
+    const data = await res.json();
+
+    // Check Response
+    if (!res.ok) {
+      throw new Error(`${data.message}(${res.status})`);
+    }
+
+    // Return the JSON Data
+    return data;
+  } catch (err) {
+    // If we want the model.js to present the error encountered here we need to throw the error from here in order to be catch it by the other catch method in the model.js
+    throw err;
+  }
 };
+
+export const sendJSON = async function (url, uploadData) {
+  try {
+    // By default the fetch() has the GET request to retrieve data from the API
+    // If we want to send request we need to specify the POST request method
+    const fetchPro = fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(uploadData),
+    });
+    const res = await Promise.race([fetchPro, timeout(TIMEOUT_SECONDS)]);
+
+    // Convert to Js Object
+    const data = await res.json();
+
+    // Check Response
+    if (!res.ok) {
+      throw new Error(`${data.message}(${res.status})`);
+    }
+
+    // Return the JSON Data
+    return data;
+  } catch (err) {
+    // If we want the model.js to present the error encountered here we need to throw the error from here in order to be catch it by the other catch method in the model.js
+    throw err;
+  }
+};
+*/ 
 
 },{"regenerator-runtime/runtime":"dXNgZ","./config":"k5Hzs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l60JC":[function(require,module,exports) {
 // Parent Class Import
@@ -3033,7 +3082,10 @@ class RecipeView extends (0, _viewJsDefault.default) {
     </div>
     </div>
     
-    <div class="recipe__user-generated">
+    <div class="preview__user-generated ${this._data.key ? "" : "hidden"}">
+      <svg>
+        <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+      </svg>
     </div>
     <button class="btn--round btn--bookmark">
     <svg class="">
@@ -3117,6 +3169,7 @@ class View {
     _data;
     // Public Methods
     // 1. Render Method
+    // Used to add a new Element
     render(data, render = true) {
         // If we get no Data / get an Empty Array then display error message
         if (!data || Array.isArray(data) && data.length === 0) return this.renderError();
@@ -3134,6 +3187,8 @@ class View {
         // Rendering as first child of the Container using 'afterbegin' method
         this._parentElement.insertAdjacentHTML("afterbegin", markup);
     }
+    // Update Method
+    // Used to update the existing Element
     update(data) {
         // If we get no Data / get an Empty Array then display error message
         if (!data || Array.isArray(data) && data.length === 0) return this.renderError(); // Call renderError() method to display an error message
@@ -3611,7 +3666,12 @@ class PreviewView extends (0, _viewJsDefault.default) {
               </figure>
               <div class="preview__data">
                 <h4 class="preview__title">${this._data.title}</h4>
-                <p class="preview__publisher">${this._data.publisher}</p>
+                <p class="preview__publisher">${this._data.publisher}</p>\
+                <div class="preview__user-generated ${this._data.key ? "" : "hidden"}">
+                   <svg>
+                     <use href="${0, _iconsSvgDefault.default}#icon-user"></use>
+                   </svg>
+                </div>
               </div>
             </a>
           </li>`;
@@ -3661,7 +3721,6 @@ class PaginationView extends (0, _viewJsDefault.default) {
         // As results is an array we use the .length to compute the size of the array
         // Math.ceil to round it off to the next highest integer
         const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
-        console.log(numPages);
         // Calculate the number of pages
         // As results is an array we use the .length to compute the size of the array
         // Math.ceil to round it off to the next highest integer

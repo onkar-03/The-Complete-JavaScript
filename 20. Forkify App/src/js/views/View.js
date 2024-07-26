@@ -21,6 +21,7 @@ export default class View {
 
   // Public Methods
   // 1. Render Method
+  // Used to add a new Element
   render(data, render = true) {
     // If we get no Data / get an Empty Array then display error message
     if (!data || (Array.isArray(data) && data.length === 0)) {
@@ -45,6 +46,8 @@ export default class View {
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
+  // Update Method
+  // Used to update the existing Element
   update(data) {
     // If we get no Data / get an Empty Array then display error message
     if (!data || (Array.isArray(data) && data.length === 0)) {

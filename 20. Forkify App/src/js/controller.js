@@ -172,6 +172,18 @@ const controlAddRecipe = async function (newRecipe) {
     // Success Message
     addRecipeView.renderMessage();
 
+    // Render Bookmark View
+    // To add the Newly added Recipe as a Bookmark ib the Bookmarks list on the Page
+    bookmarksView.render(model.state.bookmarks);
+
+    // Change Recipe Id in URL to the new Recipe Id that was added
+    // We use the History API to do this
+    // window.history.pushState(state,title,url)
+    // state: An object containing the state to be associated with the new history entry.
+    // title: A string representing the title of the new history entry. This argument is largely ignored by most browsers, so you can pass an empty string ('')
+    // url: A string representing the URL of the new history entry
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
     // Close From Window
     setTimeout(function () {
       addRecipeView.toggleWindow();
